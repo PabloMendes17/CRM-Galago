@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ParametrosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sitePublicoController;
 
@@ -19,3 +20,8 @@ use App\Http\Controllers\sitePublicoController;
 });*/
 
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
+Route:: get('/vitrine',[SitePublicoController::class,'produtos']);
+Route:: get('/info',[sitePublicoController::class,'info']);
+Route:: get('/parametros',[ParametrosController::class,'acessandoParametrosViaRequest']);
+Route:: get('/formsExibe',[ParametrosController::class,'formularioExibir']);
+Route:: get('/formsRecebe',[ParametrosController::class,'formularioReceber']);
