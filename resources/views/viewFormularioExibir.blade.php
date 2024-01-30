@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Informe seu Nome</h1>
-    <form method=GET action='formsRecebe'>
+    <form method=POST action='formsRecebe'>
         <input type='text' name='nomeuser'>
         <input type=submit value="Enviar">
     </form>

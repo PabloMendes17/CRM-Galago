@@ -21,6 +21,9 @@ class ParametrosController extends Controller
     }
     public function formularioReceber(Request $request){
         $buffer='Pelo Formulario: ';
+        /**if ($request->has('nomeuser')){
+            $buffer .= $request->input('nomeuser');
+        }*/
         if(isset($request->nomeuser)){
             $buffer.=$request->nomeuser;
         }
