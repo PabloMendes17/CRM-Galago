@@ -27,3 +27,6 @@ Route:: get('/parametros',[ParametrosController::class,'acessandoParametrosViaRe
 Route:: get('/formsExibe',[ParametrosController::class,'formularioExibir']);
 Route:: post('/formsRecebe',[ParametrosController::class,'formularioReceber']);
 Route:: get('/produtos/listar',[ProdutoController::class,'listar']);
+
+Route:: get ('/cadastrar',[ProdutoController::class,'CadastroAbrir']);
+Route:: post ('/cadastrar',[ProdutoController::class,'CadastroProcessar']);
