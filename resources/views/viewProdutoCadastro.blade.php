@@ -7,8 +7,13 @@
 </head>
 <body>
     <h1>Cadastro de Produtos</h1>
+     @if(isset($result))
+        <h2>{{$result}}
+     @endif
     <form method=POST action="?">
-        Descrição:<input type="TEXT" name=prodDesc value='@if(isset($request->prodDesc)){{$request->prodDesc}} @endif'><br>
+
+        <input type="TEXT" name=prodDesc value="@if(isset($request->prodDesc)){{$request->prodDesc}}@endif"> <br>
+
         Valor:<input type="TEXT" name=prodVal><br>
         <input type="submit" value='cadastrar'>
     </form>

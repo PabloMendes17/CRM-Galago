@@ -9,6 +9,8 @@
 <body>
 <h1>Ola! {{$user}}</h1>
     <a href='/vitrine'>Clique</a>
-    <a href='/info'>Informações</a>
+    <a href='/info'>Informações</a><br><br>
+    <a href='/cadastrar'>Cadastrar Produtos</a>
+
 </body>
 </html>
