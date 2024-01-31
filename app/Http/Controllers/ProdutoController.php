@@ -19,13 +19,16 @@ class ProdutoController extends Controller
        
         return view('viewProdutoCadastro');
     }
-    public function cadstroProcessar(Request $request){
+    public function cadastroProcessar(Request $request){
 
         $result=Produto::cadastrar($request->prodDesc,$request->prodVal);
         if($result=="Sucesso"){
 
+            return view('viewProdutoSucesso');
         }else{
-            return view('viewProdutoCadastro');
+
+
+            return view('viewProdutoCadastro',compact('result','request'));
         }
 
 
