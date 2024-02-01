@@ -12,9 +12,9 @@
      @endif
     <form method=POST action="?">
 
-        <input type="TEXT" name=prodDesc value="@if(isset($request->prodDesc)){{$request->prodDesc}}@endif"> <br>
+        Descrição: <input type="TEXT" name=prodDesc value="@if(isset($request->prodDesc)){{$request->prodDesc}}@endif"> <br>
 
-        Valor:<input type="TEXT" name=prodVal><br>
+        Valor:<input type="TEXT" name=prodVal value="@if(isset($request->prodVal)){{$request->prodVal}}@endif"><br>
         <input type="submit" value='cadastrar'>
     </form>
     
