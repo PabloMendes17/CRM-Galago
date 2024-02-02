@@ -40,5 +40,24 @@
             </div>
         </div>
     </div>
+    <div>
+        <?php
+            date_default_timezone_set('America/Sao_Paulo');
+
+            // Obtém a data e hora atual
+            $date = new DateTime();
+            $date_str = $date->format('Y-m-d H:i');
+
+            // Configura o locale para português do Brasil
+            setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+
+            // Formata a data e hora conforme o formato desejado em português
+            $formatted_date = strftime('%a %d de %B de %Y %H:%M', strtotime($date_str));
+
+            echo $formatted_date;
+        ?>
+        
+    </div>
+   
 </body>
 </html>
