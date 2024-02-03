@@ -26,4 +26,16 @@ class SitePublicoController extends Controller
 
         return view('viewInfo',compact('user','produtos'));
     }
+    public function Agendamentos(){
+      
+        return view('viewAgenda');
+    }
+    public function Atendimentos(){
+      
+        return view('viewAtendimento');
+    }
+    public function Treinamentos(){
+      
+        return view('viewTreinamento');
+    }
 }

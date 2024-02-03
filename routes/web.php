@@ -21,6 +21,9 @@ use App\Http\Controllers\ProdutoController;
 });*/
 
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
+Route:: get('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
+Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
+Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
 Route:: get('/vitrine',[SitePublicoController::class,'produtos']);
 Route:: get('/info',[sitePublicoController::class,'info']);
 Route:: get('/parametros',[ParametrosController::class,'acessandoParametrosViaRequest']);
