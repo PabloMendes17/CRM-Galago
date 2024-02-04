@@ -28,12 +28,34 @@
         </div>
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center;">
-    <a type="button" class="btn btn-secondary" id="btMenu" >Novo Agendamento</a>
-    <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
-    <a type="button" class="btn btn-secondary" id="btMenu">Filtro</a>
+        <a type="button" class="btn btn-secondary" id="btMenu" >Novo Agendamento</a>
+        <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
+        <a type="button" class="btn btn-secondary" id="btMenu">Filtro</a>
     </div>
     <div>
-    <div>    
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">CODIGO</th>
+                <th scope="col">CONTATO</th>
+                <th scope="col">ASSUNTO</th>
+                <th scope="col">TIPO</th>
+                <th scope="col">HISTORICO</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($agenda as $agenda)
+                    <tr>
+                        <th scope="row">{{$agenda->CODIGO}}</th>
+                        <td>{{$agenda->CONTATO}}</td>
+                        <td>{{$agenda->ASSUNTO}}</td>
+                        <td>{{$agenda->TIPO}}</td>
+                        <td>{{$agenda->HISTORICO}}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>    
 
 </body>
 </html>

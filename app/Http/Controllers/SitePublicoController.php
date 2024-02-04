@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\agenda;
 
 
 class SitePublicoController extends Controller
@@ -27,8 +28,9 @@ class SitePublicoController extends Controller
         return view('viewInfo',compact('user','produtos'));
     }
     public function Agendamentos(){
-      
-        return view('viewAgenda');
+        $agenda=agenda::all();
+        
+        return view('viewAgenda',['agenda'=> $agenda]);
     }
     public function Atendimentos(){
       
@@ -38,4 +40,5 @@ class SitePublicoController extends Controller
       
         return view('viewTreinamento');
     }
+  
 }
