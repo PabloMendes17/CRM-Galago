@@ -52,7 +52,7 @@
             setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 
             // Formata a data e hora conforme o formato desejado em português
-            $formatted_date = strftime('%a %d de %B de %Y %H:%M', strtotime($date_str));
+            $formatted_date = strftime('%a %d de %b  %Y %H:%M', strtotime($date_str));
 
             echo $formatted_date;
         ?>
