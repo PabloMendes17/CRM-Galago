@@ -32,7 +32,7 @@
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
         <a type="button" class="btn btn-secondary" id="btMenu">Filtro</a>
     </div>
-    <div class="container-fluid" style="display: flex; justify-content: center;">
+    <div >
         <table class="table">
             <thead>
                 <tr>
