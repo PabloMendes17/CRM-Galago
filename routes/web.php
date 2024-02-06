@@ -22,6 +22,7 @@ use App\Http\Controllers\ProdutoController;
 
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
 Route:: get('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
+Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
 Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
 Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
 Route:: get('/vitrine',[SitePublicoController::class,'produtos']);

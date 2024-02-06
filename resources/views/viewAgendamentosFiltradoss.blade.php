@@ -70,7 +70,7 @@
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" name="CodCliente">
+                                    <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Busca</button>
@@ -78,13 +78,13 @@
                         </div>    
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtInicial" name="DtInicial" >
+                                <input type="date" class="form-control" id="floatingDtInicial" >
                                 <label for="floatingDtInicial">Data Inicial</label>  
                             </div>
                         </div>
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtFinal" name="DtFinal" >
+                                <input type="date" class="form-control" id="floatingDtFinal" >
                                 <label for="floatingDtFinal">Data Final</label>  
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar e Não Filtrar</button>
-                    <a type="button" class="btn btn-primary" onclick="href='/AgendamentosFiltrados'">Aplicar Filtro</a>
+                    <button type="button" class="btn btn-primary" onclick="href='/AgendamentosFiltrados'">Aplicar Filtro</button>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3">
+                    <form class="row g-3" method=POST >
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">

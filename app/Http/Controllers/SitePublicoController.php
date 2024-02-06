@@ -28,9 +28,23 @@ class SitePublicoController extends Controller
         return view('viewInfo',compact('user','produtos'));
     }
     public function Agendamentos(){
-        $agenda=agenda::all();
+        $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();;
         
         return view('viewAgenda',['agenda'=> $agenda]);
+    }
+    public function AgendamentosFiltrados(Request $request ){
+        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtInicial)){
+
+        }else if(isset($request->CodCliente)){
+
+        }else if(isset($request->DtInicial)&&isset($request->DtInicial)){
+
+        }else{
+            return view('viewAgenda');
+        }
+
+        return view('viewAgendamentosFiltrados');
+
     }
     public function Atendimentos(){
       
