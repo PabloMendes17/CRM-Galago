@@ -63,7 +63,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="FiltroLabel">Filtros</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaFiltro1"></button>
                 </div>
                 <div class="modal-body container-fluid ">
                     <form class="row g-3" method=POST action="/AgendamentosFiltrados">
@@ -73,7 +73,7 @@
                                     <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" name="CodCliente">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Busca</button>
+                                <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro">Busca</button>
                             </div>
                         </div>    
                         <div class="col-3">
@@ -88,11 +88,11 @@
                                 <label for="floatingDtFinal">Data Final</label>  
                             </div>
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaFiltro2" >Fechar e Não Filtrar</button>
+                            <input type="submit" class="btn btn-primary" id="btAplicaFiltro2" onclick="href='/AgendamentosFiltrados'" value='Aplicar Filtro'>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar e Não Filtrar</button>
-                    <a type="button" class="btn btn-primary" onclick="href='/AgendamentosFiltrados'">Aplicar Filtro</a>
                 </div>
             </div>
         </div>
@@ -102,8 +102,8 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="FiltroLabel">Filtros</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="AgendaLabel">Nova Agenda</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAgenda1"></button>
                 </div>
                 <div class="modal-body">
                     <form class="row g-3">
@@ -113,7 +113,7 @@
                                     <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Busca</button>
+                                <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda">Busca</button>
                             </div>
                         </div>
                         <div class=" col-8">
@@ -178,12 +178,12 @@
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="Detalhes do Registro" id="floatingDetalhes" style="height: 150px"></textarea>
                             <label for="floatingDetalhes">Detalhes</label>
-                        <div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaAgenda2">Fechar e Não Salvar</button>
+                            <button type="button" class="btn btn-primary">Salvar Agenda</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar e Não Filtrar</button>
-                    <button type="button" class="btn btn-primary">Aplicar Filtro</button>
                 </div>
             </div>
         </div>

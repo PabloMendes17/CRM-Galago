@@ -33,17 +33,42 @@ class SitePublicoController extends Controller
         return view('viewAgenda',['agenda'=> $agenda]);
     }
     public function AgendamentosFiltrados(Request $request ){
-        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtInicial)){
+
+       
+        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
+            
+            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                            ->where('agenda.cliente','=',$request->CodCliente)
+                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                            ->get();
+
+            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro]);
 
         }else if(isset($request->CodCliente)){
 
-        }else if(isset($request->DtInicial)&&isset($request->DtInicial)){
+            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                            ->where('agenda.cliente','=',$request->CodCliente)
+                            ->get();
+
+            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro]);
+
+        }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
+            
+            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                            ->get();
+
+            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro]);
+
 
         }else{
-            return view('viewAgenda');
+            $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
+           
+
+            return view('viewAgenda',['agenda'=> $agenda]);
         }
 
-        return view('viewAgendamentosFiltrados');
+        //return view('viewAgendamentosFiltrados');
 
     }
     public function Atendimentos(){
