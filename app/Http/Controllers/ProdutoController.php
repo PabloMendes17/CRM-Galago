@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Produto;
+use App\Models\cliente;
 
 class ProdutoController extends Controller
 {
@@ -30,7 +31,13 @@ class ProdutoController extends Controller
 
             return view('viewProdutoCadastro',compact('result','request'));
         }
+    }
 
+    public function ListaDeClientes(){
 
+       /* $clientes= new cliente();
+        $clientes= $clientes->allClientes();   
+
+        return view('viewProdutoListar',compact('clientes'));*/
     }
 }

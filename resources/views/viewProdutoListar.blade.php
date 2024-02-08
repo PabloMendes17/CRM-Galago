@@ -13,5 +13,11 @@
         @endforeach
     </ul>
 
+    <ul>
+      
+        <li>{{$registro}}</li>
+   
+    </ul>
+
 </body>
 </html>

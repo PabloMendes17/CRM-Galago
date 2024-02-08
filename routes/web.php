@@ -23,14 +23,17 @@ use App\Http\Controllers\ProdutoController;
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
 Route:: get('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
+Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'lista']);
 Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
+Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
 Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
+Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
 Route:: get('/vitrine',[SitePublicoController::class,'produtos']);
 Route:: get('/info',[sitePublicoController::class,'info']);
 Route:: get('/parametros',[ParametrosController::class,'acessandoParametrosViaRequest']);
 Route:: get('/formsExibe',[ParametrosController::class,'formularioExibir']);
 Route:: post('/formsRecebe',[ParametrosController::class,'formularioReceber']);
 Route:: get('/produtos/listar',[ProdutoController::class,'listar']);
-
+Route:: get('/produtos/listar',[ProdutoController::class,'ListaDeClientes']);
 Route:: get ('/cadastrar',[ProdutoController::class,'CadastroAbrir']);
 Route:: post ('/cadastrar',[ProdutoController::class,'CadastroProcessar']);

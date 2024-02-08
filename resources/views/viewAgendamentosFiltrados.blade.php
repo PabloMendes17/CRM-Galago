@@ -73,7 +73,7 @@
                                 <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="CodCliente">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro">Busca</button>
+                                <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro" data-bs-target="#BuscaClienteFiltro" data-bs-toggle="modal">Busca</button>
                             </div>
                         </div>    
                         <div class="col-3">
@@ -96,7 +96,53 @@
                 </div>    
             </div>
         </div>
+    </div> 
+    <div class="modal fade" id="BuscaClienteFiltro" aria-hidden="true" aria-labelledby="BuscaClienteFiltro" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="BuscaClienteFiltro">Busca de Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body ">
+                    <form name="cadastro" method="post" action="?">
+                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <input id="myInput" maxlength="18" required>
+                        <input id="cnpj" style="display: none">
+                        <input id="cpf" style="display: none">
+                        <button type='submit' value='buscar' data-bs-target="#BuscaClienteFiltro" onclick="href='#'" >Busca</button>
+                    </form>
+                    <!--<table class="table table-hover">
+                        <thead >
+                            <tr>
+                                <th scope="col">CODIGO</th>
+                                <th scope="col">NOME</th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            @foreach($clientes as $clientes)
+                                <tr>
+                                    <th scope="row">{{$clientes->CODIGO}}</th>
+                                    <td>{{$clientes->NOME}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>-->
+                    <table class="resultado">
+                        
+                    </table>    
+
+                        
+                </div>
+
+            </div>
+        </div>
     </div>
+
+
+
+
+    
 
     <div class="modal fade" id="NovaAgenda" tabindex="-1" aria-labelledby="NovaAgendaLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -188,6 +234,24 @@
             </div>
         </div>
     </div>
-  
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+    <script src="/js/app.js"></script>
 </body>
 </html>
