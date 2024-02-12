@@ -9,5 +9,5 @@ class cliente extends Model
 {
     use HasFactory;
 
-    
+  
 }

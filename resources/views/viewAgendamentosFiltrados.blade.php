@@ -23,7 +23,7 @@
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
                 usuario@galago.com.br<br/>
-                {{$formatted_date;}}
+                {{$formatted_date}}
             </div>
         </div>
     </nav> 
@@ -105,39 +105,30 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body ">
-                    <form name="cadastro" method="post" action="?">
+                    <form name="cadastro" method="post" action="/AgendamentosFiltrados">
                         <b id="cnpj_cpf">CNPJ/CPF:</b>
-                        <input id="myInput" maxlength="18" required>
+                        <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='submit' value='buscar' data-bs-target="#BuscaClienteFiltro" onclick="href='#'" >Busca</button>
-                    </form>
-                    <!--<table class="table table-hover">
-                        <thead >
+                        <button type='submit' value='buscar' data-bs-target="" onclick="href='#BuscaClienteFiltro'" >Busca</button>
+                    </form><br>
+                    <table class="table table-striped table-hover">
+                        <tbody>
+                        
+                        @foreach($clientes as $clientes)
                             <tr>
-                                <th scope="col">CODIGO</th>
-                                <th scope="col">NOME</th>
+                                <th scope="row">{{$clientes->CODIGO}}</th>
+                                <td>{{$clientes->NOME}}</td>
+                                <td>{{$clientes->CNPJ}}</td>
                             </tr>
-                        </thead>
-                        <tbody >
-                            @foreach($clientes as $clientes)
-                                <tr>
-                                    <th scope="row">{{$clientes->CODIGO}}</th>
-                                    <td>{{$clientes->NOME}}</td>
-                                </tr>
-                            @endforeach
+                         @endforeach
                         </tbody>
-                    </table>-->
-                    <table class="resultado">
-                        
-                    </table>    
+                    </table>   
 
-                        
+     
                 </div>
-
             </div>
         </div>
-    </div>
 
 
 

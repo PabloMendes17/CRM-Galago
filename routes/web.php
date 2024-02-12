@@ -16,14 +16,13 @@ use App\Http\Controllers\ProdutoController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('viewpaginaPrincipal');
+/*Route::get('/welcome', function () {
+    return view('welcome');
 });*/
 
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
-Route:: get('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
+Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
-Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'lista']);
 Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
 Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
 Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
