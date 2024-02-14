@@ -104,13 +104,13 @@
                     <h1 class="modal-title fs-5" id="BuscaClienteFiltro">Busca de Cliente</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body ">
-                    <form name="cadastro" method="post" action="/AgendamentosFiltrados">
+                <div class="modal-body " id="BuscaID">
+                    <form name="cadastro" method="post" action="#">
                         <b id="cnpj_cpf">CNPJ/CPF:</b>
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='submit' value='buscar' data-bs-target="" onclick="href='#BuscaClienteFiltro'" >Busca</button>
+                        <button type='submit' value='buscar' data-bs-target="#BuscaID"  >Busca</button>
                     </form><br>
                     <table class="table table-striped table-hover">
                         <tbody>

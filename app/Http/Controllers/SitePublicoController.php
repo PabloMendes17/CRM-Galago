@@ -35,7 +35,7 @@ class SitePublicoController extends Controller
     }
     public function AgendamentosFiltrados(Request $request){
         $allClientes=cliente::all();
-       
+               
         if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
             $allClientes=cliente::all();
             $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
@@ -68,16 +68,34 @@ class SitePublicoController extends Controller
 
             return view();
         }*/
-        else{
+        else{/*
             
             $allClientes=cliente::when($request->has('myInput'),function($whenQuery)use ($request){
                 $whenQuery->where('CPF','like','%'.$request->myInput.'%');
-            });
+            });*/
+            
+            if($request->input('myInput')==null){
+                
+                $allClientes=cliente::all();
+                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
 
+            }else if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
 
+                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
+                $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
+                
+
+                
+                return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
+            }else{
+
+                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
+                $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
+           }
+
+            
             $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
                 
-                            
             return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
         }
 

@@ -40,7 +40,7 @@ import './bootstrap';
   
 
 
-  /*$(function(){
+  $(function(){
     $("#myInput").keyup(function(){
         //Recuperar o valor do campo
         var CNPJ_CPF = $(this).val();
@@ -50,10 +50,10 @@ import './bootstrap';
             var dados = {
                 docCli : CNPJ_CPF
             }
-            $.post('/AgendamentosFiltrados/1', dados, function(retorna){
+            $.post('/AgendamentosFiltrados', dados, function(retorna){
                 //Mostra dentro da ul os resultado obtidos 
                 $(".resultado").html(retorna);
             });
         }
     });
-});*/
+});
