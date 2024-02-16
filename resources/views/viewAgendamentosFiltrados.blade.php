@@ -110,26 +110,24 @@
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='submit' value='buscar' data-bs-target="#BuscaID"  >Busca</button>
+                        <button type='button' onclick="buscaPorID()">Busca</button>
                     </form><br>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover" id="TAB">
                         <tbody>
-                        
-                        @foreach($clientes as $clientes)
-                            <tr>
-                                <th scope="row">{{$clientes->CODIGO}}</th>
-                                <td>{{$clientes->NOME}}</td>
-                                <td>{{$clientes->CNPJ}}</td>
-                            </tr>
-                         @endforeach
+                            @foreach($clientes as $clientes)
+                                <tr>
+                                    <th scope="row">{{$clientes->CODIGO}}</th>
+                                    <td>{{$clientes->NOME}}</td>
+                                    <td>{{$clientes->CNPJ}}</td>
+                                </tr>
+                            @endforeach
                         </tbody>
-                    </table>   
-
-     
-                </div>
+                    </table> 
+                    <table class="table table-striped table-hover" id="MinhaModel"></table>  
+               </div>
             </div>
         </div>
-
+    </div>
 
 
 
@@ -240,9 +238,26 @@
 
 
 
-    
+    <script>
+        function buscaPorID() {
+            var idCli = document.getElementById('myInput').value;
+            $.ajax({
+            url: '/AgendamentosFiltrados',
+            type: 'POST',
+            data: { myInput: idCli},
+            success: function(response) {
+          // Lógica para lidar com a resposta, se necessário
+          console.log(response);
+          var tabelaHtml = $(response).find('#TAB').html();
+          console.log(tabelaHtml);
+          $('#TAB').hide();
+          $('#MinhaModel').html(tabelaHtml);
+        },});
+        
+        }
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-    <script src="/js/app.js"></script>
+
 </body>
 </html>

@@ -40,7 +40,7 @@ import './bootstrap';
   
 
 
-  $(function(){
+ /* $(function(){
     $("#myInput").keyup(function(){
         //Recuperar o valor do campo
         var CNPJ_CPF = $(this).val();
@@ -57,3 +57,58 @@ import './bootstrap';
         }
     });
 });
+
+$(function BuscarIdCli() {
+  var idCli = document.getElementById('myInput').value;
+
+  $.ajax({
+      url: '/AgendamentosFiltrados',
+      type: 'GET',
+      data: {filtro: idCli},
+      success: function(response) {
+          var html = '<table><thead><tr><th>Código</th><th>Nome</th></tr></thead><tbody>';
+          $.each(response, function(index, item) {
+              html += '<tr><td>' + item.codigo + '</td><td>' + item.nome + '</td></tr>';
+          });
+          html += '</tbody></table>';
+
+          $('#BuscaID').html(html);
+          $('#modal').show();
+      },
+      error: function(xhr, status, error) {
+          // Tratar erros, se necessário
+      }
+  });
+});*/
+
+/*$(function buscaPorID(){
+  var valor=document.getElementById('myInput').value;
+  console.log(valor);
+  $.ajax({
+    url: '/chamar-funcao/' + valor,
+    type: 'GET',
+    success: function(response) {
+        // Lógica para lidar com a resposta, se necessário
+        console.log(response);
+    },
+    error: function(xhr, status, error) {
+        // Tratar erros, se necessário
+    }
+});
+});*/
+    
+
+
+/*function chamarFuncaoDoController(valor) {
+  $.ajax({
+      url: '/chamar-funcao/' + valor,
+      type: 'GET',
+      success: function(response) {
+          // Lógica para lidar com a resposta, se necessário
+          console.log(response);
+      },
+      error: function(xhr, status, error) {
+          // Tratar erros, se necessário
+      }
+  });
+}*/

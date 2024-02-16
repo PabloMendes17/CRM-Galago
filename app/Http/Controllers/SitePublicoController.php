@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\agenda;
 use App\Models\cliente;
@@ -62,17 +64,7 @@ class SitePublicoController extends Controller
             return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
 
 
-        }/*else if (isset($request->myInput)){
-            $docCli = $request->input('docCli');
-            $clientesFiltrados = cliente::where('CNPJ', 'like', '%' . $docCli . '%')->get();
-
-            return view();
-        }*/
-        else{/*
-            
-            $allClientes=cliente::when($request->has('myInput'),function($whenQuery)use ($request){
-                $whenQuery->where('CPF','like','%'.$request->myInput.'%');
-            });*/
+        }else{
             
             if($request->input('myInput')==null){
                 
@@ -83,10 +75,9 @@ class SitePublicoController extends Controller
 
                 $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
                 $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
-                
-
-                
+                                
                 return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
+                
             }else{
 
                 $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
@@ -98,10 +89,6 @@ class SitePublicoController extends Controller
                 
             return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
         }
-
-
-        
-
     }
   
 
