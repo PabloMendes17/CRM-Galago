@@ -56,8 +56,6 @@
             </tbody>
         </table>
     </div>    
-
-    
     <div class="modal fade" id="Filtro" tabindex="-1" aria-labelledby="FiltrolLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -70,7 +68,7 @@
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="CodCliente">
+                                    <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro" data-bs-target="#BuscaClienteFiltro" data-bs-toggle="modal">Busca</button>
@@ -78,14 +76,14 @@
                         </div>    
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtInicial" name="DtInicial" >
-                                <label for="floatingDtInicial">Data Inicial</label>  
+                                <input type="date" class="form-control" id="DtInicial" name="DtInicial" >
+                                <label for="DtInicial">Data Inicial</label>  
                             </div>
                         </div>
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtFinal" name="DtFinal" >
-                                <label for="floatingDtFinal">Data Final</label>  
+                                <input type="date" class="form-control" id="DtFinal" name="DtFinal" >
+                                <label for="DtFinal">Data Final</label>  
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -101,8 +99,8 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="BuscaClienteFiltro">Busca de Cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="ClienteFiltro">Busca de Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-target="#Filtro" data-bs-toggle="modal" aria-label="Close" ></button>
                 </div>
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
@@ -110,29 +108,26 @@
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='button' onclick="buscaPorID()">Busca</button>
+                        <button type='button' id="btbuscaPorID">Busca</button>
                     </form><br>
-                    <table class="table table-striped table-hover" id="TAB">
+                    <table class="table table-striped table-hover" id="ClientesParaFiltro">
                         <tbody>
                             @foreach($clientes as $clientes)
-                                <tr>
-                                    <th scope="row">{{$clientes->CODIGO}}</th>
-                                    <td>{{$clientes->NOME}}</td>
+                                <tr class="listaCliFiltrado">
+                                    <th scope="row" class="CodCliente" >{{$clientes->CODIGO}}</th>
+                                    <td class="NomeCliente">{{$clientes->NOME}}</td>
                                     <td>{{$clientes->CNPJ}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table> 
-                    <table class="table table-striped table-hover" id="MinhaModel"></table>  
+                    <table class="table table-striped table-hover" id="ClientesJaFiltrado">
+
+                    </table>  
                </div>
             </div>
         </div>
     </div>
-
-
-
-    
-
     <div class="modal fade" id="NovaAgenda" tabindex="-1" aria-labelledby="NovaAgendaLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -224,40 +219,7 @@
         </div>
     </div>
 
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-    <script>
-        function buscaPorID() {
-            var idCli = document.getElementById('myInput').value;
-            $.ajax({
-            url: '/AgendamentosFiltrados',
-            type: 'POST',
-            data: { myInput: idCli},
-            success: function(response) {
-          // Lógica para lidar com a resposta, se necessário
-          console.log(response);
-          var tabelaHtml = $(response).find('#TAB').html();
-          console.log(tabelaHtml);
-          $('#TAB').hide();
-          $('#MinhaModel').html(tabelaHtml);
-        },});
-        
-        }
-    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-
 </body>
 </html>

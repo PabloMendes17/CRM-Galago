@@ -1,24 +1,5 @@
 import './bootstrap';
 
-/*$(function(){
-    $('#cpf').mask('999.999.999-99');
-    $('#cnpj').mask('99.999.999/9999-99');
-  
-    $('#myInput').keyup(function(){
-      const val = $(this).val().replace(/[^0-9]/g, '');
-      console.log('val', val);
-      if (val.length <= 11) {
-        $('#cpf').val(val);
-        $(this).val($('#cpf').masked());
-        $('#cnpj_cpf').text('CPF');
-      } else {
-        $('#cnpj').val(val);
-        $(this).val($('#cnpj').masked());
-        $('#cnpj_cpf').text('CNPJ');
-      }
-    });
-  });*/
-
   $(function(){
     $('#cpf').mask('999.999.999-99');
     $('#cnpj').mask('99.999.999/9999-99');
@@ -30,85 +11,52 @@ import './bootstrap';
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
             $('#cnpj_cpf').text('CPF');
-        } else {
+        } else if(val.length>=14){
             $('#cnpj').val(val);
             $(this).val($('#cnpj').masked());
             $('#cnpj_cpf').text('CNPJ');
+        }else{
+            $('#cpf').val('');
+            $('#cnpj').val('');
+            $('#cnpj_cpf').text('CNPJ/CPF');
         }
     }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
 });
-  
+$(document).ready(function() {
+    $('#btbuscaPorID').on('click', function() {
+        if((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18){
 
+            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else{
 
- /* $(function(){
-    $("#myInput").keyup(function(){
-        //Recuperar o valor do campo
-        var CNPJ_CPF = $(this).val();
-        
-        //Verificar se há algo digitado
-        if(CNPJ_CPF != ''){
-            var dados = {
-                docCli : CNPJ_CPF
-            }
-            $.post('/AgendamentosFiltrados', dados, function(retorna){
-                //Mostra dentro da ul os resultado obtidos 
-                $(".resultado").html(retorna);
-            });
+            buscaPorID();
         }
     });
 });
 
-$(function BuscarIdCli() {
-  var idCli = document.getElementById('myInput').value;
+function buscaPorID() {
+    //Captura o que está no campo CNPJ_CPF
+    var idCli = document.getElementById('myInput').value;
+    //Chama a Rota que processa o filtro
+    $.ajax({
+        url: '/AgendamentosFiltrados',
+        type: 'POST',
+        data: { myInput: idCli },
+        success: function(response) {
+            //No sucesso traz uma view igual com os dados filtrados
+            // Busca na view somente a Tabela em html e armazena na variável
+            var tabelaHtml = $(response).find('#ClientesParaFiltro').html();
 
-  $.ajax({
-      url: '/AgendamentosFiltrados',
-      type: 'GET',
-      data: {filtro: idCli},
-      success: function(response) {
-          var html = '<table><thead><tr><th>Código</th><th>Nome</th></tr></thead><tbody>';
-          $.each(response, function(index, item) {
-              html += '<tr><td>' + item.codigo + '</td><td>' + item.nome + '</td></tr>';
-          });
-          html += '</tbody></table>';
+            //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
+            $('#ClientesParaFiltro').hide();
+            $('#ClientesJaFiltrado').html(tabelaHtml);
 
-          $('#BuscaID').html(html);
-          $('#modal').show();
-      },
-      error: function(xhr, status, error) {
-          // Tratar erros, se necessário
-      }
-  });
-});*/
-
-/*$(function buscaPorID(){
-  var valor=document.getElementById('myInput').value;
-  console.log(valor);
-  $.ajax({
-    url: '/chamar-funcao/' + valor,
-    type: 'GET',
-    success: function(response) {
-        // Lógica para lidar com a resposta, se necessário
-        console.log(response);
-    },
-    error: function(xhr, status, error) {
-        // Tratar erros, se necessário
-    }
-});
-});*/
-    
-
-
-/*function chamarFuncaoDoController(valor) {
-  $.ajax({
-      url: '/chamar-funcao/' + valor,
-      type: 'GET',
-      success: function(response) {
-          // Lógica para lidar com a resposta, se necessário
-          console.log(response);
-      },
-      error: function(xhr, status, error) {
-          // Tratar erros, se necessário
-      }
-  });
-}*/
+            $('#ClientesJaFiltrado').find('.listaCliFiltrado').click(function() {
+                var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
+                $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                $('#Filtro').modal('show');
+                $('#BuscaClienteFiltro').modal('hide');
+            });
+        },
+    });
+}

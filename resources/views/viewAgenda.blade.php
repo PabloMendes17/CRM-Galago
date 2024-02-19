@@ -28,7 +28,7 @@
         </div>
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center; margin: 1rem 0rem 1rem 0rem;">
-        <a type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovaAgenda">Novo Agendamento</a>
+        <button type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovaAgenda">Novo Agendamento</button>
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
         <button type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</button>
     </div>
@@ -56,8 +56,6 @@
             </tbody>
         </table>
     </div>    
-
-    
     <div class="modal fade" id="Filtro" tabindex="-1" aria-labelledby="FiltrolLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -70,7 +68,7 @@
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" name="CodCliente">
+                                <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro" data-bs-target="#BuscaClienteFiltro" data-bs-toggle="modal">Busca</button>
@@ -120,7 +118,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
 
 
 

@@ -38,19 +38,19 @@ class SitePublicoController extends Controller
     public function AgendamentosFiltrados(Request $request){
         $allClientes=cliente::all();
                
-        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
+        if(isset($request->inputCodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
             $allClientes=cliente::all();
             $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
+                            ->where('agenda.cliente','=',$request->inputCodCliente)
                             ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                             ->get();
 
             return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
 
-        }else if(isset($request->CodCliente)){
+        }else if(isset($request->inputCodCliente)){
             $allClientes=cliente::all();
             $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
+                            ->where('agenda.cliente','=',$request->inputCodCliente)
                             ->get();
 
             return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
