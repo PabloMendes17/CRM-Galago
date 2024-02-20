@@ -64,7 +64,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaFiltro1"></button>
                 </div>
                 <div class="modal-body container-fluid ">
-                    <form class="row g-3" method=POST action="/AgendamentosFiltrados">
+                    <form class="row g-3" method=POST action="/Agendamentos">
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
@@ -76,53 +76,58 @@
                         </div>    
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtInicial" name="DtInicial" >
-                                <label for="floatingDtInicial">Data Inicial</label>  
+                                <input type="date" class="form-control" id="DtInicial" name="DtInicial" >
+                                <label for="DtInicial">Data Inicial</label>  
                             </div>
                         </div>
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtFinal" name="DtFinal" >
-                                <label for="floatingDtFinal">Data Final</label>  
+                                <input type="date" class="form-control" id="DtFinal" name="DtFinal" >
+                                <label for="DtFinal">Data Final</label>  
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaFiltro2" >Fechar e Não Filtrar</button>
-                            <input type="submit" class="btn btn-primary" id="btAplicaFiltro2" onclick="href='/AgendamentosFiltrados'" value='Aplicar Filtro'>
+                            <input type="submit" class="btn btn-primary" id="btAplicaFiltro2" onclick="href='/Agendamentos'" value='Aplicar Filtro'>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-
     <div class="modal fade" id="BuscaClienteFiltro" aria-hidden="true" aria-labelledby="BuscaClienteFiltro" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="BuscaClienteFiltro">Busca de Cliente</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5" id="ClienteFiltro">Busca de Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-target="#Filtro" data-bs-toggle="modal" aria-label="Close" ></button>
                 </div>
-                <div class="modal-body ">
-                    <form name="cadastro" method="post" action="?">
+                <div class="modal-body " id="BuscaID">
+                    <form name="cadastro" method="post" action="#">
                         <b id="cnpj_cpf">CNPJ/CPF:</b>
-                        <input id="myInput" maxlength="18" required>
+                        <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='submit' value='buscar' data-bs-target="#BuscaClienteFiltro" onclick="href='#'" >Busca</button>
-                        
-
-                    </form>
-     
-                </div>
+                        <button type='button' id="btbuscaPorID">Busca</button>
+                    </form><br>
+                    <table class="table table-striped table-hover" id="ClientesParaFiltro">
+                        <tbody>
+                            @foreach($clientes as $cliente)
+                                <tr class="listaCliFiltrado">
+                                    <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
+                                    <td class="NomeCliente">{{$cliente->NOME}}</td>
+                                    <td>{{$cliente->CNPJ}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table> 
+                    <table class="table table-striped table-hover" id="ClientesJaFiltrado">
+                    <!-- Recebe o cliente filtrado -->
+                    </table>  
+               </div>
             </div>
         </div>
     </div>
-
-
-
-
     <div class="modal fade" id="NovaAgenda" tabindex="-1" aria-labelledby="NovaAgendaLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -135,16 +140,17 @@
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="floatingCod" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <label for="floatingCod">Cod Cliente</label>
+                                    <input type="number" class="form-control" id="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <label for="inputCodClienteAG">Cod Cliente</label>
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda">Busca</button>
+                                <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda" data-bs-target="#BuscaClienteAgenda" data-bs-toggle="modal">Busca</button>
+
                             </div>
                         </div>
                         <div class=" col-8">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingName" placeholder="Nome/Razão Social" disabled>
-                                <label for="floatingName">Nome/Razão Social</label>
+                                <input type="text" class="form-control" id="inputNomeClienteAG" placeholder="Nome/Razão Social" disabled>
+                                <label for="inputNomeClienteAG">Nome/Razão Social</label>
                             </div>
                         </div>
                         <div class="col-2">
@@ -210,6 +216,39 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="BuscaClienteAgenda" aria-hidden="true" aria-labelledby="BuscaClienteAgenda" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ClienteAgenda">Busca de Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-target="#NovaAgenda" data-bs-toggle="modal" aria-label="Close" ></button>
+                </div>
+                <div class="modal-body " id="BuscaID">
+                    <form name="cadastro" method="post" action="#">
+                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <input id="inputCliAgenda" maxlength="18" required name="inputCliAgenda">
+                        <input id="cnpj" style="display: none">
+                        <input id="cpf" style="display: none">
+                        <button type='button' id="btbuscaPorID_AG">Busca</button>
+                    </form><br>
+                    <table class="table table-striped table-hover" id="ClientesParaAgenda">
+                        <tbody>
+                            @foreach($clientes as $cliente)
+                                <tr class="listaCliFiltrado">
+                                    <th scope="row" class="CodClienteAG" >{{$cliente->CODIGO}}</th>
+                                    <td class="NomeClienteAG">{{$cliente->NOME}}</td>
+                                    <td>{{$cliente->CNPJ}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table> 
+                    <table class="table table-striped table-hover" id="ClientesNaAgenda">
+                    <!-- Recebe o cliente filtrado -->
+                    </table>  
+               </div>
             </div>
         </div>
     </div>

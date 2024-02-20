@@ -112,11 +112,11 @@
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
                         <tbody>
-                            @foreach($clientes as $clientes)
+                            @foreach($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodCliente" >{{$clientes->CODIGO}}</th>
-                                    <td class="NomeCliente">{{$clientes->NOME}}</td>
-                                    <td>{{$clientes->CNPJ}}</td>
+                                    <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
+                                    <td class="NomeCliente">{{$cliente->NOME}}</td>
+                                    <td>{{$cliente->CNPJ}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -215,6 +215,39 @@
                         </div>
                     </form>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="BuscaClienteAgenda" aria-hidden="true" aria-labelledby="BuscaClienteAgenda" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="ClienteAgenda">Busca de Cliente</h1>
+                    <button type="button" class="btn-close" data-bs-target="#NovaAgenda" data-bs-toggle="modal" aria-label="Close" ></button>
+                </div>
+                <div class="modal-body " id="BuscaID">
+                    <form name="cadastro" method="post" action="#">
+                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <input id="myInput" maxlength="18" required name="myInput">
+                        <input id="cnpj" style="display: none">
+                        <input id="cpf" style="display: none">
+                        <button type='button' id="btbuscaPorID">Busca</button>
+                    </form><br>
+                    <table class="table table-striped table-hover" id="ClientesParaFiltro">
+                        <tbody>
+                            @foreach($clientes as $cliente)
+                                <tr class="listaCliFiltrado">
+                                    <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
+                                    <td class="NomeCliente">{{$cliente->NOME}}</td>
+                                    <td>{{$cliente->CNPJ}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table> 
+                    <table class="table table-striped table-hover" id="ClientesJaFiltrado">
+
+                    </table>  
+               </div>
             </div>
         </div>
     </div>
