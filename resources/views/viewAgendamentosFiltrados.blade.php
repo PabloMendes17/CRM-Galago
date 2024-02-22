@@ -148,7 +148,7 @@
                         </div>
                         <div class=" col-8">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingName" placeholder="Nome/Razão Social" disabled>
+                                <input type="text" class="form-control" id="inputNomeRazao" placeholder="Nome/Razão Social" disabled>
                                 <label for="floatingName">Nome/Razão Social</label>
                             </div>
                         </div>

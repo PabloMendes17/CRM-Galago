@@ -23,7 +23,7 @@ use App\Http\Controllers\ProdutoController;
 Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
-Route::get('/Agendamentos',[SitePublicoController::class, 'CadastrarAgendamentos']);
+Route:: post('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
 Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
 Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
 Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);

@@ -136,11 +136,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAgenda1"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3">
+                    <form class="row g-3" method=POST action="/Agendamento"> 
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
                                     <label for="inputCodClienteAG">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda" data-bs-target="#BuscaClienteAgenda" data-bs-toggle="modal">Busca</button>
@@ -149,49 +149,49 @@
                         </div>
                         <div class=" col-8">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inputNomeClienteAG" placeholder="Nome/Razão Social" disabled>
+                                <input type="text" class="form-control" id="inputNomeClienteAG" name="inputNomeClienteAG" placeholder="Nome/Razão Social" disabled>
                                 <label for="inputNomeClienteAG">Nome/Razão Social</label>
                             </div>
                         </div>
                         <div class="col-2">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingOp" value="SUPORTE" disabled>
+                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="SUPORTE" disabled>
                                 <label for="floatingOp">Operador</label>  
                             </div>
                         </div>
                         <div class="col-6">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingContato">
+                                <input type="text" class="form-control" id="floatingContato" name="CONTATO">
                                 <label for="floatingContato">Cotato</label>  
                             </div>
                         </div>
                         <div class="col-6">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingAssunto" >
+                                <input type="text" class="form-control" id="floatingAssunto" name="ASSUNTO" >
                                 <label for="floatingAssunto">Assunto</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtRegistro" >
+                                <input type="date" class="form-control" id="floatingDtRegistro" name="DATA_GRAVACAO" >
                                 <label for="floatingDtRegistro">Data Registro</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtAgenda" >
+                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" >
                                 <label for="floatingDtAgenda">Data Agenda</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="time" class="form-control" id="floatingHrAgenda" >
+                                <input type="time" class="form-control" id="floatingHrAgenda" name="HORA_AGENDA" >
                                 <label for="floatingHrAgenda">Hora Agenda</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" id="floatingSituacao" >
+                            <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO">
                                 <option selected>Selecione</option>
                                 <option value="PENDENTE">PENDENTE</option>
                                 <option value="RESOLVIDO">RESOLVIDO</option>
@@ -202,17 +202,23 @@
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingTipo" value="AGENDAMENTO" disabled >
+                                <input type="text" class="form-control" id="Tipo" name="TIPO"value="AGENDAMENTO" disabled >
                                 <label for="floatingTipo">Tipo</label>  
                             </div>
                         </div>
+                        <div class="col-4">
+                            <div  class="form-floating mb-3">
+                                <input type="text" class="form-control" id="Telefone" name="TELEFONE1">
+                                <label for="Telefone">Telefone</label>  
+                            </div>
+                        </div>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="Detalhes do Registro" id="floatingDetalhes" style="height: 150px"></textarea>
+                            <textarea class="form-control" placeholder="Detalhes do Registro" id="floatingDetalhes" name="HISTORICO" style="height: 150px"></textarea>
                             <label for="floatingDetalhes">Detalhes</label>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaAgenda2">Fechar e Não Salvar</button>
-                            <button type="button" class="btn btn-primary">Salvar Agenda</button>
+                            <input type="submit" class="btn btn-primary" id="btSalvaAgenda"  value='Salvar Agenda'>
                         </div>
                     </form>
                 </div>

@@ -58,9 +58,32 @@ class SitePublicoController extends Controller
                             ->get();
 
             return view(' viewAgenda',['agenda'=> $Filtro],['clientes'=> $allClientes]);
+            //return redirect()->route('/Agendamentos')->with('success', 'Operação Realizada com Sucesso');
 
 
-        }else{
+        }/*else if(isset($request->inputNomeClienteAG)){
+            
+            $insereNovaAgenda = [ 
+                'CONTATO' => $request->input('CONTATO'),
+                'OPERADOR' => $request->input('OPERADOR'),
+                'ASSUNTO' => $request->input('ASSUNTO'),
+                'CLIENTE' => $request->input('inputCodClienteAG'),
+                'DATA_GRAVACAO' => $request->input('DATA_GRAVACAO'),
+                'DATA_AGENDA' => $request->input('DATA_AGENDA'),
+                'HORA_AGENDA' => $request->input('HORA_AGENDA'),
+                'SITUACAO' => $request->input('SITUACAO'),
+                'TIPO' => $request->input('TIPO'),
+                'HISTORICO' => $request->input('HISTORICO'),
+                'TELEFONE1' => $request->input('TELEFONE1'), 
+            ];
+
+            agenda::create($insereNovaAgenda); 
+            $allClientes=cliente::all();
+            $insereNovaAgenda='';
+            $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
+            return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes]);
+
+        }*/else{
             
             if($request->input('inputCliAgenda')==null){
                 
@@ -85,6 +108,7 @@ class SitePublicoController extends Controller
                 
             return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes]);
         }
+        
         
         return view('viewAgenda',['agenda'=> $agenda]);
     }
@@ -144,8 +168,27 @@ class SitePublicoController extends Controller
         }
     }
     public function CadastrarAgendamentos(Request $request){
+        if(isset($request->inputNomeClienteAG)){
+            
+            $insereNovaAgenda = [ 
+                'CONTATO' => $request->input('CONTATO'),
+                'OPERADOR' => $request->input('OPERADOR'),
+                'ASSUNTO' => $request->input('ASSUNTO'),
+                'CLIENTE' => $request->input('inputCodClienteAG'),
+                'DATA_GRAVACAO' => $request->input('DATA_GRAVACAO'),
+                'DATA_AGENDA' => $request->input('DATA_AGENDA'),
+                'HORA_AGENDA' => $request->input('HORA_AGENDA'),
+                'SITUACAO' => $request->input('SITUACAO'),
+                'TIPO' => $request->input('TIPO'),
+                'HISTORICO' => $request->input('HISTORICO'),
+                'TELEFONE1' => $request->input('TELEFONE1'), 
+            ];
 
+            agenda::create($insereNovaAgenda); 
+            return view('viewSucessoCadastroAgenda');
+        }
         
+
     }
   
 
