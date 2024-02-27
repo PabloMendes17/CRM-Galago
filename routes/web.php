@@ -24,7 +24,7 @@ Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
 Route:: post('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
-Route:: get('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
+Route:: any('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
 Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
 Route:: get('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
 Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);

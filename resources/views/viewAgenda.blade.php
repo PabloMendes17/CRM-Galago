@@ -8,22 +8,12 @@
     
 </head>
 <body>
-    <?php
-        date_default_timezone_set('America/Sao_Paulo');
-        // Obtém a data e hora atual
-        $date = new DateTime();
-        $date_str = $date->format('Y-m-d H:i');
-        // Configura o locale para português do Brasil
-        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        // Formata a data e hora conforme o formato desejado em português
-        $formatted_date = strftime('%a %d de %b %Y %H:%M', strtotime($date_str));
-    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                usuario@galago.com.br<br/>
-                {{$formatted_date;}}
+                usuario@galago.com.br
+                <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
     </nav> 
@@ -68,7 +58,7 @@
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente">
+                                <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente" maxLength="6">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro" data-bs-target="#BuscaClienteFiltro" data-bs-toggle="modal">Busca</button>
@@ -140,7 +130,7 @@
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" maxLength="6">
                                     <label for="inputCodClienteAG">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda" data-bs-target="#BuscaClienteAgenda" data-bs-toggle="modal">Busca</button>
@@ -161,37 +151,37 @@
                         </div>
                         <div class="col-6">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingContato" name="CONTATO">
+                                <input type="text" class="form-control" id="floatingContato" name="CONTATO" required>
                                 <label for="floatingContato">Cotato</label>  
                             </div>
                         </div>
                         <div class="col-6">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingAssunto" name="ASSUNTO" >
+                                <input type="text" class="form-control" id="floatingAssunto" name="ASSUNTO" required>
                                 <label for="floatingAssunto">Assunto</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtRegistro" name="DATA_GRAVACAO" >
+                                <input type="date" class="form-control" id="floatingDtRegistro" name="DATA_GRAVACAO" required>
                                 <label for="floatingDtRegistro">Data Registro</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" >
+                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" required>
                                 <label for="floatingDtAgenda">Data Agenda</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="time" class="form-control" id="floatingHrAgenda" name="HORA_AGENDA" >
+                                <input type="time" class="form-control" id="floatingHrAgenda" name="HORA_AGENDA" required>
                                 <label for="floatingHrAgenda">Hora Agenda</label>  
                             </div>
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO">
+                            <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required>
                                 <option selected>Selecione</option>
                                 <option value="PENDENTE">PENDENTE</option>
                                 <option value="RESOLVIDO">RESOLVIDO</option>
@@ -208,7 +198,7 @@
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Telefone" name="TELEFONE1">
+                                <input type="text" class="form-control" id="Telefone" name="TELEFONE1" required>
                                 <label for="Telefone">Telefone</label>  
                             </div>
                         </div>
