@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody >
-                @foreach($treinamento as $treinamentos)
+                @forelse($treinamento as $treinamentos)
                     <tr>
                         <th scope="row">{{$treinamentos->CODIGO}}</th>
                         <td>{{$treinamentos->CONTATO}}</td>
@@ -42,7 +42,9 @@
                         <td>{{$treinamentos->TIPO}}</td>
                         <td>{{$treinamentos->HISTORICO}}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <td> Nenhum registro Localizado</td>
+                @endforelse
             </tbody>
         </table>
     </div>    
@@ -102,13 +104,15 @@
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeCliente">{{$cliente->NOME}}</td>
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td> Nenhum registro Localizado</td>
+                            @endforelse
                         </tbody>
                     </table> 
                     <table class="table table-striped table-hover" id="ClientesJaFiltrado">

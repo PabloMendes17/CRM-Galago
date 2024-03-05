@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody >
-                @foreach($atendimento as $atendimentos)
+                @forelse($atendimento as $atendimentos)
                     <tr>
                         <th scope="row">{{$atendimentos->CODIGO}}</th>
                         <td>{{$atendimentos->CONTATO}}</td>
@@ -42,7 +42,9 @@
                         <td>{{$atendimentos->TIPO}}</td>
                         <td>{{$atendimentos->HISTORICO}}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <td> Nenhum registro Localizado</td>
+                @endforelse
             </tbody>
         </table>
     </div>    
@@ -102,13 +104,15 @@
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeCliente">{{$cliente->NOME}}</td>
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td> Nenhum registro Localizado</td>
+                            @endforelse
                         </tbody>
                     </table> 
                     <table class="table table-striped table-hover" id="ClientesJaFiltrado">
@@ -231,13 +235,15 @@
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaAtendimento">
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodClienteAT" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeClienteAT">{{$cliente->NOME}}</td>
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td> Nenhum registro Localizado</td>
+                            @endforelse
                         </tbody>
                     </table> 
                     <table class="table table-striped table-hover" id="ClientesNoAtendimento">

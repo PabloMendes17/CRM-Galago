@@ -64,17 +64,21 @@ function buscaPorID() { //Filtra Cli por Doc
             var tabelaHtml = $(response).find('#ClientesParaFiltro').html();
             console.log(tabelaHtml);
 
-
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
-            $('#ClientesJaFiltrado').html(tabelaHtml);
 
-            $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click',function() {
-                var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
-                $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                $('#Filtro').modal('show');
-                $('#BuscaClienteFiltro').modal('hide');
-            });
+            // Verifica se a tabela está vazia
+            if (tabelaHtml.trim() === '') {
+                $('#ClientesJaFiltrado').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+            } else {
+                $('#ClientesJaFiltrado').html(tabelaHtml);
+                $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click', function() {
+                    var CodCliente = $(this).find('.CodCliente').text(); // Extrair o código correspondente do item clicado
+                    $('#inputCodCliente').val(CodCliente); //Atribui o valor ao compo Cod Cliente
+                    $('#Filtro').modal('show');
+                    $('#BuscaClienteFiltro').modal('hide');
+                });
+            }
         },
     });
 }
@@ -103,20 +107,17 @@ function buscaIdCLi(idCli) {//Filtra Cli por Doc Agenda
                 //No sucesso traz uma view igual com os dados filtrados
                 // Busca na view somente a Tabela em html e armazena na variável
                 var tabelaHtml = $(response).find('#ClientesParaAgenda').html();
-                console.log(tabelaHtml);
+
                 //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
                 $('#ClientesParaAgenda').hide();
                 $('#ClientesNaAgenda').html(tabelaHtml);
-    
-          
-    
                     var CodCliente = $('#ClientesNaAgenda').find('.listaCliFiltrado').find('.CodClienteAG').text();// Extrair o código correspondente do item clicado
                     $('#inputCodClienteAG').val(CodCliente);//Atribui o valor ao compo Cod Cliente
                     var NomeCliente=$('#ClientesNaAgenda').find('.listaCliFiltrado').find('.NomeClienteAG').text(); 
                     $('#inputNomeClienteAG').val(NomeCliente);
                     $('#NovaAgenda').modal('show');
                     $('#BuscaClienteAgenda').modal('hide');
-                ;
+                
             },
         });
     }
@@ -184,17 +185,22 @@ function buscaPorIdCLi() {//Filtra Cli por Doc Agenda
             console.log(tabelaHtml);
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaAgenda').hide();
-            $('#ClientesNaAgenda').html(tabelaHtml);
 
-            $('#ClientesNaAgenda').find('.listaCliFiltrado').on('click',function() {
+            if(tabelaHtml.trim() === ''){
+                $('#ClientesNaAgenda').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');     
+            }else{
+                $('#ClientesNaAgenda').html(tabelaHtml);
 
-                var CodCliente = $(this).find('.CodClienteAG').text();// Extrair o código correspondente do item clicado
-                $('#inputCodClienteAG').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                var NomeCliente=$(this).find('.NomeClienteAG').text(); 
-                $('#inputNomeClienteAG').val(NomeCliente);
-                $('#NovaAgenda').modal('show');
-                $('#BuscaClienteAgenda').modal('hide');
-            });
+                $('#ClientesNaAgenda').find('.listaCliFiltrado').on('click',function() {
+
+                    var CodCliente = $(this).find('.CodClienteAG').text();// Extrair o código correspondente do item clicado
+                    $('#inputCodClienteAG').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                    var NomeCliente=$(this).find('.NomeClienteAG').text(); 
+                    $('#inputNomeClienteAG').val(NomeCliente);
+                    $('#NovaAgenda').modal('show');
+                    $('#BuscaClienteAgenda').modal('hide');
+                });
+            }  
         },
     });
 }
@@ -243,14 +249,19 @@ function buscaPorIdAt() { //Filtra Cli por Doc
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
-            $('#ClientesJaFiltrado').html(tabelaHtml);
 
-            $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click',function() {
-                var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
-                $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                $('#Filtro').modal('show');
-                $('#BuscaClienteFiltro').modal('hide');
-            });
+            if(tabelaHtml.trim() === ''){
+                $('#ClientesJaFiltrado').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+            }else{
+                $('#ClientesJaFiltrado').html(tabelaHtml);
+
+                $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click',function() {
+                    var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
+                    $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                    $('#Filtro').modal('show');
+                    $('#BuscaClienteFiltro').modal('hide');
+                });
+            }
         },
     });
 }
@@ -356,17 +367,22 @@ function buscaPorIdCliAt() {//Filtra Cli por Doc Atendimetno
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaAtendimento').hide();
-            $('#ClientesNoAtendimento').html(tabelaHtml);
 
-            $('#ClientesNoAtendimento').find('.listaCliFiltrado').on('click',function() {
+            if(tabelaHtml.trim===''){
+                $('#ClientesNoAtendimento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+            }else{
+                $('#ClientesNoAtendimento').html(tabelaHtml);
 
-                var CodCliente = $(this).find('.CodClienteAT').text();// Extrair o código correspondente do item clicado
-                $('#inputCodClienteAT').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                var NomeCliente=$(this).find('.NomeClienteAT').text(); 
-                $('#inputNomeClienteAT').val(NomeCliente);
-                $('#NovoAtendimento').modal('show');
-                $('#BuscaClienteAtendimento').modal('hide');
-            });
+                $('#ClientesNoAtendimento').find('.listaCliFiltrado').on('click',function() {
+
+                    var CodCliente = $(this).find('.CodClienteAT').text();// Extrair o código correspondente do item clicado
+                    $('#inputCodClienteAT').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                    var NomeCliente=$(this).find('.NomeClienteAT').text(); 
+                    $('#inputNomeClienteAT').val(NomeCliente);
+                    $('#NovoAtendimento').modal('show');
+                    $('#BuscaClienteAtendimento').modal('hide');
+                });
+            }    
         },
     });
 }
@@ -415,14 +431,19 @@ function buscaPorIdTr() { //Filtra Cli por Doc
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
-            $('#ClientesJaFiltrado').html(tabelaHtml);
 
-            $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click',function() {
-                var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
-                $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                $('#Filtro').modal('show');
-                $('#BuscaClienteFiltro').modal('hide');
-            });
+            if(tabelaHtml.trim===''){
+                $('#ClientesJaFiltrado').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+            }else{
+                $('#ClientesJaFiltrado').html(tabelaHtml);
+
+                $('#ClientesJaFiltrado').find('.listaCliFiltrado').on('click',function() {
+                    var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
+                    $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                    $('#Filtro').modal('show');
+                    $('#BuscaClienteFiltro').modal('hide');
+                });
+            }    
         },
     });
 }
@@ -528,17 +549,23 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaTreinamento').hide();
-            $('#ClientesNoTreinamento').html(tabelaHtml);
+            console.log(tabelaHtml);
+            if(tabelaHtml.trim===''){
+                $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+                console.log(tabelaHtml);
+            }else{
+                $('#ClientesNoTreinamento').html(tabelaHtml);
 
-            $('#ClientesNoTreinamento').find('.listaCliFiltrado').on('click',function() {
+                $('#ClientesNoTreinamento').find('.listaCliFiltrado').on('click',function() {
 
-                var CodCliente = $(this).find('.CodClienteTR').text();// Extrair o código correspondente do item clicado
-                $('#inputCodClienteTR').val(CodCliente);//Atribui o valor ao compo Cod Cliente
-                var NomeCliente=$(this).find('.NomeClienteTR').text(); 
-                $('#inputNomeClienteTR').val(NomeCliente);
-                $('#NovoTreinamento').modal('show');
-                $('#BuscaClienteTreinamento').modal('hide');
-            });
+                    var CodCliente = $(this).find('.CodClienteTR').text();// Extrair o código correspondente do item clicado
+                    $('#inputCodClienteTR').val(CodCliente);//Atribui o valor ao compo Cod Cliente
+                    var NomeCliente=$(this).find('.NomeClienteTR').text(); 
+                    $('#inputNomeClienteTR').val(NomeCliente);
+                    $('#NovoTreinamento').modal('show');
+                    $('#BuscaClienteTreinamento').modal('hide');
+                });
+            }    
         },
     });
 }

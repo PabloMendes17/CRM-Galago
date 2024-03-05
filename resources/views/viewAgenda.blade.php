@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody >
-                @foreach($agenda as $agenda)
+                @forelse($agenda as $agenda)
                     <tr>
                         <th scope="row">{{$agenda->CODIGO}}</th>
                         <td>{{$agenda->CONTATO}}</td>
@@ -42,7 +42,9 @@
                         <td>{{$agenda->TIPO}}</td>
                         <td>{{$agenda->HISTORICO}}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <td> Nenhum Registro Localizado</td>    
+                @endforelse
             </tbody>
         </table>
     </div>    
@@ -232,13 +234,15 @@
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaAgenda">
                         <tbody>
-                            @foreach($clientes as $cliente)
+                            @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodClienteAG" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeClienteAG">{{$cliente->NOME}}</td>
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <td> Nenhum registro Localizado</td>
+                            @endforelse
                         </tbody>
                     </table> 
                     <table class="table table-striped table-hover" id="ClientesNaAgenda">
