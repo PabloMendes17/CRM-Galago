@@ -40,4 +40,8 @@ class ProdutoController extends Controller
 
         return view('viewProdutoListar',compact('clientes'));*/
     }
+    
+    
+
 }
+

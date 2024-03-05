@@ -12,7 +12,7 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                usuario@galago.com.br
+                usuario@galago.com.br<br/>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>

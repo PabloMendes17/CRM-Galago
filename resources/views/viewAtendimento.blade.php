@@ -12,13 +12,13 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-            usuario@galago.com.br<br/>
+                usuario@galago.com.br<br/>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center; margin: 1rem 0rem 1rem 0rem;">
-        <a type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovoAtendimento">Novo Atendimento</a>
+        <a type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#NovoAtendimento">Novo Atendimento</a>
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
         <a type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</a>
     </div>
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody >
-                @foreach($atendimentos as $atendimentos)
+                @foreach($atendimento as $atendimentos)
                     <tr>
                         <th scope="row">{{$atendimentos->CODIGO}}</th>
                         <td>{{$atendimentos->CONTATO}}</td>
@@ -126,7 +126,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAtendimento1"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method=POST action="/Atendimentos">
+                    <form class="row g-3" method=POST action="/Atendimento">
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
