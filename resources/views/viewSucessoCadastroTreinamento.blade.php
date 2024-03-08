@@ -8,36 +8,26 @@
     
 </head>
 <body>
-    <?php
-        date_default_timezone_set('America/Sao_Paulo');
-        // Obtém a data e hora atual
-        $date = new DateTime();
-        $date_str = $date->format('Y-m-d H:i');
-        // Configura o locale para português do Brasil
-        setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-        // Formata a data e hora conforme o formato desejado em português
-        $formatted_date = strftime('%a %d de %b %Y %H:%M', strtotime($date_str));
-    ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
                 usuario@galago.com.br<br/>
-                {{$formatted_date}}
+                <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center; margin: 1rem 0rem 1rem 0rem;">
-        <button type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovaAgenda">Novo Treinamento</button>
-        <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
+        <button type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovoTreinamento">Novo Treinamento</button>
+        <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/PaginaPrincipal"'>Pagina Principal</a>
         <button type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</button>
     </div>
     <div id="progress-container">
         <div class="progress" role="progressbar" aria-label="Example with label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
             <div id="progress-bar" class="progress-bar" style="width: 0%">0%</div>
         </div>
-        <div id="success-message" style="display: none; justify-content:center;" class="mt-3 alert alert-success" role="alert" >
-            <h2>Gravado com sucesso!</h2>
+        <div id="success-message" style="display: none; justify-content:center; text-align: center;" class="mt-3 alert alert-success" role="alert" >
+            <h2>Gravado com Sucesso!</h2>
         </div>
     </div>
     <script>
@@ -58,7 +48,7 @@
 
                 setTimeout(() => {
                     window.location.href = "/Treinamentos";
-                }, 1000); 
+                }, 1000);
             }
         };
 

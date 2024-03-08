@@ -8,6 +8,23 @@
     
 </head>
 <body>
+    @if (isset($error))
+        <div class="modal" id="Error"  tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atenção</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{$error}}</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
@@ -19,7 +36,7 @@
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center; margin: 1rem 0rem 1rem 0rem;">
         <a type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#NovoAtendimento">Novo Atendimento</a>
-        <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/"'>Pagina Principal</a>
+        <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/PaginaPrincipal"'>Pagina Principal</a>
         <a type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</a>
     </div>
     <div class="container-fluid" style="display: flex; justify-content: center;">
@@ -43,7 +60,11 @@
                         <td>{{$atendimentos->HISTORICO}}</td>
                     </tr>
                 @empty
-                    <td> Nenhum registro Localizado</td>
+                    <td></td>
+                    <td></td>
+                    <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                    <td></td>
+                    <td></td>
                 @endforelse
             </tbody>
         </table>
@@ -111,7 +132,7 @@
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
                             @empty
-                                <td> Nenhum registro Localizado</td>
+                                <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
                             @endforelse
                         </tbody>
                     </table> 
@@ -242,7 +263,7 @@
                                     <td>{{$cliente->CNPJ}}</td>
                                 </tr>
                             @empty
-                                <td> Nenhum registro Localizado</td>
+                                <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
                             @endforelse
                         </tbody>
                     </table> 

@@ -20,16 +20,16 @@ use App\Http\Controllers\ProdutoController;
     return view('welcome');
 });*/
 
-Route:: get('/',[SitePublicoController::class,'paginaPrincipal']);
+Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal']);
 
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
-Route:: post('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
+Route:: any('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
 
 Route:: any('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
 Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
-Route:: post('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos']);
+Route:: any('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos']);
 
 Route:: any('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
 Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
-Route:: post('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
+Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);

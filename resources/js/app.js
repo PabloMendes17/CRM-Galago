@@ -15,6 +15,10 @@ function atualizarHora() {
 }
 atualizarHora();
 setInterval(atualizarHora, 1000);
+$(document).ready(function() {
+    $('#Error').modal('show');
+})
+
 
 //Funções para viewAgenda
   $(function(){//Func Mascara Input DocFiltro
@@ -368,8 +372,10 @@ function buscaPorIdCliAt() {//Filtra Cli por Doc Atendimetno
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaAtendimento').hide();
 
+            
             if(tabelaHtml.trim===''){
                 $('#ClientesNoAtendimento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+
             }else{
                 $('#ClientesNoAtendimento').html(tabelaHtml);
 
@@ -431,6 +437,7 @@ function buscaPorIdTr() { //Filtra Cli por Doc
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
+            console.log(tabelaHtml);
 
             if(tabelaHtml.trim===''){
                 $('#ClientesJaFiltrado').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
@@ -549,10 +556,10 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaTreinamento').hide();
-            console.log(tabelaHtml);
-            if(tabelaHtml.trim===''){
-                $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
-                console.log(tabelaHtml);
+            
+            if(tabelaHtml.trim=== ''){
+               // $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+                console.log('TanoIF');
             }else{
                 $('#ClientesNoTreinamento').html(tabelaHtml);
 
@@ -564,6 +571,7 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
                     $('#inputNomeClienteTR').val(NomeCliente);
                     $('#NovoTreinamento').modal('show');
                     $('#BuscaClienteTreinamento').modal('hide');
+                   
                 });
             }    
         },
