@@ -47,7 +47,9 @@
                 <th scope="col">CONTATO</th>
                 <th scope="col">ASSUNTO</th>
                 <th scope="col">TIPO</th>
-                <th scope="col">HISTORICO</th>
+                <th scope="col">DATA ATENDIMENTO</th>
+                <th scope="col">HORA ATENDIMENTO</th>
+                <th scope="col">SITUAÇÃO</th>
                 </tr>
             </thead>
             <tbody >
@@ -57,12 +59,28 @@
                         <td>{{$atendimentos->CONTATO}}</td>
                         <td>{{$atendimentos->ASSUNTO}}</td>
                         <td>{{$atendimentos->TIPO}}</td>
-                        <td>{{$atendimentos->HISTORICO}}</td>
+                        <td>{{\Carbon\Carbon::parse($atendimentos->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        <td class="@if($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif  font-weight-bold"><b>{{ $atendimentos->HORA_AGENDA }}<b></td>
+                        <td class="@if($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif "><b>{{ $atendimentos->SITUACAO }}</b></td>
                     </tr>
                 @empty
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 @endforelse

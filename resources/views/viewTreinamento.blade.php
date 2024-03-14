@@ -47,7 +47,9 @@
                 <th scope="col">CONTATO</th>
                 <th scope="col">ASSUNTO</th>
                 <th scope="col">TIPO</th>
-                <th scope="col">HISTORICO</th>
+                <th scope="col">DATA TREINAMENTO</th>
+                <th scope="col">HORA TREINAMENTO</th>
+                <th scope="col">SITUAÇÃO</th>
                 </tr>
             </thead>
             <tbody >
@@ -57,12 +59,29 @@
                         <td>{{$treinamentos->CONTATO}}</td>
                         <td>{{$treinamentos->ASSUNTO}}</td>
                         <td>{{$treinamentos->TIPO}}</td>
-                        <td>{{$treinamentos->HISTORICO}}</td>
+                        <td>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        
+                        <td class="@if($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif  font-weight-bold"><b>{{ $treinamentos->HORA_AGENDA }}<b></td>
+                        <td class="@if($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif "><b>{{ $treinamentos->SITUACAO }}</b></td>
                     </tr>
                 @empty
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                 @endforelse
@@ -169,7 +188,7 @@
                         </div>
                         <div class="col-2">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingOp" name="OPERADOR" value="SUPORTE" disabled>
+                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="SUPORTE" disabled>
                                 <label for="floatingOp">Operador</label>  
                             </div>
                         </div>

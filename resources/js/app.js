@@ -17,7 +17,7 @@ atualizarHora();
 setInterval(atualizarHora, 1000);
 $(document).ready(function() {
     $('#Error').modal('show');
-})
+});
 
 
 //Funções para viewAgenda
@@ -468,7 +468,7 @@ function buscaIdCliTr(idCli) {//Filtra Cli por Doc Treinamento
         $.ajax({
             url: '/Treinamentos',
             type: 'POST',
-            data: { inputCliAtendimento: idCli },
+            data: { inputCliTreinamento: idCli },
             success: function(response) {
                 //No sucesso traz uma view igual com os dados filtrados
                 // Busca na view somente a Tabela em html e armazena na variável
@@ -483,7 +483,7 @@ function buscaIdCliTr(idCli) {//Filtra Cli por Doc Treinamento
                     var CodCliente = $('#ClientesNoTreinamento').find('.listaCliFiltrado').find('.CodClienteTR').text();// Extrair o código correspondente do item clicado
                     $('#inputCodClienteTR').val(CodCliente);//Atribui o valor ao compo Cod Cliente
                     var NomeCliente=$('#ClientesNoTreinamento').find('.listaCliFiltrado').find('.NomeClienteTR').text(); 
-                    $('#inputNomeClienteAT').val(NomeCliente);
+                    $('#inputNomeClienteTR').val(NomeCliente);
                     $('#NovoTreinaemnto').modal('show');
                     $('#BuscaClienteTreinamento').modal('hide');
                 ;

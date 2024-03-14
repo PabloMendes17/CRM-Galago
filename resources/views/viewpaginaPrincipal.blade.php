@@ -8,25 +8,30 @@
     
 </head>
 <body>
-<?php
-            date_default_timezone_set('America/Sao_Paulo');
-
-            // Obtém a data e hora atual
-            $date = new DateTime();
-            $date_str = $date->format('Y-m-d H:i');
-
-            // Configura o locale para português do Brasil
-            setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-
-            // Formata a data e hora conforme o formato desejado em português
-
-            $formatted_date = strftime('%a %d de %b %Y %H:%M', strtotime($date_str));
-
-        ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 5rem;">
+    @if (isset($error))
+        <div class="modal" id="Error"  tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Atenção</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{$error}}</p>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 5rem;">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
-            <div class="logado" >usuario@galago.com.br <br/>{{$formatted_date;}}</div>
+            <div class="logado" >
+                usuario@galago.com.br<br/>
+                <p id="horaAtual">{{$DATA;}}</p>
+            </div>
         </div>
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center;">
@@ -57,5 +62,7 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
 </body>
 </html>

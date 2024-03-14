@@ -43,11 +43,13 @@
         <table class="table table-striped table-hover">
             <thead >
                 <tr>
-                <th scope="col">CODIGO</th>
+                <th scope="col">CÓDIGO</th>
                 <th scope="col">CONTATO</th>
                 <th scope="col">ASSUNTO</th>
                 <th scope="col">TIPO</th>
-                <th scope="col">HISTORICO</th>
+                <th scope="col">DATA AGENDADA</th>
+                <th scope="col">HORA AGENDADA</th>
+                <th scope="col">SITUAÇÃO</th>
                 </tr>
             </thead>
             <tbody >
@@ -57,12 +59,16 @@
                         <td>{{$agenda->CONTATO}}</td>
                         <td>{{$agenda->ASSUNTO}}</td>
                         <td>{{$agenda->TIPO}}</td>
-                        <td>{{$agenda->HISTORICO}}</td>
+                        <td>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        <td>{{$agenda->HORA_AGENDA}}</td>
+                        <td>{{$agenda->SITUACAO}}</td>
                     </tr>
                 @empty
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                    <td></td>
                     <td></td>
                     <td></td>   
                 @endforelse
@@ -278,7 +284,6 @@
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
-
 
 </body>
 </html>
