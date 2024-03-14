@@ -50,6 +50,7 @@
                 <th scope="col">DATA ATENDIMENTO</th>
                 <th scope="col">HORA ATENDIMENTO</th>
                 <th scope="col">SITUAÇÃO</th>
+                <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody >
@@ -66,20 +67,35 @@
                                         text-primary 
                                     @else 
                                         text-success
-                                    @endif  font-weight-bold"><b>{{ $atendimentos->HORA_AGENDA }}<b></td>
+                                    @endif  font-weight-bold"><b>{{ $atendimentos->HORA_AGENDA }}<b>
+
+                        </td>
                         <td class="@if($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) < time()) 
                                         text-danger
                                     @elseif($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) > time()) 
                                         text-primary 
                                     @else 
                                         text-success
-                                    @endif "><b>{{ $atendimentos->SITUACAO }}</b></td>
+                                    @endif "><b>{{ $atendimentos->SITUACAO }}</b>
+                        </td>
+                        <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                            <button type="button" class="btn btn-outline-warning">
+                            <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                            </butto>
+                            <button type="button" class="btn btn-outline-info" id='{{$atendimentos->CODIGO}}' data-bs-toggle="modal" data-bs-target="#DetalheTreinamento">
+                                <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
+                            </button>
+                        </div>
+                        </td>  
+
                     </tr>
                 @empty
                     <td></td>
                     <td></td>
                     <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

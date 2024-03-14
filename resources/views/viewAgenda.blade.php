@@ -46,10 +46,12 @@
                 <th scope="col">CÓDIGO</th>
                 <th scope="col">CONTATO</th>
                 <th scope="col">ASSUNTO</th>
+                <th scope="col">TELEFONE</th>
                 <th scope="col">TIPO</th>
                 <th scope="col">DATA AGENDADA</th>
                 <th scope="col">HORA AGENDADA</th>
                 <th scope="col">SITUAÇÃO</th>
+                <th scope="col">Opções</th>
                 </tr>
             </thead>
             <tbody >
@@ -58,10 +60,37 @@
                         <th scope="row">{{$agenda->CODIGO}}</th>
                         <td>{{$agenda->CONTATO}}</td>
                         <td>{{$agenda->ASSUNTO}}</td>
+                        <td>{{$agenda->TELEFONE1}}</td>
                         <td>{{$agenda->TIPO}}</td>
                         <td>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        <td>{{$agenda->HORA_AGENDA}}</td>
-                        <td>{{$agenda->SITUACAO}}</td>
+                        <td class="@if($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif  font-weight-bold"><b>{{ $agenda->HORA_AGENDA }}<b>
+
+                        </td>
+                        <td class="@if($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) < time()) 
+                                        text-danger
+                                    @elseif($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) > time()) 
+                                        text-primary 
+                                    @else 
+                                        text-success
+                                    @endif "><b>{{ $agenda->SITUACAO }}</b>
+                        </td>
+                        <td>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                            <button type="button" class="btn btn-outline-warning">
+                            <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                            </butto>
+                            <button type="button" class="btn btn-outline-info" id='{{$agenda->CODIGO}}' onclick="viewUser('{{ $agenda->CODIGO }}')">
+                                <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
+                            </button>
+                        </div>
+                        </td> 
+                        
                     </tr>
                 @empty
                     <td></td>

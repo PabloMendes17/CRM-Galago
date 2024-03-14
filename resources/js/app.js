@@ -594,3 +594,7 @@ $(document).ready(function() {
         $('#Tipo').removeAttr('disabled');
     });
 });
+
+async function viewUser(id){
+    console.log(id);
+}
