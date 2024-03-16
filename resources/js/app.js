@@ -18,6 +18,13 @@ setInterval(atualizarHora, 1000);
 $(document).ready(function() {
     $('#Error').modal('show');
 });
+document.getElementById('FormInsert').addEventListener('submit', function(event) {
+    var situacao = document.getElementById('floatingSituacao').value;
+    if (situacao === null || situacao === ""|| situacao==='Selecione') {
+        alert('Por favor, selecione uma opção para a situação.');
+        event.preventDefault(); // Impede o envio do formulário
+    }
+});
 
 
 //Funções para viewAgenda
@@ -595,6 +602,28 @@ $(document).ready(function() {
     });
 });
 
-async function viewUser(id){
-    console.log(id);
+
+$(document).ready(function() {
+    $(document).on('click', '#viewDetalhes', function() {
+        var CODIGO = $(this).closest('tr').find('.codigo').text();
+        viewUser(CODIGO);
+    });
+});
+async function viewUser(CODIGO) {
+    const response = await fetch('/visualizar/' + CODIGO);
+    const data = await response.json();
+    const viewModelDetalhe= document.getElementById("DetalheRegistro");
+    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
+    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
+    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
+    }else{
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
+    }
+    document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
+    document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;
+    
+    $('#DetalheRegistro').modal('show');
+    console.log(data);
 }
+

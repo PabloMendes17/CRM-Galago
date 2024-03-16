@@ -39,7 +39,7 @@
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/PaginaPrincipal"'>Pagina Principal</a>
         <button type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</button>
     </div>
-    <div class="container-fluid" style="display: flex; justify-content: center;">
+    <div class="container-fluid" style="display: flex; justify-content: center;" id="ResultadoBusca">
         <table class="table table-striped table-hover">
             <thead >
                 <tr>
@@ -57,7 +57,7 @@
             <tbody >
                 @forelse($agenda as $agenda)
                     <tr>
-                        <th scope="row">{{$agenda->CODIGO}}</th>
+                        <th scope="row" class='codigo'>{{$agenda->CODIGO}}</th>
                         <td>{{$agenda->CONTATO}}</td>
                         <td>{{$agenda->ASSUNTO}}</td>
                         <td>{{$agenda->TELEFONE1}}</td>
@@ -85,7 +85,7 @@
                             <button type="button" class="btn btn-outline-warning">
                             <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
                             </butto>
-                            <button type="button" class="btn btn-outline-info" id='{{$agenda->CODIGO}}' onclick="viewUser('{{ $agenda->CODIGO }}')">
+                            <button type="button" class="btn btn-outline-info" id="viewDetalhes">
                                 <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
                             </button>
                         </div>
@@ -96,10 +96,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
                     <td></td>
                     <td></td>
                     <td></td>   
+                    <td></td>
                 @endforelse
             </tbody>
         </table>
@@ -186,11 +188,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAgenda1"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method=POST action="/Agendamento"> 
+                    <form class="row g-3" id="FormInsert" method=POST action="/Agendamento"> 
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" maxLength="6">
+                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" maxLength="6" required>
                                     <label for="inputCodClienteAG">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda" data-bs-target="#BuscaClienteAgenda" data-bs-toggle="modal">Busca</button>
@@ -242,7 +244,7 @@
                         <div class="col-4">
                             <div  class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required>
-                                <option selected>Selecione</option>
+                                <option selected disabled>Selecione</option>
                                 <option value="PENDENTE">PENDENTE</option>
                                 <option value="RESOLVIDO">RESOLVIDO</option>
                                 <option value="DIVERSOS">DIVERSOS</option>
@@ -310,9 +312,38 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="DetalheRegistro" tabindex="-1" aria-labelledby="DetalheRegistro" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Agendamento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Codigo do Cliente:</dt>
+                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
+                        <dt class="col-sm-4">Nome/Razão:</dt>
+                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
+                        <dt class="col-sm-4">CPF/CNPJ:</dt>
+                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
+                        
+                        <dt class="col-sm-4">Atendimento Nº:</dt>
+                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
+                        <dt class="col-sm-4"></dt>
+                        <dt class="col-sm-2">Detalhes:</dt>
+                        <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div> 
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>
+
+
+
 
 </body>
 </html>

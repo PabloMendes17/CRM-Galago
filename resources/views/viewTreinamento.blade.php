@@ -56,7 +56,7 @@
             <tbody >
                 @forelse($treinamento as $treinamentos)
                     <tr>
-                        <th scope="row">{{$treinamentos->CODIGO}}</th>
+                        <th scope="row" class='codigo'>{{$treinamentos->CODIGO}}</th>
                         <td>{{$treinamentos->CONTATO}}</td>
                         <td>{{$treinamentos->ASSUNTO}}</td>
                         <td>{{$treinamentos->TIPO}}</td>
@@ -81,13 +81,14 @@
                             <button type="button" class="btn btn-outline-warning">
                             <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
                             </butto>
-                            <button type="button" class="btn btn-outline-info" id='{{$treinamentos->CODIGO}}' data-bs-toggle="modal" data-bs-target="#DetalheTreinamento">
+                            <<button type="button" class="btn btn-outline-info" id="viewDetalhes">
                                 <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
                             </button>
                         </div>
                         </td>            
                     </tr>
                 @empty
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -182,7 +183,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaTreinamento1"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method=POST action="/Treinamento">
+                    <form class="row g-3"  id="FormInsert" method=POST action="/Treinamento">
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
@@ -305,98 +306,28 @@
             </div>
         </div>
     </div> 
-    <div class="modal fade" id="DetalheTreinamento" tabindex="-1" aria-labelledby="DetalhesTreinamento" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+    <div class="modal fade" id="DetalheRegistro" tabindex="-1" aria-labelledby="DetalheRegistro" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhe Treinamento</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheTreinamento1"></button>
+                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Treinamento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3">
-                        <div class=" col-2 ">
-                            <div class="input-group mb-3">
-                                <div class="form-floating">
-                                <input type="number" class="form-control" id="inputCodClienteTR" name="inputCodClienteTR" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <label for="floatingCod">Cod Cliente</label>
-                                </div>
-                                <button class="btn btn-outline-secondary" type="button" id="btBuscaTreinamento" data-bs-target="#BuscaClienteTreinamento" data-bs-toggle="modal">Busca</button>
-                            </div>
-                        </div>
-                        <div class=" col-8">
-                            <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="inputNomeClienteTR" name="inputNomeClienteTR" placeholder="Nome/Razão Social" disabled>
-                                <label for="floatingName">Nome/Razão Social</label>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="SUPORTE" disabled>
-                                <label for="floatingOp">Operador</label>  
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingContato" name="CONTATO" required>
-                                <label for="floatingContato">Cotato</label>  
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingAssunto" name="ASSUNTO" required>
-                                <label for="floatingAssunto">Assunto</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtRegistro" name="DATA_GRAVACAO" required>
-                                <label for="floatingDtRegistro">Data Registro</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" required>
-                                <label for="floatingDtAgenda">Data Agenda</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                                <input type="time" class="form-control" id="floatingHrAgenda" name="HORA_AGENDA"  required>
-                                <label for="floatingHrAgenda">Hora Agenda</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required>
-                                <option selected>Selecione</option>
-                                <option value="PENDENTE">PENDENTE</option>
-                                <option value="RESOLVIDO">RESOLVIDO</option>
-                                <option value="DIVERSOS">DIVERSOS</option>
-                                </select>
-                                <label for="floatingSituacao">Situacao</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Tipo" name="TIPO" value="TREINAMENTO" disabled>
-                                <label for="floatingTipo">Tipo</label>  
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Telefone" name="TELEFONE1" required>
-                                <label for="Telefone">Telefone</label>  
-                            </div>
-                        </div>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="Detalhes do Registro" id="floatingDetalhes" name="HISTORICO" style="height: 150px"></textarea>
-                            <label for="floatingDetalhes">Detalhes</label>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaTreinamento2">Fechar e Não Salvar</button>
-                            <input type="submit" class="btn btn-primary" id="btSalvaAtendimento"  value='Salvar Treinamento'>
-                        </div>
-                    </form>
+                    <dl class="row">
+                        <dt class="col-sm-4">Codigo do Cliente:</dt>
+                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
+                        <dt class="col-sm-4">Nome/Razão:</dt>
+                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
+                        <dt class="col-sm-4">CPF/CNPJ:</dt>
+                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
+                        
+                        <dt class="col-sm-4">Atendimento Nº:</dt>
+                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
+                        <dt class="col-sm-4"></dt>
+                        <dt class="col-sm-2">Detalhes:</dt>
+                        <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
+                    </dl>
                 </div>
             </div>
         </div>

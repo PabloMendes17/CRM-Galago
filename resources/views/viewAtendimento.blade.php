@@ -56,7 +56,7 @@
             <tbody >
                 @forelse($atendimento as $atendimentos)
                     <tr>
-                        <th scope="row">{{$atendimentos->CODIGO}}</th>
+                        <th scope="row" class='codigo'>{{$atendimentos->CODIGO}}</th>
                         <td>{{$atendimentos->CONTATO}}</td>
                         <td>{{$atendimentos->ASSUNTO}}</td>
                         <td>{{$atendimentos->TIPO}}</td>
@@ -83,7 +83,7 @@
                             <button type="button" class="btn btn-outline-warning">
                             <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
                             </butto>
-                            <button type="button" class="btn btn-outline-info" id='{{$atendimentos->CODIGO}}' data-bs-toggle="modal" data-bs-target="#DetalheTreinamento">
+                            <button type="button" class="btn btn-outline-info" id="viewDetalhes">
                                 <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
                             </button>
                         </div>
@@ -91,6 +91,7 @@
 
                     </tr>
                 @empty
+                    <td></td>   
                     <td></td>
                     <td></td>
                     <td></td>
@@ -185,7 +186,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAtendimento1"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="row g-3" method=POST action="/Atendimento">
+                    <form class="row g-3" id="FormInsert" method=POST action="/Atendimento">
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
@@ -240,7 +241,7 @@
                         <div class="col-4">
                             <div  class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required >
-                                <option selected>Selecione</option>
+                                <option selected disabled>Selecione</option>
                                 <option value="PENDENTE">PENDENTE</option>
                                 <option value="RESOLVIDO">RESOLVIDO</option>
                                 <option value="DIVERSOS">DIVERSOS</option>
@@ -308,6 +309,32 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="DetalheRegistro" tabindex="-1" aria-labelledby="DetalheRegistro" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Atendimento</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
+                </div>
+                <div class="modal-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">Codigo do Cliente:</dt>
+                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
+                        <dt class="col-sm-4">Nome/Razão:</dt>
+                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
+                        <dt class="col-sm-4">CPF/CNPJ:</dt>
+                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
+                        
+                        <dt class="col-sm-4">Atendimento Nº:</dt>
+                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
+                        <dt class="col-sm-4"></dt>
+                        <dt class="col-sm-2">Detalhes:</dt>
+                        <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div> 
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js"></script>

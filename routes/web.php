@@ -33,3 +33,5 @@ Route:: any('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos
 Route:: any('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
 Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
 Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
+
+Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);

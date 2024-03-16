@@ -10,6 +10,7 @@ class agenda extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'agenda';
+    protected $primaryKey = 'CODIGO';
     protected $fillable = [
         'CONTATO',
         'OPERADOR',

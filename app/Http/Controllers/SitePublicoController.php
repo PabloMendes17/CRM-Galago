@@ -768,6 +768,21 @@ class SitePublicoController extends Controller
         }
     }
 
+
+
+public function visualizarDetalhes($CODIGO) {
+    try {
+        $agenda = agenda::findOrFail($CODIGO);
+        $cliente = cliente::findOrFail($agenda->CLIENTE);
+
+        return response()->json(['agenda' => $agenda, 'cliente' => $cliente]);
+    } catch (Exception $e) {
+        $erroMsm='Não foi possível localizar o Registro, verifique os dados informados ou contate o resposável pelo sistema.'; 
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+}
+
+
     
     
 
