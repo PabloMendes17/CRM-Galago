@@ -1,5 +1,6 @@
 import './bootstrap';
 
+
 function atualizarHora() {
     var agora = new Date();
     var horaFormatada = agora.toLocaleString('pt-BR', {
@@ -18,36 +19,6 @@ setInterval(atualizarHora, 1000);
 $(document).ready(function() {
     $('#Error').modal('show');
 });
-document.getElementById('FormInsert').addEventListener('submit', function(event) {//Trata o comboList para não ser enviado a opção Selecione
-    var situacao = document.getElementById('floatingSituacao').value;
-    if (situacao === null || situacao === ""|| situacao==='Selecione') {
-        alert('Por favor, selecione uma opção para a situação.');
-        event.preventDefault(); 
-    }
-});
-$(document).ready(function() {//Chama a função que exibe detalhes
-    $(document).on('click', '#viewDetalhes', function() {
-        var CODIGO = $(this).closest('tr').find('.codigo').text();
-        viewUser(CODIGO);
-    });
-});
-async function viewUser(CODIGO) {//Exibe os detalhes do registro
-    const response = await fetch('/visualizar/' + CODIGO);
-    const data = await response.json();
-    const viewModelDetalhe= document.getElementById("DetalheRegistro");
-    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
-    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
-    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
-    }else{
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
-    }
-    document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
-    document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;
-    
-    $('#DetalheRegistro').modal('show');
-    console.log(data);
-}
 setInterval(function() {//Função para Destacar status e hora na lista
     var linhasBusca = document.querySelectorAll('tbody tr'); // armazena tada a tabela na variavel
 
@@ -106,6 +77,92 @@ setInterval(function() {//Função para Destacar status e hora na lista
     });    
 }, 1000);
 
+$(document).ready(function() {//Chama a função que exibe detalhes
+    $(document).on('click', '#viewDetalhes', function() {
+        var CODIGO = $(this).closest('tr').find('.codigo').text();
+        viewUser(CODIGO);
+    });
+});
+async function viewUser(CODIGO) {//Exibe os detalhes do registro
+    const response = await fetch('/visualizar/' + CODIGO);
+    const data = await response.json();
+    const viewModelDetalhe= document.getElementById("DetalheRegistro");
+    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
+    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
+    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
+    }else{
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
+    }
+    document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
+    document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;
+    
+    $('#DetalheRegistro').modal('show');
+
+}
+
+var codigoRegistro;
+var novaSituacao;
+$(document).ready(function() {//Chama a função que exibe detalhes
+    
+    $(document).on('click', '#updateSituacao', function() {
+        codigoRegistro = $(this).data('codigo');
+    });
+
+    $(document).on('click', '#btSalvaSituacao', function() {
+        novaSituacao=$('#situacaoSelecionada').val();
+    
+        updateSituacao(codigoRegistro,novaSituacao);
+    });
+});
+async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
+    try {
+        const response = await fetch('/updateSituacao/' + CODIGO, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            body: JSON.stringify({ SITUACAO: SITUACAO })
+        });
+
+        if (response.ok) {            
+
+            $('#NovaSituacao').modal('hide');
+
+            await Swal.fire({
+                title: "Alterada!",
+                text: "Situação atualizada com sucesso!",
+                icon: "success"
+              });
+
+            location.reload();
+            
+        } else {
+            alert('Falha ao atualizar a situação');
+            // Se desejar lidar com o caso de falha na atualização, você pode fazer aqui
+        }
+    } catch (error) {
+        console.error('Erro ao enviar requisição:', error);
+        // Se ocorrer algum erro durante o envio da requisição, ele será capturado aqui
+    }
+    
+}
+
+
+
+
+
+
+
+document.getElementById('FormInsert').addEventListener('submit', function(event) {//Trata o comboList para não ser enviado a opção Selecione
+    var situacao = document.getElementById('floatingSituacao').value;
+    if (situacao === null || situacao === ""|| situacao==='Selecione') {
+        alert('Por favor, selecione uma opção para a situação.');
+        event.preventDefault(); 
+    }
+});
+
 
 //Funções para viewAgenda
   $(function(){//Func Mascara Input DocFiltro
@@ -114,7 +171,6 @@ setInterval(function() {//Função para Destacar status e hora na lista
   
     $('#myInput').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
-        console.log('val', val);
         if (val.length <= 11) {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
@@ -153,7 +209,6 @@ function buscaPorID() { //Filtra Cli por Doc
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
             var tabelaHtml = $(response).find('#ClientesParaFiltro').html();
-            console.log(tabelaHtml);
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
@@ -233,7 +288,7 @@ $(function(){//Func Mascara Input DocAgenda
   
     $('#inputCliAgenda').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
-        console.log('val', val);
+
         if (val.length <= 11) {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
@@ -273,7 +328,6 @@ function buscaPorIdCLi() {//Filtra Cli por Doc Agenda
             // Busca na view somente a Tabela em html e armazena na variável
             
             var tabelaHtml = $(response).find('#ClientesParaAgenda').html();
-            console.log(tabelaHtml);
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaAgenda').hide();
 
@@ -414,7 +468,7 @@ $(function(){//Func Mascara Input DocAtendimento
   
     $('#inputCliAtendimento').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
-        console.log('val', val);
+
         if (val.length <= 11) {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
@@ -525,7 +579,7 @@ function buscaPorIdTr() { //Filtra Cli por Doc
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
-            console.log(tabelaHtml);
+
 
             if(tabelaHtml.trim===''){
                 $('#ClientesJaFiltrado').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
@@ -599,7 +653,7 @@ $(function(){//Func Mascara Input DocTreinamento
   
     $('#inputCliTreinamento').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
-        console.log('val', val);
+
         if (val.length <= 11) {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
@@ -647,7 +701,7 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
             
             if(tabelaHtml.trim=== ''){
                // $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
-                console.log('TanoIF');
+
             }else{
                 $('#ClientesNoTreinamento').html(tabelaHtml);
 

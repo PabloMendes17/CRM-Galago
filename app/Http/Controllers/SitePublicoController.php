@@ -789,6 +789,21 @@ class SitePublicoController extends Controller
         }
     }
 
+    public function alterarSituacao(Request $request, $codigo) {
+        try {
+            $agenda = Agenda::findOrFail($codigo); // Encontra o registro pelo código
+    
+            $agenda->update([
+                'SITUACAO' => $request->input('SITUACAO')
+            ]);
+    
+            return response()->json(['message' => 'Situação atualizada com sucesso']);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'Não foi possível atualizar a situação'], 500);
+        }
+    }
+    
+
 
     
     

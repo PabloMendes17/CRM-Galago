@@ -35,3 +35,5 @@ Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'Treinamentos
 Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
 
 Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
+Route::post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
+

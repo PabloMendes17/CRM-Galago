@@ -64,7 +64,7 @@
                         <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}<b></td>
                         <td class="SITUACAO"><b>{{ $treinamentos->SITUACAO }}</b></td>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                            <div class="btn-group btn-group-sm" role="group" id="updateSituacao" aria-label="Opções" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$treinamentos->CODIGO}}">
                                 <button type="button" class="btn btn-outline-warning">
                                 <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
                                 </button>
@@ -318,6 +318,35 @@
             </div>
         </div>
     </div> 
+    <div class="modal fade" id="NovaSituacao" tabindex="-1" aria-labelledby="NovaSituacao" aria-hidden="true">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="LabelRegistro">Nova Situacao </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaNovaSituacao2"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" id="FormInsert"> 
+                        <div class="col-12">
+                            <div  class="form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" id="situacaoSelecionada" name="SITUACAO" required>
+                                    <option selected disabled>Selecione</option>
+                                    @foreach($situacoes as $situacao)
+                                    <option value="{{$situacao->DESCRICAO}}">{{$situacao->DESCRICAO}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="floatingSituacao">Situacao</label>  
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="btFechaNovaSituacao2">Fechar e Não Salvar</button>
+                                <input type="button" class="btn btn-primary" id="btSalvaSituacao"  value='Salvar Situacao'>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
