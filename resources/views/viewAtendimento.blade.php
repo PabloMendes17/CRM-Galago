@@ -60,24 +60,9 @@
                         <td>{{$atendimentos->CONTATO}}</td>
                         <td>{{$atendimentos->ASSUNTO}}</td>
                         <td>{{$atendimentos->TIPO}}</td>
-                        <td>{{\Carbon\Carbon::parse($atendimentos->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        <td class="@if($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif  font-weight-bold"><b>{{ $atendimentos->HORA_AGENDA }}<b>
-
-                        </td>
-                        <td class="@if($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($atendimentos->SITUACAO == 'PENDENTE' && strtotime($atendimentos->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif "><b>{{ $atendimentos->SITUACAO }}</b>
-                        </td>
+                        <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($atendimentos->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        <td class="HORA_AGENDA"><b>{{ $atendimentos->HORA_AGENDA }}<b></td>
+                        <td class="SITUACAO"><b>{{ $atendimentos->SITUACAO }}</b></td>
                         <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
                             <button type="button" class="btn btn-outline-warning">
@@ -182,7 +167,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="AtendimentoLabel">Novo Atendimento</h1>
+                    <h1 class="modal-title fs-5" id="LabelRegistro">Novo Atendimento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAtendimento1"></button>
                 </div>
                 <div class="modal-body">
@@ -242,9 +227,9 @@
                             <div  class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required >
                                 <option selected disabled>Selecione</option>
-                                <option value="PENDENTE">PENDENTE</option>
-                                <option value="RESOLVIDO">RESOLVIDO</option>
-                                <option value="DIVERSOS">DIVERSOS</option>
+                                @foreach($situacoes as $situacao)
+                                <option value="{{$situacao->DESCRICAO}}">{{$situacao->DESCRICAO}}</option>
+                                @endforeach
                                 </select>
                                 <label for="floatingSituacao">Situacao</label>  
                             </div>
@@ -313,22 +298,21 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Atendimento</h1>
+                    <h1 class="modal-title fs-5" id="LabelDetalhes">Detalhes do Atendimento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
                 </div>
                 <div class="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-4">Codigo do Cliente:</dt>
-                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
-                        <dt class="col-sm-4">Nome/Razão:</dt>
-                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
-                        <dt class="col-sm-4">CPF/CNPJ:</dt>
-                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
-                        
-                        <dt class="col-sm-4">Atendimento Nº:</dt>
-                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
-                        <dt class="col-sm-4"></dt>
-                        <dt class="col-sm-2">Detalhes:</dt>
+                        <dt class="col-sm-3">Codigo do Cliente:</dt>
+                        <dt class="col-sm-9"><span id="RegistroCodCli"></span></dt>
+                        <dt class="col-sm-3">Nome/Razão:</dt>
+                        <dt class="col-sm-9"><span id="RegistroNameCli"></span></dt>
+                        <dt class="col-sm-3">CPF/CNPJ:</dt>
+                        <dt class="col-sm-9"><span id="RegistroDocCli"></span></dt>
+                        <br><br>
+                        <dt class="col-sm-3">Atendimento Nº:</dt>
+                        <dt class="col-sm-9"><span id="codigoRegistro"></span></dt>
+                        <dt class="col-sm-3">Detalhes:</dt>
                         <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
                     </dl>
                 </div>

@@ -60,31 +60,18 @@
                         <td>{{$treinamentos->CONTATO}}</td>
                         <td>{{$treinamentos->ASSUNTO}}</td>
                         <td>{{$treinamentos->TIPO}}</td>
-                        <td>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        
-                        <td class="@if($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif  font-weight-bold"><b>{{ $treinamentos->HORA_AGENDA }}<b></td>
-                        <td class="@if($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($treinamentos->SITUACAO == 'PENDENTE' && strtotime($treinamentos->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif "><b>{{ $treinamentos->SITUACAO }}</b></td>
+                        <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}<b></td>
+                        <td class="SITUACAO"><b>{{ $treinamentos->SITUACAO }}</b></td>
                         <td>
-                        <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
-                            <button type="button" class="btn btn-outline-warning">
-                            <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
-                            </butto>
-                            <<button type="button" class="btn btn-outline-info" id="viewDetalhes">
-                                <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
-                            </button>
-                        </div>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                                <button type="button" class="btn btn-outline-warning">
+                                <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                                </button>
+                                <button type="button" class="btn btn-outline-info" id="viewDetalhes">
+                                    <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
+                                </button>
+                            </div>
                         </td>            
                     </tr>
                 @empty
@@ -179,7 +166,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Novo Treinamento</h1>
+                    <h1 class="modal-title fs-5" id="LabelRegistro">Novo Treinamento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaTreinamento1"></button>
                 </div>
                 <div class="modal-body">
@@ -239,9 +226,9 @@
                             <div  class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required>
                                 <option selected>Selecione</option>
-                                <option value="PENDENTE">PENDENTE</option>
-                                <option value="RESOLVIDO">RESOLVIDO</option>
-                                <option value="DIVERSOS">DIVERSOS</option>
+                                @foreach($situacoes as $situacao)
+                                <option value="{{$situacao->DESCRICAO}}">{{$situacao->DESCRICAO}}</option>
+                                @endforeach
                                 </select>
                                 <label for="floatingSituacao">Situacao</label>  
                             </div>
@@ -310,23 +297,22 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Treinamento</h1>
+                    <h1 class="modal-title fs-5" id="LabelDetalhes">Detalhes do Treinamento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
                 </div>
                 <div class="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-4">Codigo do Cliente:</dt>
-                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
-                        <dt class="col-sm-4">Nome/Razão:</dt>
-                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
-                        <dt class="col-sm-4">CPF/CNPJ:</dt>
-                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
-                        
-                        <dt class="col-sm-4">Atendimento Nº:</dt>
-                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
-                        <dt class="col-sm-4"></dt>
-                        <dt class="col-sm-2">Detalhes:</dt>
-                        <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
+                        <dt class="col-sm-3">Codigo do Cliente:</dt>
+                        <dd class="col-sm-9"><span id="RegistroCodCli"></span></dd>
+                        <dt class="col-sm-3">Nome/Razão:</dt>
+                        <dd class="col-sm-9"><span id="RegistroNameCli"></span></dd>
+                        <dt class="col-sm-3">CPF/CNPJ:</dt>
+                        <dd class="col-sm-9"><span id="RegistroDocCli"></span></dd>
+                        <br><br>
+                        <dt class="col-sm-3">Atendimento Nº:</dt>
+                        <dd class="col-sm-9"><span id="codigoRegistro"></span></dd>
+                        <dt class="col-sm-3">Detalhes:</dt>
+                        <dd class="col-sm-9"><span id="detalhesRegistro"></span></dd><br>
                     </dl>
                 </div>
             </div>

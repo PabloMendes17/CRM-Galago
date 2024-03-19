@@ -62,24 +62,9 @@
                         <td>{{$agenda->ASSUNTO}}</td>
                         <td>{{$agenda->TELEFONE1}}</td>
                         <td>{{$agenda->TIPO}}</td>
-                        <td>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        <td class="@if($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif  font-weight-bold"><b>{{ $agenda->HORA_AGENDA }}<b>
-
-                        </td>
-                        <td class="@if($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) < time()) 
-                                        text-danger
-                                    @elseif($agenda->SITUACAO == 'PENDENTE' && strtotime($agenda->HORA_AGENDA) > time()) 
-                                        text-primary 
-                                    @else 
-                                        text-success
-                                    @endif "><b>{{ $agenda->SITUACAO }}</b>
-                        </td>
+                        <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
+                        <td class="HORA_AGENDA"><b>{{ $agenda->HORA_AGENDA }}<b></td>
+                        <td class="SITUACAO"><b>{{ $agenda->SITUACAO }}</b></td>
                         <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
                             <button type="button" class="btn btn-outline-warning">
@@ -184,7 +169,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="AgendaLabel">Nova Agenda</h1>
+                    <h1 class="modal-title fs-5" id="LabelRegistro">Nova Agenda</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaAgenda1"></button>
                 </div>
                 <div class="modal-body">
@@ -245,9 +230,9 @@
                             <div  class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example" id="floatingSituacao" name="SITUACAO" required>
                                 <option selected disabled>Selecione</option>
-                                <option value="PENDENTE">PENDENTE</option>
-                                <option value="RESOLVIDO">RESOLVIDO</option>
-                                <option value="DIVERSOS">DIVERSOS</option>
+                                @foreach($situacoes as $situacao)
+                                <option value="{{$situacao->DESCRICAO}}">{{$situacao->DESCRICAO}}</option>
+                                @endforeach
                                 </select>
                                 <label for="floatingSituacao">Situacao</label>  
                             </div>
@@ -316,22 +301,21 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="TreinamentoLabel">Detalhes do Agendamento</h1>
+                    <h1 class="modal-title fs-5" id="LabelDetalhes">Detalhes do Agendamento</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="btFechaDetalheRegistro"></button>
                 </div>
                 <div class="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-4">Codigo do Cliente:</dt>
-                        <dt class="col-sm-8"><span id="RegistroCodCli"></span></dt>
-                        <dt class="col-sm-4">Nome/Razão:</dt>
-                        <dt class="col-sm-8"><span id="RegistroNameCli"></span></dt>
-                        <dt class="col-sm-4">CPF/CNPJ:</dt>
-                        <dt class="col-sm-8"><span id="RegistroDocCli"></span></dt>
-                        
-                        <dt class="col-sm-4">Atendimento Nº:</dt>
-                        <dt class="col-sm-4"><span id="codigoRegistro"></span></dt>
-                        <dt class="col-sm-4"></dt>
-                        <dt class="col-sm-2">Detalhes:</dt>
+                        <dt class="col-sm-3">Codigo do Cliente:</dt>
+                        <dt class="col-sm-9"><span id="RegistroCodCli"></span></dt>
+                        <dt class="col-sm-3">Nome/Razão:</dt>
+                        <dt class="col-sm-9"><span id="RegistroNameCli"></span></dt>
+                        <dt class="col-sm-3">CPF/CNPJ:</dt>
+                        <dt class="col-sm-9"><span id="RegistroDocCli"></span></dt>
+                        <br><br>
+                        <dt class="col-sm-3">Atendimento Nº:</dt>
+                        <dt class="col-sm-9"><span id="codigoRegistro"></span></dt>
+                        <dt class="col-sm-3">Detalhes:</dt>
                         <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
                     </dl>
                 </div>

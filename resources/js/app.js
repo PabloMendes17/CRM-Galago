@@ -18,13 +18,93 @@ setInterval(atualizarHora, 1000);
 $(document).ready(function() {
     $('#Error').modal('show');
 });
-document.getElementById('FormInsert').addEventListener('submit', function(event) {
+document.getElementById('FormInsert').addEventListener('submit', function(event) {//Trata o comboList para não ser enviado a opção Selecione
     var situacao = document.getElementById('floatingSituacao').value;
     if (situacao === null || situacao === ""|| situacao==='Selecione') {
         alert('Por favor, selecione uma opção para a situação.');
-        event.preventDefault(); // Impede o envio do formulário
+        event.preventDefault(); 
     }
 });
+$(document).ready(function() {//Chama a função que exibe detalhes
+    $(document).on('click', '#viewDetalhes', function() {
+        var CODIGO = $(this).closest('tr').find('.codigo').text();
+        viewUser(CODIGO);
+    });
+});
+async function viewUser(CODIGO) {//Exibe os detalhes do registro
+    const response = await fetch('/visualizar/' + CODIGO);
+    const data = await response.json();
+    const viewModelDetalhe= document.getElementById("DetalheRegistro");
+    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
+    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
+    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
+    }else{
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
+    }
+    document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
+    document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;
+    
+    $('#DetalheRegistro').modal('show');
+    console.log(data);
+}
+setInterval(function() {//Função para Destacar status e hora na lista
+    var linhasBusca = document.querySelectorAll('tbody tr'); // armazena tada a tabela na variavel
+
+    linhasBusca.forEach(function(linha) {
+        var horaAgendaElemento = linha.querySelector('.HORA_AGENDA');
+        var dataAgendaElemento = linha.querySelector('.DATA_AGENDA');
+        var situacaoElemento = linha.querySelector('.SITUACAO');
+
+        var horaAgendaRaw = horaAgendaElemento.textContent.trim();
+        var dataAgendaRaw = dataAgendaElemento.textContent.trim();
+        var situacao = situacaoElemento.textContent.trim();
+
+        var horaAgendaComponents = horaAgendaRaw.split(':');
+        var dataAgendaComponents = dataAgendaRaw.split('/');
+
+        var horaAgenda = new Date();// cria um objeto hora para comparar
+        horaAgenda.setHours(parseInt(horaAgendaComponents[0], 10));
+        horaAgenda.setMinutes(parseInt(horaAgendaComponents[1], 10));
+
+        var dataAgenda = new Date();// cria um objeto Data para comparar
+        dataAgenda.setFullYear(parseInt(dataAgendaComponents[2], 10));
+        dataAgenda.setMonth(parseInt(dataAgendaComponents[1], 10) - 1);
+        dataAgenda.setDate(parseInt(dataAgendaComponents[0], 10));
+
+        var dataAtual = new Date();
+        var horaAtual = dataAtual.getTime();
+
+        if(dataAgenda >= dataAtual){//troca a classe php para as linhas
+            if( horaAgenda.getTime() <= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+                horaAgendaElemento.classList.add('text-danger');
+                situacaoElemento.classList.add('text-danger');
+            }else if(horaAgenda.getTime() > horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+                horaAgendaElemento.classList.add('text-primary');
+                situacaoElemento.classList.add('text-primary');
+            }else if (situacao === 'RESOLVIDO') {
+                horaAgendaElemento.classList.add('text-success');
+                situacaoElemento.classList.add('text-success');
+            } else if (situacao === 'REAGENDADO') {
+                horaAgendaElemento.classList.add('text-warning');
+                situacaoElemento.classList.add('text-warning');
+            }
+
+        }else{
+            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
+                horaAgendaElemento.classList.add('text-danger');
+                situacaoElemento.classList.add('text-danger');  
+            }else if (situacao === 'RESOLVIDO') {
+                horaAgendaElemento.classList.add('text-success');
+                situacaoElemento.classList.add('text-success');
+            } else if (situacao === 'REAGENDADO') {
+                horaAgendaElemento.classList.add('text-warning');
+                situacaoElemento.classList.add('text-warning');
+            }
+        }
+       
+    });    
+}, 1000);
 
 
 //Funções para viewAgenda
@@ -232,6 +312,7 @@ $(document).ready(function() {
         $('#Tipo').removeAttr('disabled');
     });
 });
+
 
 //Funções para Atendimento
 $(document).ready(function() {//Valida CPF&CNPJ
@@ -603,27 +684,5 @@ $(document).ready(function() {
 });
 
 
-$(document).ready(function() {
-    $(document).on('click', '#viewDetalhes', function() {
-        var CODIGO = $(this).closest('tr').find('.codigo').text();
-        viewUser(CODIGO);
-    });
-});
-async function viewUser(CODIGO) {
-    const response = await fetch('/visualizar/' + CODIGO);
-    const data = await response.json();
-    const viewModelDetalhe= document.getElementById("DetalheRegistro");
-    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
-    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
-    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
-    }else{
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
-    }
-    document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
-    document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;
-    
-    $('#DetalheRegistro').modal('show');
-    console.log(data);
-}
+
 

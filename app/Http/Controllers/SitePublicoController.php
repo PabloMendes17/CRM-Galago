@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\agenda;
 use App\Models\cliente;
+use App\Models\SITUACAO_AGENDA;
 
 
 class SitePublicoController extends Controller
@@ -42,6 +43,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -56,12 +58,12 @@ class SitePublicoController extends Controller
                                ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                ->get();
         
-                return view(' viewAgenda',['agenda'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
        
@@ -73,12 +75,12 @@ class SitePublicoController extends Controller
                                 ->where('agenda.cliente','=',$request->inputCodCliente)
                                 ->get();
         
-                return view(' viewAgenda',['agenda'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
 
@@ -90,12 +92,12 @@ class SitePublicoController extends Controller
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                 ->get();
         
-                return view(' viewAgenda',['agenda'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
         }
@@ -106,12 +108,12 @@ class SitePublicoController extends Controller
 
                 $allClientes=cliente::where('clientes.CPF','=',$request->inputCliAgenda)->get();
                                    
-                return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
          
@@ -121,12 +123,12 @@ class SitePublicoController extends Controller
                 
                 $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')->get();
         
-                return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
         }else if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))<14){
@@ -134,12 +136,12 @@ class SitePublicoController extends Controller
             try{
                 $allClientes=cliente::where('clientes.codigo','=',$request->inputCliAgenda)->get();
         
-                return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
         }
@@ -150,12 +152,12 @@ class SitePublicoController extends Controller
 
                 $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
                                         
-                return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
                     
@@ -165,16 +167,16 @@ class SitePublicoController extends Controller
                             
                 $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
             
-                return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
             }catch(Exception $e){
 
                 $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
                                         'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
             }
-        }    return view(' viewAgenda',['agenda'=> $agenda],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);    
-    
+        }    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);    
+        
         }catch(Exception $e){
 
             $erroMsm='Não foi possível acessar o serviço, tente novamente mais tarde ou entre em contato com o responsável do sistema.'; 
@@ -225,7 +227,7 @@ class SitePublicoController extends Controller
                 $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
                 $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
                                 
-                return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
+                return view('viewAgendamentosFiltrados',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes]);
                 
             }else{
 
@@ -236,7 +238,7 @@ class SitePublicoController extends Controller
             
             $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
                 
-            return view('viewAgendamentosFiltrados',['agenda'=> $agenda],['clientes'=> $allClientes]);
+            return view('viewAgendamentosFiltrados',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes]);
         }
     }
     public function CadastrarAgendamentos(Request $request){
@@ -252,6 +254,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -281,7 +284,7 @@ class SitePublicoController extends Controller
         }catch(Exception $e){
 
             $erroMsm='Não foi possível registrar o Treinamento, verifique os dados informados ou contate o resposável pelo sistema.';           
-            return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,
+            return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes,'situacoes'=>$Situacoes,
                                     'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
 
         }
@@ -300,6 +303,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -316,7 +320,7 @@ class SitePublicoController extends Controller
                                     ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                     ->get();
             
-                    return view(' viewAtendimento',['atendimento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
                 }catch(Exception $e){
 
                     $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
@@ -331,7 +335,7 @@ class SitePublicoController extends Controller
                     ->where('agenda.cliente','=',$request->inputCodCliente)
                     ->get();
 
-                    return view(' viewAtendimento',['atendimento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
                 }catch(Exception $e){
 
                     $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
@@ -346,7 +350,7 @@ class SitePublicoController extends Controller
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                 ->get();
         
-                    return view(' viewAtendimento',['atendimento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
@@ -361,7 +365,7 @@ class SitePublicoController extends Controller
                 try{
                     $allClientes=cliente::where('clientes.CPF','=',$request->inputCliAtendimento)->get();
                                 
-                    return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
                     
                 }catch(Exception $e){
 
@@ -375,7 +379,7 @@ class SitePublicoController extends Controller
                                     
                     $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->inputCliAtendimento.'%')->get();
             
-                    return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
@@ -391,7 +395,7 @@ class SitePublicoController extends Controller
                                     
                 $allClientes=cliente::where('clientes.codigo','=',$request->inputCliAtendimento)->get();
         
-                return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
@@ -408,7 +412,7 @@ class SitePublicoController extends Controller
                             
                     $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
                                         
-                    return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
@@ -424,7 +428,7 @@ class SitePublicoController extends Controller
                                 
                     $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
             
-                    return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes , 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
                     
                 }catch(Exception $e){
 
@@ -434,9 +438,9 @@ class SitePublicoController extends Controller
                 }
 
             }
-
+            
        
-        return view(' viewAtendimento',['atendimento'=> $atendimentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);       
+        return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes , 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);       
 
         }catch(Exception $e){
 
@@ -489,6 +493,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -518,7 +523,7 @@ class SitePublicoController extends Controller
         }catch(Exception $e){
 
             $erroMsm='Não foi possível gravar seu Atendimento, verifique os dados informados ou contate o resposável pelo sistema.';           
-            return response()->view('viewAtendimento',['atendimento' => $atendimentos, 'clientes' => $allClientes,
+            return response()->view('viewAtendimento',['atendimento' => $atendimentos, 'clientes' => $allClientes,'situacoes'=>$Situacoes,
                                     'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
 
         }        
@@ -537,6 +542,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -552,11 +558,11 @@ class SitePublicoController extends Controller
                     ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                     ->get();
 
-                    return view(' viewTreinamento',['treinamento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
                     $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
@@ -568,11 +574,11 @@ class SitePublicoController extends Controller
                                 ->where('agenda.cliente','=',$request->inputCodCliente)
                                 ->get();
         
-                    return view(' viewTreinamento',['treinamento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
                     
                 }catch(Exception $e){
                     $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
@@ -584,11 +590,11 @@ class SitePublicoController extends Controller
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                 ->get();
         
-                    return view(' viewTreinamento',['treinamento'=> $Filtro],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
                     $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
@@ -600,12 +606,12 @@ class SitePublicoController extends Controller
                         
                     $allClientes=cliente::where('clientes.CPF','=',$request->inputCliTreinamento)->get();
                                     
-                    return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
                     $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
@@ -617,12 +623,12 @@ class SitePublicoController extends Controller
                                      
                     $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->inputCliTreinamento.'%')->get();
             
-                    return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
                         $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                        return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+                        return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                                 'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
                 }
 
@@ -633,12 +639,12 @@ class SitePublicoController extends Controller
 
                     $allClientes=cliente::where('clientes.codigo','=',$request->inputCliTreinamento)->get();
             
-                    return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
                     $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
 
                 }
@@ -651,12 +657,12 @@ class SitePublicoController extends Controller
                 try{
                     $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
                                     
-                    return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
                     $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
@@ -666,19 +672,19 @@ class SitePublicoController extends Controller
                 try{
                     $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
         
-                    return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
                     $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
 
                 }
             }
 
         
-        return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes])->with('DATA',$formatted_dateCarbon);   
+        return view(' viewTreinamento',['treinamento'=> $treinamentos],['clientes'=> $allClientes,'situacoes'=> $Situacoes])->with('DATA',$formatted_dateCarbon);   
 
         }catch(Exception $e){
             
@@ -736,6 +742,7 @@ class SitePublicoController extends Controller
 
             $dataAtual = Carbon::now()->toDateString();
             $allClientes=cliente::all();
+            $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
@@ -763,24 +770,24 @@ class SitePublicoController extends Controller
 
         }catch(Exception $e){
             $erroMsm='Não foi possível registrar o Treinamento, verifique os dados informados ou contate o resposável pelo sistema.';           
-            return response()->view('viewAtendimento',['atendimento' => $treinamentos, 'clientes' => $allClientes,
+            return response()->view('viewAtendimento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=>$Situacoes,
                                     'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         }
     }
 
 
 
-public function visualizarDetalhes($CODIGO) {
-    try {
-        $agenda = agenda::findOrFail($CODIGO);
-        $cliente = cliente::findOrFail($agenda->CLIENTE);
+    public function visualizarDetalhes($CODIGO) {
+        try {
+            $agenda = agenda::findOrFail($CODIGO);
+            $cliente = cliente::findOrFail($agenda->CLIENTE);
 
-        return response()->json(['agenda' => $agenda, 'cliente' => $cliente]);
-    } catch (Exception $e) {
-        $erroMsm='Não foi possível localizar o Registro, verifique os dados informados ou contate o resposável pelo sistema.'; 
-        return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['agenda' => $agenda, 'cliente' => $cliente]);
+        } catch (Exception $e) {
+            $erroMsm='Não foi possível localizar o Registro, verifique os dados informados ou contate o resposável pelo sistema.'; 
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
-}
 
 
     
