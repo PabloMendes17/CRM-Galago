@@ -61,19 +61,19 @@
                         <td>{{$treinamentos->ASSUNTO}}</td>
                         <td>{{$treinamentos->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}<b></td>
+                        <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}</b></td>
                         <td class="SITUACAO"><b>{{ $treinamentos->SITUACAO }}</b></td>
                         <td>
-                            <div class="btn-group btn-group-sm" role="group" id="updateSituacao" aria-label="Opções" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$treinamentos->CODIGO}}">
-                                <button type="button" class="btn btn-outline-warning">
-                                <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                                <button type="button" class="btn btn-outline-warning" id="updateSituacao" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$treinamentos->CODIGO}}">
+                                    <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
                                 </button>
                                 <button type="button" class="btn btn-outline-info" id="viewDetalhes">
                                     <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
                                 </button>
                             </div>
                         </td>            
-                    </tr>
+                    </tr>   
                 @empty
                     <td></td>
                     <td></td>

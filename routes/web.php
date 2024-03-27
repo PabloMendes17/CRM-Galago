@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\ParametrosController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sitePublicoController;
-use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,10 @@ use App\Http\Controllers\ProdutoController;
     return view('welcome');
 });*/
 
+//Route:: get('/login', [LoginController::class,'showLoginForm'])->name('login');
+Route:: view('/login', 'auth.login')->name('auth.login');
+Route:: post('/autenticar',[LoginController::class,'autenticar']);
+
 Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal']);
 
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
@@ -35,5 +39,5 @@ Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'Treinamentos
 Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
 
 Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
-Route::post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
+Route:: post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
 

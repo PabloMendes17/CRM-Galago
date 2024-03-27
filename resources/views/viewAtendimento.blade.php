@@ -61,13 +61,13 @@
                         <td>{{$atendimentos->ASSUNTO}}</td>
                         <td>{{$atendimentos->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($atendimentos->DATA_AGENDA)->format('d/m/Y')}}</td>
-                        <td class="HORA_AGENDA"><b>{{ $atendimentos->HORA_AGENDA }}<b></td>
+                        <td class="HORA_AGENDA"><b>{{ $atendimentos->HORA_AGENDA }}</b></td>
                         <td class="SITUACAO"><b>{{ $atendimentos->SITUACAO }}</b></td>
                         <td>
-                        <div class="btn-group btn-group-sm" role="group" id="updateSituacao" aria-label="Opções" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$atendimentos->CODIGO}}">
-                            <button type="button" class="btn btn-outline-warning">
-                            <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
-                            </butto>
+                        <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
+                            <button type="button" class="btn btn-outline-warning" id="updateSituacao" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$atendimentos->CODIGO}}">
+                                <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                            </button>
                             <button type="button" class="btn btn-outline-info" id="viewDetalhes">
                                 <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
                             </button>

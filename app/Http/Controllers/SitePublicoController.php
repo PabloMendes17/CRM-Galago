@@ -775,8 +775,6 @@ class SitePublicoController extends Controller
         }
     }
 
-
-
     public function visualizarDetalhes($CODIGO) {
         try {
             $agenda = agenda::findOrFail($CODIGO);
@@ -788,7 +786,6 @@ class SitePublicoController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-
     public function alterarSituacao(Request $request, $codigo) {
         try {
             $agenda = Agenda::findOrFail($codigo); // Encontra o registro pelo código

@@ -23,10 +23,12 @@ setInterval(function() {//Função para Destacar status e hora na lista
     var linhasBusca = document.querySelectorAll('tbody tr'); // armazena tada a tabela na variavel
 
     linhasBusca.forEach(function(linha) {
+        
         var horaAgendaElemento = linha.querySelector('.HORA_AGENDA');
         var dataAgendaElemento = linha.querySelector('.DATA_AGENDA');
         var situacaoElemento = linha.querySelector('.SITUACAO');
-
+    
+        if (horaAgendaElemento && dataAgendaElemento && situacaoElemento) {
         var horaAgendaRaw = horaAgendaElemento.textContent.trim();
         var dataAgendaRaw = dataAgendaElemento.textContent.trim();
         var situacao = situacaoElemento.textContent.trim();
@@ -47,10 +49,10 @@ setInterval(function() {//Função para Destacar status e hora na lista
         var horaAtual = dataAtual.getTime();
 
         if(dataAgenda >= dataAtual){//troca a classe php para as linhas
-            if( horaAgenda.getTime() <= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+            if( horaAgenda.getTime() < horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
                 horaAgendaElemento.classList.add('text-danger');
                 situacaoElemento.classList.add('text-danger');
-            }else if(horaAgenda.getTime() > horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+            }else if(horaAgenda.getTime() >= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
                 horaAgendaElemento.classList.add('text-primary');
                 situacaoElemento.classList.add('text-primary');
             }else if (situacao === 'RESOLVIDO') {
@@ -74,7 +76,7 @@ setInterval(function() {//Função para Destacar status e hora na lista
             }
         }
        
-    });    
+    }});    
 }, 1000);
 
 $(document).ready(function() {//Chama a função que exibe detalhes
@@ -107,6 +109,7 @@ $(document).ready(function() {//Chama a função que exibe detalhes
     
     $(document).on('click', '#updateSituacao', function() {
         codigoRegistro = $(this).data('codigo');
+
     });
 
     $(document).on('click', '#btSalvaSituacao', function() {
@@ -140,6 +143,8 @@ async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
             
         } else {
             alert('Falha ao atualizar a situação');
+            console.log(CODIGO);
+            console.log(SITUACAO);
             // Se desejar lidar com o caso de falha na atualização, você pode fazer aqui
         }
     } catch (error) {
@@ -148,13 +153,6 @@ async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
     }
     
 }
-
-
-
-
-
-
-
 document.getElementById('FormInsert').addEventListener('submit', function(event) {//Trata o comboList para não ser enviado a opção Selecione
     var situacao = document.getElementById('floatingSituacao').value;
     if (situacao === null || situacao === ""|| situacao==='Selecione') {
@@ -268,19 +266,20 @@ function buscaIdCLi(idCli) {//Filtra Cli por Doc Agenda
         });
     }
 }
-document.addEventListener('DOMContentLoaded', function () {//Evita o envio com enter da modal NovaAgenda
-    document.getElementById('NovaAgenda').addEventListener('keydown', function (event) {
-        
-        if (event.key === 'Enter') {
-            
-            event.preventDefault();
-            const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
-
-            if (this.elements[index]) {
-                this.elements[index].focus();
+document.addEventListener('DOMContentLoaded', function () {
+    var novaAgendaElement = document.getElementById('NovaAgenda');
+    
+    if (novaAgendaElement) {
+        novaAgendaElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
+                if (this.elements[index]) {
+                    this.elements[index].focus();
+                }
             }
-        }
-    });
+        });
+    }
 });
 $(function(){//Func Mascara Input DocAgenda
     $('#cpf').mask('999.999.999-99');
@@ -449,18 +448,19 @@ function buscaIdCliAt(idCli) {//Filtra Cli por Doc Atendimento
     }
 }
 document.addEventListener('DOMContentLoaded', function () {//Evita o envio com enter da modal NovoAtendimento
-    document.getElementById('NovoAtendimento').addEventListener('keydown', function (event) {
-        
-        if (event.key === 'Enter') {
-            
-            event.preventDefault();
-            const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
-
-            if (this.elements[index]) {
-                this.elements[index].focus();
+    var novoAtendimentoElement = document.getElementById('NovoAtendimento');
+    
+    if (novoAtendimentoElement) {
+        novoAtendimentoElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
+                if (this.elements[index]) {
+                    this.elements[index].focus();
+                }
             }
-        }
-    });
+        });
+    }
 });
 $(function(){//Func Mascara Input DocAtendimento
     $('#cpf').mask('999.999.999-99');
@@ -634,18 +634,19 @@ function buscaIdCliTr(idCli) {//Filtra Cli por Doc Treinamento
     }
 }
 document.addEventListener('DOMContentLoaded', function () {//Evita o envio com enter da modal NovoTreinamento
-    document.getElementById('NovoTreinamento').addEventListener('keydown', function (event) {
-        
-        if (event.key === 'Enter') {
-            
-            event.preventDefault();
-            const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
-
-            if (this.elements[index]) {
-                this.elements[index].focus();
+    var novoTreinamentoElement = document.getElementById('NovoTreinamento');
+    
+    if (novoTreinamentoElement) {
+        novoTreinamentoElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
+                if (this.elements[index]) {
+                    this.elements[index].focus();
+                }
             }
-        }
-    });
+        });
+    }
 });
 $(function(){//Func Mascara Input DocTreinamento
     $('#cpf').mask('999.999.999-99');
