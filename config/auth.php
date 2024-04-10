@@ -38,11 +38,6 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
-    
-        'vendedor' => [
-            'driver' => 'eloquent',
             'provider' => 'vendedor',
         ],
     ],
@@ -103,6 +98,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'vendedor' => [
+            'provider' => 'vendedor',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

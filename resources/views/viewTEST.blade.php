@@ -1,5 +1,5 @@
 <html>
     <p>Funcionando</p><br>
-    <p>{{$requisicao}}</p><br> 
+    <p>{{$dados}}</p><br> 
 
 </html>

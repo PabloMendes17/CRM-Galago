@@ -29,7 +29,11 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                usuario@galago.com.br<br/>
+
+            @if (isset($user))
+                 <p> {{ $user->email}}</p>
+            @endif
+
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>

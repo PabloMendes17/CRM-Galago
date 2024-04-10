@@ -20,11 +20,12 @@ use App\Http\Controllers\Auth\LoginController;
     return view('welcome');
 });*/
 
-//Route:: get('/login', [LoginController::class,'showLoginForm'])->name('login');
-Route:: view('/login', 'auth.login')->name('auth.login');
-Route:: post('/autenticar',[LoginController::class,'autenticar']);
 
-Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal']);
+Route:: get('/',[LoginController::class,'login'])->name('login');
+Route:: post('/autenticar',[LoginController::class,'autenticar'])->name('autenticar');
+Route:: get('/naoatenticado', function () { return view('viewTEST');})->name('Naoatenticado');
+
+Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
 
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);

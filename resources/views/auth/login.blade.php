@@ -7,26 +7,8 @@
     <title>CRM-Suporte</title>
     
 </head>
-<body >
-     @if(isset($error))
-        <p>ERRO<p>
-        <div class="modal" id="Error"  tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Atenção</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>{{$error}}</p>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endif
-    <div id="layoutAuthentication">
+<body>
+    <div >
         <div id="layoutAuthentication_content"  style="margin-bottom: 4.55em";>
             <main>
                 <div class="container">
@@ -40,12 +22,17 @@
                                 </div>
                                 <div class="card-body">
                                     <form method="POST" action="/autenticar">
+                                        @if (isset($error))
+                                            <div class="alert alert-danger" role="alert">
+                                                <p>{{$error}}</p>
+                                            </div>
+                                        @endif
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="EMAIL"/>
                                             <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="SENHA"/>
+                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="SENHA" riquired/>
                                             <label for="inputPassword">Senha</label>
                                         </div>
                                         <div class="form-check mb-3">

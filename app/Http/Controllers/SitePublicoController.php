@@ -50,133 +50,133 @@ class SitePublicoController extends Controller
                 ->orderBy('agenda.hora_agenda')
                 ->get();
          
-        if(isset($request->inputCodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
+            if(isset($request->inputCodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
 
-            try{
-                $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                               ->where('agenda.cliente','=',$request->inputCodCliente)
-                               ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                               ->get();
-        
-                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-       
-        }else if(isset($request->inputCodCliente)){
-
-            try{
-                        
-                $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                try{
+                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
                                 ->where('agenda.cliente','=',$request->inputCodCliente)
-                                ->get();
-        
-                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-
-        }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
-
-            try{
-                        
-                $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                 ->get();
-        
-                return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-        }
-
-        if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))==14){
-
-            try{
-
-                $allClientes=cliente::where('clientes.CPF','=',$request->inputCliAgenda)->get();
-                                   
-                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-         
-        }else if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))==18){
             
-            try{
-                
-                $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')->get();
+                    return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
         
-                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+            }else if(isset($request->inputCodCliente)){
 
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-        }else if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))<14){
-            
-            try{
-                $allClientes=cliente::where('clientes.codigo','=',$request->inputCliAgenda)->get();
-        
-                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-        }
-
-        if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
-                
-            try{
-
-                $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
-                                        
-                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
-
-            }catch(Exception $e){
-
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
-            }
-                    
-        }else  if(null!==$request->input('myInput')&& strlen($request->input('myInput'))>14){
-
-            try{
+                try{
                             
-                $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
+                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                                    ->where('agenda.cliente','=',$request->inputCodCliente)
+                                    ->get();
             
-                return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+                    return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
-            }catch(Exception $e){
+                }catch(Exception $e){
 
-                $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
-                return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
-                                        'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+
+            }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
+
+                try{
+                            
+                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                                    ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                                    ->get();
+            
+                    return view(' viewAgenda',['agenda'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
             }
-        }    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);    
-        
+
+            if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))==14){
+
+                try{
+
+                    $allClientes=cliente::where('clientes.CPF','=',$request->inputCliAgenda)->get();
+                                    
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            
+            }else if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))==18){
+                
+                try{
+                    
+                    $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')->get();
+            
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }else if(null!==$request->input('inputCliAgenda') && strlen($request->input('inputCliAgenda'))<14){
+                
+                try{
+                    $allClientes=cliente::where('clientes.codigo','=',$request->inputCliAgenda)->get();
+            
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }
+
+            if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
+                    
+                try{
+
+                    $allClientes=cliente::where('clientes.CPF','=',$request->myInput)->get();
+                                            
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+                        
+            }else  if(null!==$request->input('myInput')&& strlen($request->input('myInput'))>14){
+
+                try{
+                                
+                    $allClientes=cliente::where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
+                
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);    
+            
         }catch(Exception $e){
 
             $erroMsm='Não foi possível acessar o serviço, tente novamente mais tarde ou entre em contato com o responsável do sistema.'; 
