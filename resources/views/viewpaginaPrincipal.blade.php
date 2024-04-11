@@ -8,6 +8,9 @@
     
 </head>
 <body>
+    <?PHP
+        dd(Auth::check())
+    ?>
     @if (isset($error))
         <div class="modal" id="Error"  tabindex="-1">
             <div class="modal-dialog">
@@ -25,15 +28,15 @@
             </div>
         </div>
     @endif
+    @if (Auth::check())
+                 <p>{{Auth::user()->EMAIL}}</p>
+            @endif
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 5rem;">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-
-            @if (isset($user))
-                 <p> {{ $user->email}}</p>
-            @endif
-
+                <p>{{Auth::user()->EMAIL}}</p>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>

@@ -24,8 +24,13 @@ use App\Http\Controllers\Auth\LoginController;
 Route:: get('/',[LoginController::class,'login'])->name('login');
 Route:: post('/autenticar',[LoginController::class,'autenticar'])->name('autenticar');
 Route:: get('/naoatenticado', function () { return view('viewTEST');})->name('Naoatenticado');
+Route::middleware(['auth'])->group(function(){
+    Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
+    Route:: get('/viewTEST',[SitePublicoController::class,'viewTest'])->name('viewTest');
+});
 
-Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
+//Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
+
 
 Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
 Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);

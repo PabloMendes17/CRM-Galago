@@ -15,6 +15,9 @@ use App\Models\SITUACAO_AGENDA;
 
 class SitePublicoController extends Controller
 {
+    public function viewTest(){
+        return view('viewTEST');
+    }
     public function paginaPrincipal(){
         
         Carbon::setLocale('pt_BR');
