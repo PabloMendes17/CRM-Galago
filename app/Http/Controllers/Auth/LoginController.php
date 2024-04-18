@@ -3,59 +3,47 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\RedirectResponse;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cookie;
-use App\Models\vendedor;
+use App\Http\Controllers\Controller;
 
 
 class LoginController extends Controller{
 
     public function login()
     {
-
         return view('auth.login');
     }
 
-    public function autenticar(Request $request){
+    public function autenticar(Request $request)
+    {
 
-        $dados = $request->all();
-	    $EMAIL= $dados['EMAIL'];
-	    $senha= $dados['SENHA'];
+         $credentials = $request->validate([
+         
+            'email' => ['required', 'EMAIL'],
+            'password' => ['required'],
+        ]);
+       
+        if (Auth::guard('vendedor')->attempt($credentials)) {
 
-        /*try{*/
+            $request->session()->regenerate();
 
-            $vendedor = Vendedor::where('EMAIL',$EMAIL)->first();
-            if($vendedor!=null){
-                $senhaEncrypt=bcrypt($vendedor->SENHA);
+            return redirect()->intended('PaginaPrincipal');
+        }
 
-                if(Auth::check()||($vendedor && Hash::check($senha,$senhaEncrypt))){
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
 
-                    Auth::login($vendedor);
-            
-                    //return redirect(route('PaginaPrincipal'))->withCookie(Cookie::forever('crm_galago_session', $cookivalue));
-                    return redirect(route('PaginaPrincipal'));
-                    
-                    }else{
-        
-                    $erroMsm='Senha Inválida.';           
-                    return response()->view('auth.login',['error' =>$erroMsm]);
-                }
+    }
 
-            }else{
+    public function logout(Request $request)
+    {
+        Auth::guard('vendedor')->logout();
 
-                $erroMsm='Usuário Inválido.';           
-                return response()->view('auth.login',['error' =>$erroMsm]);
-            } 
-        /*}catch(Exception $e){
-            $erroMsm='Não Foi possível acessar o sistema, contate o administrador.';           
-            return response()->view('auth.login',['error' =>$erroMsm]);
+        $request->session()->invalidate();
 
-        }*/
-      
+        $request->session()->regenerateToken();
+
+        return view('auth.login');
     }
 }
-

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use DateTimeZone;
@@ -15,7 +16,7 @@ use App\Models\SITUACAO_AGENDA;
 
 class SitePublicoController extends Controller
 {
-    public function viewTest(){
+    public function viewTEST(){
         return view('viewTEST');
     }
     public function paginaPrincipal(){

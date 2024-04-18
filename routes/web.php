@@ -23,27 +23,26 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route:: get('/',[LoginController::class,'login'])->name('login');
 Route:: post('/autenticar',[LoginController::class,'autenticar'])->name('autenticar');
-Route:: get('/naoatenticado', function () { return view('viewTEST');})->name('Naoatenticado');
-Route::middleware(['auth'])->group(function(){
+
+Route::middleware(['auth:vendedor'])->group(function(){
     Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
-    Route:: get('/viewTEST',[SitePublicoController::class,'viewTest'])->name('viewTest');
+    
+    Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
+    Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
+    Route:: any('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
+
+    Route:: any('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
+    Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
+    Route:: any('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos']);
+
+    Route:: any('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
+    Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
+    Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
+
+    Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
+    Route:: post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
 });
 
-//Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
 
 
-Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
-Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
-Route:: any('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
-
-Route:: any('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
-Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
-Route:: any('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos']);
-
-Route:: any('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
-Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
-Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
-
-Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
-Route:: post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
 

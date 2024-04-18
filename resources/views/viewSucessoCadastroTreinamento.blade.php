@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <title>Agenda</title>
+    <title>Cadastro com sucesso</title>
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     
 </head>
 <body>
@@ -12,7 +13,7 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                usuario@galago.com.br<br/>
+                {{Auth::user()->EMAIL}}<br>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>

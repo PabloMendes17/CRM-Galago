@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>Pagina Principal</title>
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     
 </head>
 <body>
-    <?PHP
-        dd(Auth::check())
-    ?>
     @if (isset($error))
         <div class="modal" id="Error"  tabindex="-1">
             <div class="modal-dialog">
@@ -28,15 +26,11 @@
             </div>
         </div>
     @endif
-    @if (Auth::check())
-                 <p>{{Auth::user()->EMAIL}}</p>
-            @endif
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 5rem;">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                <p>{{Auth::user()->EMAIL}}</p>
+                {{Auth::user()->EMAIL}}<br>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>

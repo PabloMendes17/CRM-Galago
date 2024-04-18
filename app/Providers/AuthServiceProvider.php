@@ -2,51 +2,29 @@
 
 namespace App\Providers;
 
-use App\Providers\VendedorAuthProvider;
-use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * Register any authentication / authorization services.
-     */
-    public function boot(): void
-    {
-        $this->registerPolicies();
-
-        Auth::provider('vendedor', function ($app, array $config) {
-            return new VendedorAuthProvider($this->app['hash'], $config['model']);
-        });
-    }
-
-    /**
-     * Get the authentication providers.
+     * The model to policy mappings for the application.
      *
-     * @return array
+     * @var array<class-string, class-string>
      */
-    protected function providers(): array
-    {
-        return [
-            'vendedor' => [
-                'driver' => 'eloquent',
-                'model' => \App\Models\Vendedor::class,
-            ],
-        ];
-    }
+    protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+    ];
 
     /**
-     * Bootstrap any application services.
+     * Register any authentication / authorization services.
      *
      * @return void
      */
-    public function register(): void
+    public function boot()
     {
-        foreach ($this->providers() as $key => $value) {
-            Auth::provider($key, function ($app) use ($value) {
-                return new VendedorAuthProvider($app['hash'], $value['model']);
-            });
-        }
+        $this->registerPolicies();
+
+        //
     }
 }

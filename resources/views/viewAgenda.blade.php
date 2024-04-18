@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>Agenda</title>
-    
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 </head>
 <body>
     @if (isset($error))
@@ -29,7 +29,7 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                usuario@galago.com.br<br/>
+                {{Auth::user()->EMAIL}}<br/>
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
@@ -192,7 +192,7 @@
                         </div>
                         <div class="col-2">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="SUPORTE" disabled>
+                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="{{Auth::user()->usuario_PARAMetro}}" disabled>
                                 <label for="floatingOp">Operador</label>  
                             </div>
                         </div>

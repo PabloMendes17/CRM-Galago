@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>CRM-Suporte</title>
-    
 </head>
 <body>
-    <div >
+    <div>
         <div id="layoutAuthentication_content"  style="margin-bottom: 4.55em";>
             <main>
                 <div class="container">
@@ -21,18 +20,19 @@
                                     <h6 class="text-center font-weight-light my-4">E registre seu Atendimento </h6>
                                 </div>
                                 <div class="card-body">
-                                    <form method="POST" action="/autenticar">
+                                    <form method="POST" action="{{ route('autenticar') }}">
+					                    @csrf
                                         @if (isset($error))
                                             <div class="alert alert-danger" role="alert">
                                                 <p>{{$error}}</p>
                                             </div>
                                         @endif
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="EMAIL"/>
+                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email"/>
                                             <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="SENHA" riquired/>
+                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="password" required/>
                                             <label for="inputPassword">Senha</label>
                                         </div>
                                         <div class="form-check mb-3">

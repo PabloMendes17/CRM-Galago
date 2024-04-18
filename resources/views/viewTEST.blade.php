@@ -1,14 +1,16 @@
 <html>
     <p>Funcionando</p><br>
+    <p>{{$senhareq}}</p>
+    <p>{{$senhabanco}}</p>
 
-    <?php
-        dd(Auth::check())
+   <?php
+       dd(Auth::check())
     ?>
   
-    @if (Auth::check())
-        <p>{{Auth::user()->EMAIL}}</p>
-        <p>{{Auth::user()->NOME}}</p>
-        <p>{{Auth::user()->SENHA}}</p>
-    @endif
+  <p>{{$senhareq}}</p>
+    <p>{{$senhabanco}}</p>
+
+
+ 
 
 </html>
