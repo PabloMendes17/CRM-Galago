@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <title>CRM-Suporte</title>
 </head>
@@ -36,8 +37,8 @@
                                             <label for="inputPassword">Senha</label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                            <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" name="remember"/>
+                                            <label class="form-check-label" for="inputRememberPassword">Lembrar Credenciais</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <button class="btn btn-primary" style="margin-left:22em" type="submit">Login</button>
@@ -58,15 +59,17 @@
                             Copyright &copy; Galago 2024
                         </div>
                         <div>
-                            <a href="#">Privacy Policy</a>
+                            <a href="/Politicas">Politicas de Privacidade</a>
                             &middot;
-                            <a href="#">Terms &amp; Conditions</a>
+                            <a href="/Politicas">Termos &amp; Uso</a>
                         </div>
                     </div>
                 </div>
             </footer>
         </div>
     </div>
+
+    
 
 </body>
 </html>

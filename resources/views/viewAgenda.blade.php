@@ -29,10 +29,15 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                {{Auth::user()->EMAIL}}<br/>
+                <br>{{Auth::user()->EMAIL}}
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
+            <a type="button" class="btn btn-outline-danger" id="logout" href="/logout" >
+                <img src="/images/logoutSVG.SVG" class="logout" alt="...">
+            </a>
+        </div>  
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center; margin: 1rem 0rem 1rem 0rem;">
         <button type="button" class="btn btn-secondary" id="btMenu"  data-bs-toggle="modal" data-bs-target="#NovaAgenda">Novo Agendamento</button>

@@ -26,14 +26,19 @@
             </div>
         </div>
     @endif
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 5rem;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 1rem;">
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-                {{Auth::user()->EMAIL}}<br>
+            <br>{{Auth::user()->EMAIL}}
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
+        <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
+            <a type="button" class="btn btn-outline-danger" id="logout" href="/logout" >
+                <img src="/images/logoutSVG.SVG" class="logout" alt="...">
+            </a>
+        </div>   
     </nav> 
     <div class="container-fluid" style="display: flex; justify-content: center;">
         <div class="card" style="width: 18rem; margin:1rem;">

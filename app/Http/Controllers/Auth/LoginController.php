@@ -9,13 +9,16 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller{
 
-    public function login()
-    {
+    public function login(){
+
         return view('auth.login');
     }
+    public function Politicas(){
 
-    public function autenticar(Request $request)
-    {
+        return view('viewPoliticasDePrivacidade');
+    }
+
+    public function autenticar(Request $request){
 
          $credentials = $request->validate([
          
@@ -23,7 +26,7 @@ class LoginController extends Controller{
             'password' => ['required'],
         ]);
        
-        if (Auth::guard('vendedor')->attempt($credentials)) {
+        if (Auth::guard('vendedor')->attempt($credentials,$remember = true)) {
 
             $request->session()->regenerate();
 
@@ -36,8 +39,7 @@ class LoginController extends Controller{
 
     }
 
-    public function logout(Request $request)
-    {
+    public function logout(Request $request){
         Auth::guard('vendedor')->logout();
 
         $request->session()->invalidate();

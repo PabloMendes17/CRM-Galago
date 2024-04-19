@@ -17,6 +17,8 @@ class Vendedor extends Authenticatable
 
     protected $table = 'vendedor';
 
+    protected $primaryKey = 'CODIGO';
+
     protected $fillable = [
 
         'CODIGO','NOME', 'EMAIL', 'SENHA','usuario_PARAMetro',
