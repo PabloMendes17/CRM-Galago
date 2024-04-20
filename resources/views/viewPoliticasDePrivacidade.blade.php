@@ -14,8 +14,8 @@
             <img class="logoNav" src="images/logogalago.png"/>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
-            <a type="button" class="btn btn-outline-danger" id="login" href="/" >
-                <img src="/images/logoutSVG.SVG" class="logout" alt="...">
+            <a type="button" class="btn btn-outline-primary" id="login" href="/" >
+                <img src="/images/loginSVG.SVG" class="logout" alt="...">
             </a>
         </div>  
     </nav> 

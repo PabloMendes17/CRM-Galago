@@ -8,8 +8,8 @@
     <title>CRM-Suporte</title>
 </head>
 <body>
-    <div>
-        <div id="layoutAuthentication_content"  style="margin-bottom: 4.55em";>
+    <div class="login">
+        <div class="credenciais" id="layoutAuthentication_content">
             <main>
                 <div class="container">
                     <div class="row justify-content-center">
@@ -51,7 +51,7 @@
                 </div>
             </main>
         </div>
-        <div id="layoutAuthentication_footer">
+        <div class=footer id="layoutAuthentication_footer">
             <footer class="py-1 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -68,8 +68,5 @@
             </footer>
         </div>
     </div>
-
-    
-
 </body>
 </html>
