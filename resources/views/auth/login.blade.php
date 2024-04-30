@@ -23,13 +23,13 @@
                                 <div class="card-body">
                                     <form method="POST" action="{{ route('autenticar') }}">
 					                    @csrf
-                                        @if (isset($error))
+                                        @if ($errors->any())
                                             <div class="alert alert-danger" role="alert">
-                                                <p>{{$error}}</p>
+                                                <p>{{ $errors->first('email') }}</p>
                                             </div>
                                         @endif
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email"/>
+                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" value="{{ old('email') }}" required/>
                                             <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">

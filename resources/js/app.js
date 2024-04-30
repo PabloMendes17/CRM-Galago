@@ -1,6 +1,7 @@
 import './bootstrap';
 
 
+
 function atualizarHora() {
     var agora = new Date();
     var horaFormatada = agora.toLocaleString('pt-BR', {
@@ -739,5 +740,31 @@ $(document).ready(function() {
 });
 
 
+//whats
+/*$(document).ready(function() {
+    "use strict";
 
+    // Função para inicializar o Perfect Scrollbar
+    function initializeScrollbar() {
+        $('.scrollable-chat-panel').perfectScrollbar();
+        var position = $(".chat-search").last().position().top;
+        $('.scrollable-chat-panel').scrollTop(position);
+        $('.scrollable-chat-panel').perfectScrollbar('update');
+        $('.pagination-scrool').perfectScrollbar();
+    }
+
+    // Função para lidar com os cliques nos gatilhos
+    function handleTriggers() {
+        $('.chat-upload-trigger').on('click', function(e) {
+            $(this).parent().find('.chat-upload').toggleClass("active");
+        });
+        $('.user-detail-trigger, .user-undetail-trigger').on('click', function(e) {
+            $(this).closest('.chat').find('.chat-user-detail').toggleClass("active");
+        });
+    }
+
+    // Chamando as funções inicializadoras
+    initializeScrollbar();
+    handleTriggers();
+});*/
 

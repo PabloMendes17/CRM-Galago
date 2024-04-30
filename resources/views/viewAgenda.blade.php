@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
-            <a type="button" class="btn btn-outline-danger" id="logout" href="/logout" >
+            <a type="button" class="btn btn-outline-warning" id="logout" href="/logout" >
                 <img src="/images/logoutSVG.SVG" class="logout" alt="...">
             </a>
         </div>  

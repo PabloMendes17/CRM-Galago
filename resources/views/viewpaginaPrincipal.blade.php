@@ -30,12 +30,12 @@
         <div class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
-            <br>{{Auth::user()->EMAIL}}
+                <br>{{Auth::user()->EMAIL}}
                 <p id="horaAtual">{{$DATA;}}</p>
             </div>
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
-            <a type="button" class="btn btn-outline-danger" id="logout" href="/logout" >
+            <a type="button" class="btn btn-outline-warning" id="logout" href="/logout" >
                 <img src="/images/logoutSVG.SVG" class="logout" alt="...">
             </a>
         </div>   

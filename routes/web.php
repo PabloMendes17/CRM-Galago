@@ -25,6 +25,9 @@ Route:: get('/',[LoginController::class,'login'])->name('login');
 Route:: post('/autenticar',[LoginController::class,'autenticar'])->name('autenticar');
 Route:: get('/Politicas',[LoginController::class,'Politicas'])->name('Politicas');
 Route:: get('/logout',[LoginController::class,'logout'])->name('logout');
+Route:: get('/whatsapp', function(){
+    return view('viewWhatsapp');
+});
 
 Route::middleware(['auth:vendedor'])->group(function(){
     Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
