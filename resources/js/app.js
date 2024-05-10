@@ -90,12 +90,12 @@ async function viewUser(CODIGO) {//Exibe os detalhes do registro
     const response = await fetch('/visualizar/' + CODIGO);
     const data = await response.json();
     const viewModelDetalhe= document.getElementById("DetalheRegistro");
-    document.getElementById('RegistroCodCli').innerHTML=data.cliente.CODIGO;
-    document.getElementById('RegistroNameCli').innerHTML=data.cliente.NOME;
-    if(data.cliente.CNPJ===null||data.cliente.CNPJ===''){
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CPF;
+    document.getElementById('RegistroCodCli').innerHTML=data.cliente.codigo;
+    document.getElementById('RegistroNameCli').innerHTML=data.cliente.nome;
+    if(data.cliente.cnpj===null||data.cliente.cnpj===''){
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.cpf;
     }else{
-        document.getElementById('RegistroDocCli').innerHTML=data.cliente.CNPJ;
+        document.getElementById('RegistroDocCli').innerHTML=data.cliente.cnpj;
     }
     document.getElementById('codigoRegistro').innerHTML=data.agenda.CODIGO;
     document.getElementById('detalhesRegistro').innerHTML=data.agenda.HISTORICO;

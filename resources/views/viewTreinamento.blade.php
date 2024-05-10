@@ -152,10 +152,10 @@
                         <tbody>
                             @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
-                                    <td class="NomeCliente">{{$cliente->NOME}}</td>
-                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
-                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
+                                    <th scope="row" class="CodCliente" >{{$cliente->codigo}}</th>
+                                    <td class="NomeCliente">{{$cliente->nome}}</td>
+                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
@@ -284,10 +284,10 @@
                         <tbody>
                             @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodClienteTR" >{{$cliente->CODIGO}}</th>
-                                    <td class="NomeClienteTR">{{$cliente->NOME}}</td>
-                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
-                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
+                                    <th scope="row" class="CodClienteTR" >{{$cliente->codigo}}</th>
+                                    <td class="NomeClienteTR">{{$cliente->nome}}</td>
+                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
                                 </tr>
                             @empty
                             <td id="RetornoCadastro"> Nenhum Registro Localizado</td>    

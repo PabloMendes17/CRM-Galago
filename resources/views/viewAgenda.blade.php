@@ -44,6 +44,7 @@
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/PaginaPrincipal"'>Pagina Principal</a>
         <button type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</button>
     </div>
+
     <div class="container-fluid" style="display: flex; justify-content: center;" id="ResultadoBusca">
         <table class="table table-striped table-hover">
             <thead >
@@ -150,14 +151,15 @@
                         <input id="cpf" style="display: none">
                         <button type='button' id="btbuscaPorID">Busca</button>
                     </form><br>
+
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
-                        <tbody>
+                         <tbody>
                             @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
-                                    <td class="NomeCliente">{{$cliente->NOME}}</td>
-                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
-                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
+                                    <th scope="row" class="CodCliente" >{{$cliente->codigo}}</th>
+                                    <td class="NomeCliente">{{$cliente->nome}}</td>
+                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                    @if(isset($cliente->cnpj))<td>{{$cliente->cpf}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
@@ -287,10 +289,10 @@
                         <tbody>
                             @forelse($clientes as $cliente)
                                 <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodClienteAG" >{{$cliente->CODIGO}}</th>
-                                    <td class="NomeClienteAG">{{$cliente->NOME}}</td>
-                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
-                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
+                                    <th scope="row" class="CodClienteAG" >{{$cliente->codigo}}</th>
+                                    <td class="NomeClienteAG">{{$cliente->nome}}</td>
+                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
