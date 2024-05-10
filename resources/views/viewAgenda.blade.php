@@ -156,7 +156,8 @@
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodCliente" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeCliente">{{$cliente->NOME}}</td>
-                                    <td>{{$cliente->CNPJ}}</td>
+                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
+                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
@@ -288,7 +289,8 @@
                                 <tr class="listaCliFiltrado">
                                     <th scope="row" class="CodClienteAG" >{{$cliente->CODIGO}}</th>
                                     <td class="NomeClienteAG">{{$cliente->NOME}}</td>
-                                    <td>{{$cliente->CNPJ}}</td>
+                                    @if(isset($cliente->CNPJ))<td>{{$cliente->CNPJ}}</td>@endif
+                                    @if(isset($cliente->CPF))<td>{{$cliente->CPF}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
