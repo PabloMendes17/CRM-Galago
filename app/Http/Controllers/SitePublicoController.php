@@ -46,7 +46,9 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes= DB::select('SELECT * FROM clientes');
+           // $allClientes= DB::select('SELECT * FROM clientes')->paginate(20);
+              $allClientes = DB::table('clientes')->paginate(20);
+
             $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -192,61 +194,7 @@ class SitePublicoController extends Controller
 
         
     }
-    public function AgendamentosFiltrados(Request $request){
-        $allClientes=DB::select('SELECT * FROM clientes');
-               
-        if(isset($request->inputCodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
-            $allClientes=DB::select('SELECT * FROM clientes');
-            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                            ->where('agenda.cliente','=',$request->inputCodCliente)
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
-
-        }else if(isset($request->inputCodCliente)){
-            $allClientes=DB::select('SELECT * FROM clientes');
-            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                            ->where('agenda.cliente','=',$request->inputCodCliente)
-                            ->get();
-
-            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
-
-        }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
-            $allClientes=DB::select('SELECT * FROM clientes');
-            $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewAgendamentosFiltrados',['agenda'=> $Filtro],['clientes'=> $allClientes]);
-
-
-        }else{
-            
-            if($request->input('myInput')==null){
-                
-                $allClientes=DB::select('SELECT * FROM clientes');
-                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
-
-            }else if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
-
-                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
-                $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->myInput)->get();
-                                
-                return view('viewAgendamentosFiltrados',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes]);
-                
-            }else{
-
-                $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
-                $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
-           }
-
-            
-            $agenda=agenda::where('agenda.tipo','=','AGENDAMENTO')->get();
-                
-            return view('viewAgendamentosFiltrados',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes]);
-        }
-    }
+   
     public function CadastrarAgendamentos(Request $request){
 
         Carbon::setLocale('pt_BR');
@@ -259,7 +207,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT * FROM clientes');
+            $allClientes=DB::select('SELECT * FROM clientes')->paginate(20);
             $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -308,7 +256,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT * FROM clientes');
+            $allClientes=DB::select('SELECT * FROM clientes')->paginate(20);;
             $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -547,7 +495,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT *FROM clientes');
+            $allClientes=DB::select('SELECT *FROM clientes')->paginate(20);;
             $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)

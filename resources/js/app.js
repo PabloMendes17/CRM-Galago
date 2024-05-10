@@ -227,6 +227,7 @@ function buscaPorID() { //Filtra Cli por Doc
         },
     });
 }
+
 $('#ClientesParaFiltro').find('.listaCliFiltrado').on('click',function() {//Carrega cliente da lista para
     var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
     $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente

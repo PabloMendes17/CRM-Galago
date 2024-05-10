@@ -159,13 +159,14 @@
                                     <th scope="row" class="CodCliente" >{{$cliente->codigo}}</th>
                                     <td class="NomeCliente">{{$cliente->nome}}</td>
                                     @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
-                                    @if(isset($cliente->cnpj))<td>{{$cliente->cpf}}</td>@endif
+                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
                                 </tr>
                             @empty
                                 <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
                             @endforelse
                         </tbody>
                     </table> 
+
                     <table class="table table-striped table-hover" id="ClientesJaFiltrado">
                     <!-- Recebe o cliente filtrado -->
                     </table>  
@@ -302,7 +303,8 @@
                     <table class="table table-striped table-hover" id="ClientesNaAgenda">
                     <!-- Recebe o cliente filtrado -->
                     </table>  
-               </div>
+
+                </div>
             </div>
         </div>
     </div>
