@@ -46,8 +46,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-           // $allClientes= DB::select('SELECT * FROM clientes')->paginate(20);
-              $allClientes = DB::table('clientes')->paginate(20);
+            $allClientes = DB::table('clientes')->paginate(20);
 
             $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
@@ -207,7 +206,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT * FROM clientes')->paginate(20);
+            $allClientes = DB::table('clientes')->paginate(20);
             $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -256,7 +255,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT * FROM clientes')->paginate(20);;
+            $allClientes = DB::table('clientes')->paginate(20);
             $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -495,7 +494,7 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes=DB::select('SELECT *FROM clientes')->paginate(20);;
+            $allClientes = DB::table('clientes')->paginate(20);
             $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
