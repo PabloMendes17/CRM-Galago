@@ -730,8 +730,22 @@ class SitePublicoController extends Controller
 
     public function visualizarDetalhes($CODIGO) {
         try {
+
             $agenda = agenda::findOrFail($CODIGO);
-            $cliente = cliente::findOrFail($agenda->CLIENTE);
+
+            if ($agenda->CLIENTE > 999998) {
+                
+                $cliente = [
+                    'cnpj' => "00.000.000/0001-00",
+                    'cpf'=>"000.000.000-00",
+                    'nome' => "Ainda não cadastrado",
+                    'codigo' => "999999"
+                ]; 
+
+            }else{
+                $cliente = cliente::findOrFail($agenda->CLIENTE);
+            }
+
 
             return response()->json(['agenda' => $agenda, 'cliente' => $cliente]);
         } catch (Exception $e) {

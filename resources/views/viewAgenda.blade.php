@@ -149,6 +149,7 @@
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
+                        <input id="razao" maxlength="60" required name="razao">
                         <button type='button' id="btbuscaPorID">Busca</button>
                     </form><br>
 
@@ -186,7 +187,7 @@
                         <div class=" col-2 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" maxLength="6" required>
+                                    <input type="number" class="form-control" id="inputCodClienteAG" name="inputCodClienteAG" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="button-addon2" maxLength="6" VALUE='999999' required>
                                     <label for="inputCodClienteAG">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaAgenda" data-bs-target="#BuscaClienteAgenda" data-bs-toggle="modal">Busca</button>
@@ -195,7 +196,7 @@
                         </div>
                         <div class=" col-8">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="inputNomeClienteAG" name="inputNomeClienteAG" placeholder="Nome/Razão Social" disabled>
+                                <input type="text" class="form-control" id="inputNomeClienteAG" name="inputNomeClienteAG" placeholder="Nome/Razão Social" VALUE='Ainda Não Cadastrado' disabled>
                                 <label for="inputNomeClienteAG">Nome/Razão Social</label>
                             </div>
                         </div>

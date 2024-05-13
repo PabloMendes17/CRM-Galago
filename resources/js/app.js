@@ -88,7 +88,9 @@ $(document).ready(function() {//Chama a função que exibe detalhes
 });
 async function viewUser(CODIGO) {//Exibe os detalhes do registro
     const response = await fetch('/visualizar/' + CODIGO);
+    console.log(response);
     const data = await response.json();
+    console.log(data);
     const viewModelDetalhe= document.getElementById("DetalheRegistro");
     document.getElementById('RegistroCodCli').innerHTML=data.cliente.codigo;
     document.getElementById('RegistroNameCli').innerHTML=data.cliente.nome;
