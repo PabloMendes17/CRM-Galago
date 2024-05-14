@@ -690,22 +690,24 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
     //Captura o que está no campo CNPJ_CPF
     var idCli = document.getElementById('inputCliTreinamento').value;
 
+
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Treinamentos',
         type: 'POST',
         data: { inputCliTreinamento: idCli },
         success: function(response) {
-            
+
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
             var tabelaHtml = $(response).find('#ClientesParaTreinamento').html();
+            console.log(tabelaHtml);
 
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaTreinamento').hide();
             
-            if(tabelaHtml.trim=== ''){
-               // $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
+            if(tabelaHtml.trim===''){
+                 $('#ClientesNoTreinamento').html('<tr><td colspan="5">Nenhum registro localizado</td></tr>');
 
             }else{
                 $('#ClientesNoTreinamento').html(tabelaHtml);

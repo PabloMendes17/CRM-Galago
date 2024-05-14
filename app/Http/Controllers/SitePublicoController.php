@@ -193,7 +193,6 @@ class SitePublicoController extends Controller
 
         
     }
-   
     public function CadastrarAgendamentos(Request $request){
 
         Carbon::setLocale('pt_BR');
@@ -553,30 +552,32 @@ class SitePublicoController extends Controller
                 }
             }
             
-            if(null!==$request->input('inputCliTreinamento') && strlen($request->input('inputCliTreinamento'))==14){
+            if(null!==$request->input('inputCliTreinamento')&&strlen($request->input('inputCliTreinamento'))==14){
 
                 try{
                         
                     $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->inputCliTreinamento)->get();
-                                    
-                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+            
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
-
+  
                     $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
-                    return response()->view('viewTreinamento',['atendimento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         
                 }
 
                     
-            }else if(null!==$request->input('inputCliTreinamento') && strlen($request->input('inputCliTreinamento'))==18){
-
+            }else if(null!==$request->input('inputCliTreinamento')&&strlen($request->input('inputCliTreinamento'))==18){
+ 
                 try{
-                                     
+                                    
                     $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->inputCliTreinamento.'%')->get();
-            
-                    return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+                    
+  
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
 
@@ -586,12 +587,12 @@ class SitePublicoController extends Controller
                 }
 
     
-            }else if(null!==$request->input('inputCliTreinamento') && strlen($request->input('inputCliTreinamento'))<14){
-
+            }else if(null!==$request->input('inputCliTreinamento')&&strlen($request->input('inputCliTreinamento'))<14){
+   
                 try{
 
                     $allClientes=DB::table('clientes')->where('clientes.codigo','=',$request->inputCliTreinamento)->get();
-            
+ 
                     return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
@@ -605,7 +606,7 @@ class SitePublicoController extends Controller
 
         
         
-            if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
+            if(null!==$request->input('myInput')&&strlen($request->input('myInput'))<15){
 
                 try{
                     $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->myInput)->get();
@@ -620,7 +621,7 @@ class SitePublicoController extends Controller
         
                 }
         
-            }else  if(null!==$request->input('myInput')&& strlen($request->input('myInput'))>14){
+            }else  if(null!==$request->input('myInput')&&strlen($request->input('myInput'))>14){
 
                 try{
                     $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();

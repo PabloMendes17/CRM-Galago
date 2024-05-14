@@ -146,6 +146,7 @@
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
+                        <input id="razão" maxlength="18" required name="razao">
                         <button type='button' id="btCliIdFiltroTreinamento">Busca</button>
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
