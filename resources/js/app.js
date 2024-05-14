@@ -172,7 +172,8 @@ document.getElementById('FormInsert').addEventListener('submit', function(event)
   
     $('#myInput').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
-        if (val.length <= 11) {
+
+        if (val.length<=11&&val!=='') {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
             $('#cnpj_cpf').text('CPF');
@@ -189,9 +190,18 @@ document.getElementById('FormInsert').addEventListener('submit', function(event)
 });
 $(document).ready(function() {//Valida CPF&CNPJ
     $('#btbuscaPorID').on('click', function() {
-        if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        if((document.getElementById('myInput').value).length>0){
+           
+            if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorID();
+            }
+
+        }else if((document.getElementById('razaoFiltro').value).length<3&&(document.getElementById('myInput').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorID();
@@ -199,18 +209,24 @@ $(document).ready(function() {//Valida CPF&CNPJ
     });
 });
 function buscaPorID() { //Filtra Cli por Doc
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('myInput').value;
+    //Verifica se a busca é por Doc ou Nome
+    if((document.getElementById('myInput').value).length>0){
+        var idCli = document.getElementById('myInput').value; 
+        var campo='myInput';
+    }else{
+        var idCli = document.getElementById('razaoFiltro').value; 
+        var campo='razaoFiltro';
+    }
+
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Agendamentos',
         type: 'POST',
-        data: { myInput: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
             var tabelaHtml = $(response).find('#ClientesParaFiltro').html();
-
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaFiltro').hide();
 
@@ -229,7 +245,6 @@ function buscaPorID() { //Filtra Cli por Doc
         },
     });
 }
-
 $('#ClientesParaFiltro').find('.listaCliFiltrado').on('click',function() {//Carrega cliente da lista para
     var CodCliente = $(this).find('.CodCliente').text() // Extrair o código correspondente do item clicado
     $('#inputCodCliente').val(CodCliente);//Atribui o valor ao compo Cod Cliente
@@ -292,7 +307,7 @@ $(function(){//Func Mascara Input DocAgenda
     $('#inputCliAgenda').keyup(function(){
         const val = $(this).val().replace(/[^0-9]/g, '');
 
-        if (val.length <= 11) {
+        if (val.length<=11) {
             $('#cpf').val(val);
             $(this).val($('#cpf').masked());
             $('#cnpj_cpf').text('CPF');
@@ -309,9 +324,17 @@ $(function(){//Func Mascara Input DocAgenda
 });
 $(document).ready(function() {//Valida CPF&CNPJ Agenda
     $('#btbuscaPorID_AG').on('click', function() {
-        if(((document.getElementById('inputCliAgenda').value).length<14||(document.getElementById('inputCliAgenda').value).length>18)||((document.getElementById('inputCliAgenda').value).length>14&&(document.getElementById('inputCliAgenda').value).length<18)){
+        if((document.getElementById('inputCliAgenda').value).length>0){
+           
+            if(((document.getElementById('inputCliAgenda').value).length<14||(document.getElementById('inputCliAgenda').value).length>18)||((document.getElementById('inputCliAgenda').value).length>14&&(document.getElementById('inputCliAgenda').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorIdCLi();
+            }
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else if((document.getElementById('razaoAG').value).length<3&&(document.getElementById('inputCliAgenda').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorIdCLi();
@@ -319,13 +342,19 @@ $(document).ready(function() {//Valida CPF&CNPJ Agenda
     });
 });
 function buscaPorIdCLi() {//Filtra Cli por Doc Agenda
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('inputCliAgenda').value;
+    //Verifica se a busca é por Doc ou Nome
+    if((document.getElementById('inputCliAgenda').value).length>0){
+        var idCli = document.getElementById('inputCliAgenda').value; 
+        var campo='inputCliAgenda';
+    }else{
+        var idCli = document.getElementById('razaoAG').value; 
+        var campo='razaoAG';
+    }
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Agendamentos',
         type: 'POST',
-        data: { inputCliAgenda: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -374,9 +403,17 @@ $(document).ready(function() {
 //Funções para Atendimento
 $(document).ready(function() {//Valida CPF&CNPJ
     $('#btCliIdFiltroAtendimento').on('click', function() {
-        if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
+        if((document.getElementById('myInput').value).length>0){
+           
+            if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorIdAt();
+            }
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else if((document.getElementById('razaoFiltro').value).length<3&&(document.getElementById('myInput').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorIdAt();
@@ -384,13 +421,19 @@ $(document).ready(function() {//Valida CPF&CNPJ
     });
 });
 function buscaPorIdAt() { //Filtra Cli por Doc
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('myInput').value;
+    //Verifica se a busca é por Doc ou Nome
+    if((document.getElementById('myInput').value).length>0){
+        var idCli = document.getElementById('myInput').value; 
+        var campo='myInput';
+    }else{
+        var idCli = document.getElementById('razaoFiltro').value; 
+        var campo='razaoFiltro';
+    }
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Atendimentos',
         type: 'POST',
-        data: { myInput: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -490,9 +533,17 @@ $(function(){//Func Mascara Input DocAtendimento
 });
 $(document).ready(function() {//Valida CPF&CNPJ Agenda
     $('#btbuscaPorID_AT').on('click', function() {
-        if(((document.getElementById('inputCliAtendimento').value).length<14||(document.getElementById('inputCliAtendimento').value).length>18)||((document.getElementById('inputCliAtendimento').value).length>14&&(document.getElementById('inputCliAtendimento').value).length<18)){
+        if((document.getElementById('inputCliAtendimento').value).length>0){
+           
+            if(((document.getElementById('inputCliAtendimento').value).length<14||(document.getElementById('inputCliAtendimento').value).length>18)||((document.getElementById('inputCliAtendimento').value).length>14&&(document.getElementById('inputCliAtendimento').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorIdCliAt();
+            }
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else if((document.getElementById('razaoAT').value).length<3&&(document.getElementById('inputCliAtendimento').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorIdCliAt();
@@ -500,15 +551,20 @@ $(document).ready(function() {//Valida CPF&CNPJ Agenda
     });
 });
 function buscaPorIdCliAt() {//Filtra Cli por Doc Atendimetno
-
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('inputCliAtendimento').value;
+//Verifica se a busca é por Doc ou Nome
+if((document.getElementById('inputCliAtendimento').value).length>0){
+    var idCli = document.getElementById('inputCliAtendimento').value; 
+    var campo='inputCliAtendimento';
+}else{
+    var idCli = document.getElementById('razaoAT').value; 
+    var campo='razaoAT';
+}
 
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Atendimentos',
         type: 'POST',
-        data: { inputCliAtendimento: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
             
             //No sucesso traz uma view igual com os dados filtrados
@@ -559,9 +615,17 @@ $(document).ready(function() {
 //Funções para Treinamento
 $(document).ready(function() {//Valida CPF&CNPJ
     $('#btCliIdFiltroTreinamento').on('click', function() {
-        if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
+        if((document.getElementById('myInput').value).length>0){
+           
+            if(((document.getElementById('myInput').value).length<14||(document.getElementById('myInput').value).length>18)||((document.getElementById('myInput').value).length>14&&(document.getElementById('myInput').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorIdTr();
+            }
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else if((document.getElementById('razaoFiltro').value).length<3&&(document.getElementById('myInput').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorIdTr();
@@ -569,13 +633,19 @@ $(document).ready(function() {//Valida CPF&CNPJ
     });
 });
 function buscaPorIdTr() { //Filtra Cli por Doc
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('myInput').value;
+    //Verifica se a busca é por Doc ou Nome
+    if((document.getElementById('myInput').value).length>0){
+        var idCli = document.getElementById('myInput').value; 
+        var campo='myInput';
+    }else{
+        var idCli = document.getElementById('razaoFiltro').value; 
+        var campo='razaoFiltro';
+    }
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Treinamentos',
         type: 'POST',
-        data: { myInput: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -676,9 +746,17 @@ $(function(){//Func Mascara Input DocTreinamento
 });
 $(document).ready(function() {//Valida CPF&CNPJ Treinamento
     $('#btbuscaPorID_TR').on('click', function() {
-        if(((document.getElementById('inputCliTreinamento').value).length<14||(document.getElementById('inputCliTreinamento').value).length>18)||((document.getElementById('inputCliTreinamento').value).length>14&&(document.getElementById('inputCliTreinamento').value).length<18)){
+        if((document.getElementById('inputCliTreinamento').value).length>0){
+           
+            if(((document.getElementById('inputCliTreinamento').value).length<14||(document.getElementById('inputCliTreinamento').value).length>18)||((document.getElementById('inputCliTreinamento').value).length>14&&(document.getElementById('inputCliTreinamento').value).length<18)){
+                alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+            }else{
+                buscaPorIdCliTr();
+            }
 
-            alert('O Valor Digitado não corresponde à um CNPJ ou CPF, porfavor digite novamente!')
+        }else if((document.getElementById('razaoTR').value).length<3&&(document.getElementById('inputCliTreinamento').value).length<1){
+            alert('Nome muito curto, verifique e tente novamente')
+
         }else{
 
             buscaPorIdCliTr();
@@ -687,15 +765,19 @@ $(document).ready(function() {//Valida CPF&CNPJ Treinamento
 });
 function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
 
-    //Captura o que está no campo CNPJ_CPF
-    var idCli = document.getElementById('inputCliTreinamento').value;
-
+    if((document.getElementById('inputCliTreinamento').value).length>0){
+        var idCli = document.getElementById('inputCliTreinamento').value; 
+        var campo='inputCliTreinamento';
+    }else{
+        var idCli = document.getElementById('razaoTR').value; 
+        var campo='razaoTR';
+    }
 
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Treinamentos',
         type: 'POST',
-        data: { inputCliTreinamento: idCli },
+        data: { [campo]: idCli },
         success: function(response) {
 
             //No sucesso traz uma view igual com os dados filtrados

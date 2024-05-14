@@ -142,11 +142,11 @@
                 </div>
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
-                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b>
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <input id="razão" maxlength="18" required name="razao">
+                        <input id="razaoFiltro" maxlength="60" required name="razaoFiltro">
                         <button type='button' id="btCliIdFiltroTreinamento">Busca</button>
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
@@ -275,11 +275,12 @@
                 </div>
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
-                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b>
                         <input id="inputCliTreinamento" maxlength="18" required name="inputCliTreinamento">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='button' id="btbuscaPorID_TR">Busca</button>
+                        <input id="razaoTR" maxlength="60" required name="razaoTR">
+                        <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID_TR">Busca</button>
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaTreinamento">
                         <tbody>

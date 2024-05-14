@@ -152,6 +152,36 @@ class SitePublicoController extends Controller
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
                 }
             }
+            if(null!==$request->input('razaoFiltro')&&strlen($request->input('razaoFiltro'))>2){
+                
+                try{
+
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+                                            
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }
+            if(null!==$request->input('razaoAG')&&strlen($request->input('razaoAG'))>2){
+                
+                try{
+
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoAG.'%')->get();
+                                            
+                    return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Sua Consulta não pode ser realizada, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAgenda',['agenda' => $agenda, 'clientes' => $allClientes, 'situacoes' => $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }
 
             if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
                     
@@ -356,6 +386,36 @@ class SitePublicoController extends Controller
                                             'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
                 }
 
+            }
+            if(null!==$request->input('razaoFiltro')&&strlen($request->input('razaoFiltro'))>2){
+                
+                try{
+
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+                                            
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAtendimento',['atendimento' => $atendimentos, 'clientes' => $allClientes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
+            }
+            if(null!==$request->input('razaoAT')&&strlen($request->input('razaoAT'))>2){
+                
+                try{
+
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoAT.'%')->get();
+                                            
+                    return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewAtendimento',['atendimento' => $atendimentos, 'clientes' => $allClientes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+                }
             }
         
             if(null!==$request->input('myInput')&& strlen($request->input('myInput'))<15){
@@ -603,7 +663,38 @@ class SitePublicoController extends Controller
 
                 }
             }
+            if(null!==$request->input('razaoFiltro')&&strlen($request->input('razaoFiltro'))>2){
+                
+                try{
 
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+                                            
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+        
+                }
+            }
+            if(null!==$request->input('razaoTR')&&strlen($request->input('razaoTR'))>2){
+                
+                try{
+
+                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoTR.'%')->get();
+                                            
+                    return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes])->with('DATA',$formatted_dateCarbon);
+
+                }catch(Exception $e){
+
+                    $erroMsm='Cliente não Localizado, verifique os dados informados ou contate o resposável pelo sistema.';           
+                    return response()->view('viewTreinamento',['treinamento' => $treinamentos, 'clientes' => $allClientes,'situacoes'=> $Situacoes,
+                                            'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
+        
+                }
+            }
         
         
             if(null!==$request->input('myInput')&&strlen($request->input('myInput'))<15){

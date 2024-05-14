@@ -145,12 +145,12 @@
                 </div>
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
-                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b>
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <input id="razao" maxlength="60" required name="razao">
-                        <button type='button' id="btbuscaPorID">Busca</button>
+                        <input id="razaoFiltro" maxlength="60" required name="razaoFiltro">
+                        <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID">Busca</button>
                     </form><br>
 
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
@@ -281,11 +281,12 @@
                 </div>
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
-                        <b id="cnpj_cpf">CNPJ/CPF:</b>
+                        <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b><br>
                         <input id="inputCliAgenda" maxlength="18" required name="inputCliAgenda">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
-                        <button type='button' id="btbuscaPorID_AG">Busca</button>
+                        <input id="razaoAG" maxlength="60" required name="razaoAG">
+                        <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID_AG">Busca</button>
                     </form><br>
                     <table class="table table-striped table-hover" id="ClientesParaAgenda">
                         <tbody>
