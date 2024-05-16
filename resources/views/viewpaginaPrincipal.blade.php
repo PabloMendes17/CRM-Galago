@@ -58,7 +58,6 @@
             </div>
         </div> 
         <div class="card" id="card">
-        
             <img src="/images/TREINAMENTOSVG.SVG" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">TREINAMENTO</h5>
