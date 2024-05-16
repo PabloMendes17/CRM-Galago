@@ -36,7 +36,7 @@
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
             <a type="button" class="btn btn-outline-warning" id="logout" href="/logout" >
-                <img src="/images/logoutSVG.SVG" class="logout" alt="...">
+                <img src="/images/logoutSVG.png" class="logout" alt="...">
             </a>
         </div> 
     </nav> 
@@ -72,10 +72,10 @@
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
                                 <button type="button" class="btn btn-outline-warning" id="updateSituacao" data-bs-toggle="modal" data-bs-target="#NovaSituacao" data-codigo="{{$treinamentos->CODIGO}}">
-                                    <img src="/images/updateSVG.SVG" class="iconOption" alt="...">
+                                    <img src="/images/updateSVG.png" class="iconOption" alt="...">
                                 </button>
                                 <button type="button" class="btn btn-outline-info" id="viewDetalhes">
-                                    <img src="/images/viewSVG.SVG" class="iconOption" alt="...">
+                                    <img src="/images/viewSVG.png" class="iconOption" alt="...">
                                 </button>
                             </div>
                         </td>            

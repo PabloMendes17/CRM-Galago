@@ -36,13 +36,13 @@
         </div>
         <div class="btn-group btn-group-sm" role="group" aria-label="Logout">
             <a type="button" class="btn btn-outline-warning" id="logout" href="/logout" >
-                <img src="/images/logoutSVG.SVG" class="logout" alt="...">
+                <img src="/images/logoutSVG.png" class="logout" alt="...">
             </a>
         </div>   
     </nav> 
     <div id="cards" class="container-fluid">
         <div class="card" id="card">
-            <img src="images/AGENDASVG2.SVG" class="card-img-top" alt="...">
+            <img src="images/AgendaSVG2.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">AGENDA</h5>
               <p class="card-text">Registre e consulte aqui demonstrações e retornos.</p>
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="card" id="card">
-            <img src="/images/ATENDIMENTOSVG.SVG" class="card-img-top" alt="...">
+            <img src="/images/Atendimento.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">ATENDIMENTO</h5>
               <p class="card-text">Registre e consulte aqui os atendimentos.</p>
@@ -58,7 +58,7 @@
             </div>
         </div> 
         <div class="card" id="card">
-            <img src="/images/TREINAMENTOSVG.SVG" class="card-img-top" alt="...">
+            <img src="/images/TreinamentoSVG.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">TREINAMENTO</h5>
               <p class="card-text">Registre e consulte aqui os treinamentos.</p>
