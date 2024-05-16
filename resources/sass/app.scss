@@ -93,6 +93,10 @@ input::-webkit-inner-spin-button {
 }
 
 @media(max-width:680px) {
+    .logoSignin{
+      height: 4rem;
+      margin-left: 2.5rem;
+    }
     #btnLogin{
       margin-left:auto;
     }   
