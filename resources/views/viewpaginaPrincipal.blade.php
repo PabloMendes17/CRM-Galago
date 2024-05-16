@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="card" id="card">
-            <img src="/images/Atendimento.png" class="card-img-top" alt="...">
+            <img src="/images/AtendimentoSVG.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">ATENDIMENTO</h5>
               <p class="card-text">Registre e consulte aqui os atendimentos.</p>
