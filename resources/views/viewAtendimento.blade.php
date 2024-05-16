@@ -68,7 +68,7 @@
                         <td>{{$atendimentos->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($atendimentos->DATA_AGENDA)->format('d/m/Y')}}</td>
                         <td class="HORA_AGENDA"><b>{{ $atendimentos->HORA_AGENDA }}</b></td>
-                        <td>{{$atendimentos->OPERADOR}}<td>
+                        <td><b>{{$atendimentos->OPERADOR}}<b></td>
                         <td class="SITUACAO"><b>{{ $atendimentos->SITUACAO }}</b></td>
                         <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
