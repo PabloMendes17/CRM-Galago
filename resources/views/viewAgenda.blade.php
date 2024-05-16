@@ -25,8 +25,9 @@
             </div>
         </div>
     @endif
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid"> 
+        <div id="nav" class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
                 <br>{{Auth::user()->EMAIL}}
@@ -45,7 +46,7 @@
         <button type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</button>
     </div>
 
-    <div class="container-fluid" style="display: flex; justify-content: center;" id="ResultadoBusca">
+    <div class="container-fluid"  id="ResultadoBusca">
         <table class="table table-striped table-hover">
             <thead >
                 <tr>
@@ -109,7 +110,7 @@
                         <div class=" col-3 ">
                             <div class="input-group mb-3">
                                 <div class="form-floating">
-                                <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente" maxLength="6">
+                                <input type="number" class="form-control" id="inputCodCliente" placeholder="Cod Cliente" aria-label="Recipient's username" aria-describedby="" name="inputCodCliente" maxLength="6" step="none">
                                     <label for="floatingCod">Cod Cliente</label>
                                 </div>
                                 <button class="btn btn-outline-secondary" type="button" id="btBuscaFiltro" data-bs-target="#BuscaClienteFiltro" data-bs-toggle="modal">Busca</button>
@@ -152,7 +153,7 @@
                         <input id="razaoFiltro" maxlength="60" required name="razaoFiltro">
                         <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID">Busca</button>
                     </form><br>
-
+                    <div id="buscaFiltro">
                     <table class="table table-striped table-hover" id="ClientesParaFiltro">
                          <tbody>
                             @forelse($clientes as $cliente)
@@ -167,10 +168,10 @@
                             @endforelse
                         </tbody>
                     </table> 
-
                     <table class="table table-striped table-hover" id="ClientesJaFiltrado">
                     <!-- Recebe o cliente filtrado -->
-                    </table>  
+                    </table> 
+                    </div>                       
                </div>
             </div>
         </div>
@@ -288,24 +289,25 @@
                         <input id="razaoAG" maxlength="60" required name="razaoAG">
                         <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID_AG">Busca</button>
                     </form><br>
-                    <table class="table table-striped table-hover" id="ClientesParaAgenda">
-                        <tbody>
-                            @forelse($clientes as $cliente)
-                                <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodClienteAG" >{{$cliente->codigo}}</th>
-                                    <td class="NomeClienteAG">{{$cliente->nome}}</td>
-                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
-                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
-                                </tr>
-                            @empty
-                                <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
-                            @endforelse
-                        </tbody>
-                    </table> 
-                    <table class="table table-striped table-hover" id="ClientesNaAgenda">
-                    <!-- Recebe o cliente filtrado -->
-                    </table>  
-
+                    <div id="buscaFiltro">
+                        <table class="table table-striped table-hover" id="ClientesParaAgenda">
+                            <tbody>
+                                @forelse($clientes as $cliente)
+                                    <tr class="listaCliFiltrado">
+                                        <th scope="row" class="CodClienteAG" >{{$cliente->codigo}}</th>
+                                        <td class="NomeClienteAG">{{$cliente->nome}}</td>
+                                        @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                        @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
+                                    </tr>
+                                @empty
+                                    <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                                @endforelse
+                            </tbody>
+                        </table> 
+                        <table class="table table-striped table-hover" id="ClientesNaAgenda">
+                        <!-- Recebe o cliente filtrado -->
+                        </table>
+                    </div>    
                 </div>
             </div>
         </div>

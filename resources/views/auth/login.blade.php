@@ -41,7 +41,7 @@
                                             <label class="form-check-label" for="inputRememberPassword">Lembrar Credenciais</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <button class="btn btn-primary" style="margin-left:22em" type="submit">Login</button>
+                                            <button class="btn btn-primary" id="btnLogin" type="submit">Login</button>
                                         </div>
                                     </form>
                                 </div>

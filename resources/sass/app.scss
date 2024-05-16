@@ -4,6 +4,9 @@
     margin-top: 4em;
     padding: 0;
    }
+#btnLogin{
+  margin-left:22em;
+}   
 .footer{
     margin-top: 6em;
     margin-bottom: 0em;
@@ -35,51 +38,118 @@
 .table{
   text-align: center;
 }
+#cards{
+  display: flex; 
+  justify-content: center;
+}
+#card{
+  width: 18rem;
+  margin: 1rem;
+}
+#BuscaResultado{
+  display: flex;
+  justify-content: center;
+}
+
+b{
+  display: inline-block;
+  width: 165px;
+}
+
+#RetornoCadastro{
+  color: rgb(139, 0, 30); 
+  font-weight: bold;
+  text-align: center;
+}
+
+#Error .modal-title{
+  color: rgba(245, 5, 5, 0.719); 
+  font-weight: bold;
+  text-align: center;
+}
+
+#Error .modal-body{
+  color: rgba(41, 32, 165, 0.678); 
+  font-weight: bold;
+  text-align: center;
+}
+
+.iconOption{
+
+  width: 1.2rem;
+}
+
+#LabelDetalhes, #FiltroLabel, 
+#LabelRegistro{
+
+  color: rgba(0, 25, 165, 1);
+  font-weight: bold;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; 
+}
+
 @media(max-width:680px) {
+    #btnLogin{
+      margin-left:auto;
+    }   
     .logoNav{
-        height: 2rem;
+        height: 1.5rem;
+        margin-right: 1rem;
     }
     #btMenu{ 
         margin: 0.2rem;
         width: 8rem;
         height: 3rem;
         font-size: 0.7rem;
+        align-content: center;
+    }
+    #nav{
+      display: contents;
+    }
+    #cards{
+      display:grid;
+    }
+    #card{
+      width: 12rem;
+      margin: 0.3rem;
+      font-size: 10px;
+    }
+    #ResultadoBusca{
+      overflow: auto;
+    }
+    .col-2, .col-8{
+
+      width: 100%;
+    }
+    .row .col-3{
+      width: 100%;
+    }
+    #buscaFiltro{
+      overflow: auto;
+    }
+    b{
+      display: inline-block;
+      width: 160px;
+    }
+    #btbuscaPorID, #btbuscaPorID_AG, 
+    #btCliIdFiltroAtendimento, #btbuscaPorID_AT,
+    #btCliIdFiltroTreinamento, #btbuscaPorID_TR
+    {
+      width: 100%;
+    }
+    .modal-footer button, #btSalvaAgenda,
+    #btSalvaAtendimento, #btAplicaFiltro2{
+      
+      width: 45%;
+      font-size: 12px;
+
     }
 }
-b{
-    display: inline-block;
-    width: 165px;
-}
 
-#RetornoCadastro{
-    color: rgb(139, 0, 30); 
-    font-weight: bold;
-    text-align: center;
-}
-
-#Error .modal-title{
-    color: rgba(245, 5, 5, 0.719); 
-    font-weight: bold;
-    text-align: center;
-}
-
-#Error .modal-body{
-    color: rgba(41, 32, 165, 0.678); 
-    font-weight: bold;
-    text-align: center;
-}
-
-.iconOption{
-
-    width: 1.2rem;
-}
-
-#LabelDetalhes, #FiltroLabel, 
-#LabelRegistro{
-
-    color: rgba(0, 25, 165, 1);
-    font-weight: bold;
-}
 
 
 

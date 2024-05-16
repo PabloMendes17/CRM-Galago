@@ -26,7 +26,7 @@
         </div>
     @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid"> 
+        <div id="nav" class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
                 <br>{{Auth::user()->EMAIL}}
@@ -44,7 +44,7 @@
         <a type="button" class="btn btn-secondary" id="btMenu" onclick='href="/PaginaPrincipal"'>Pagina Principal</a>
         <a type="button" class="btn btn-secondary" id="btMenu" data-bs-toggle="modal" data-bs-target="#Filtro">Filtro</a>
     </div>
-    <div class="container-fluid" style="display: flex; justify-content: center;">
+    <div class="container-fluid"  id="ResultadoBusca">
         <table class="table table-striped table-hover">
             <thead >
                 <tr>
@@ -120,7 +120,7 @@
                         </div>
                         <div class="col-3">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="DtFinal" name="DtFinal" >
+                                <input type="date" class="form-control" id="DtFinal" name="DtFinal">
                                 <label for="floatingDtFinal">Data Final</label>  
                             </div>
                         </div>
@@ -147,25 +147,27 @@
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
                         <input id="razaoFiltro" maxlength="60" required name="razaoFiltro">
-                        <button type='button' id="btCliIdFiltroAtendimento">Busca</button>
+                        <button type='button' class="btn btn-secondary btn-sm" id="btCliIdFiltroAtendimento">Busca</button>
                     </form><br>
-                    <table class="table table-striped table-hover" id="ClientesParaFiltro">
-                        <tbody>
-                            @forelse($clientes as $cliente)
-                                <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodCliente" >{{$cliente->codigo}}</th>
-                                    <td class="NomeCliente">{{$cliente->nome}}</td>
-                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
-                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
-                                </tr>
-                            @empty
-                                <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
-                            @endforelse
-                        </tbody>
-                    </table> 
-                    <table class="table table-striped table-hover" id="ClientesJaFiltrado">
-                    <!-- Recebe o cliente filtrado -->
-                    </table>  
+                    <div id="buscaFiltro">
+                        <table class="table table-striped table-hover" id="ClientesParaFiltro">
+                            <tbody>
+                                @forelse($clientes as $cliente)
+                                    <tr class="listaCliFiltrado">
+                                        <th scope="row" class="CodCliente" >{{$cliente->codigo}}</th>
+                                        <td class="NomeCliente">{{$cliente->nome}}</td>
+                                        @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                        @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
+                                    </tr>
+                                @empty
+                                    <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                                @endforelse
+                            </tbody>
+                        </table> 
+                        <table class="table table-striped table-hover" id="ClientesJaFiltrado">
+                        <!-- Recebe o cliente filtrado -->
+                        </table>  
+                    </div>    
                </div>
             </div>
         </div>
@@ -220,7 +222,7 @@
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" required>
+                                <input type="date" class="form-control" id="floatingDtAgenda" name="DATA_AGENDA" required  max="{{$dtLimite}}">
                                 <label for="floatingDtAgenda">Data Agenda</label>  
                             </div>
                         </div>
@@ -282,23 +284,25 @@
                         <input id="razaoAT" maxlength="60" required name="razaoAT">
                         <button type='button' class="btn btn-secondary btn-sm" id="btbuscaPorID_AT">Busca</button>
                     </form><br>
-                    <table class="table table-striped table-hover" id="ClientesParaAtendimento">
-                        <tbody>
-                            @forelse($clientes as $cliente)
-                                <tr class="listaCliFiltrado">
-                                    <th scope="row" class="CodClienteAT" >{{$cliente->codigo}}</th>
-                                    <td class="NomeClienteAT">{{$cliente->nome}}</td>
-                                    @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
-                                    @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
-                                </tr>
-                            @empty
-                                <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
-                            @endforelse
-                        </tbody>
-                    </table> 
-                    <table class="table table-striped table-hover" id="ClientesNoAtendimento">
-                    <!-- Recebe o cliente filtrado -->
-                    </table>  
+                    <div id="buscaFiltro">
+                        <table class="table table-striped table-hover" id="ClientesParaAtendimento">
+                            <tbody>
+                                @forelse($clientes as $cliente)
+                                    <tr class="listaCliFiltrado">
+                                        <th scope="row" class="CodClienteAT" >{{$cliente->codigo}}</th>
+                                        <td class="NomeClienteAT">{{$cliente->nome}}</td>
+                                        @if(isset($cliente->cnpj))<td>{{$cliente->cnpj}}</td>@endif
+                                        @if(isset($cliente->cpf))<td>{{$cliente->cpf}}</td>@endif
+                                    </tr>
+                                @empty
+                                    <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
+                                @endforelse
+                            </tbody>
+                        </table> 
+                        <table class="table table-striped table-hover" id="ClientesNoAtendimento">
+                        <!-- Recebe o cliente filtrado -->
+                        </table>
+                    </div>      
                </div>
             </div>
         </div>

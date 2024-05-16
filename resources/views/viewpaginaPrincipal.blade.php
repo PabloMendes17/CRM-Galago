@@ -27,7 +27,7 @@
         </div>
     @endif
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 1rem;">
-        <div class="container-fluid"> 
+        <div id="nav" class="container-fluid"> 
             <img class="logoNav" src="images/logogalago.png"/>
             <div class="logado" >
                 <br>{{Auth::user()->EMAIL}}
@@ -40,8 +40,8 @@
             </a>
         </div>   
     </nav> 
-    <div class="container-fluid" style="display: flex; justify-content: center;">
-        <div class="card" style="width: 18rem; margin:1rem;">
+    <div id="cards" class="container-fluid">
+        <div class="card" id="card">
             <img src="images/AGENDASVG2.SVG" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">AGENDA</h5>
@@ -49,7 +49,7 @@
               <a href="/Agendamentos" class="btn btn-primary btn-block">Agendamentos</a>
             </div>
         </div>
-        <div class="card" style="width: 18rem; margin:1rem;">
+        <div class="card" id="card">
             <img src="/images/ATENDIMENTOSVG.SVG" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">ATENDIMENTO</h5>
@@ -57,7 +57,7 @@
               <a href="/Atendimentos" class="btn btn-primary">Atendimentos</a>
             </div>
         </div> 
-        <div class="card" style="width: 18rem; margin:1rem;">
+        <div class="card" id="card">
         
             <img src="/images/TREINAMENTOSVG.SVG" class="card-img-top" alt="...">
             <div class="card-body">
