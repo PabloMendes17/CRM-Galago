@@ -55,6 +55,7 @@
                 <th scope="col">TIPO</th>
                 <th scope="col">DATA TREINAMENTO</th>
                 <th scope="col">HORA TREINAMENTO</th>
+                <th scope="col">RESPONSÁVEL</th>
                 <th scope="col">SITUAÇÃO</th>
                 <th scope="col">Opções</th>
                 </tr>
@@ -68,6 +69,7 @@
                         <td>{{$treinamentos->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
                         <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}</b></td>
+                        <td>{{$atendimentos->OPERADOR}}<td>
                         <td class="SITUACAO"><b>{{ $treinamentos->SITUACAO }}</b></td>
                         <td>
                             <div class="btn-group btn-group-sm" role="group" aria-label="Opções">

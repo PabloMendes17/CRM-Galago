@@ -57,6 +57,7 @@
                 <th scope="col">TIPO</th>
                 <th scope="col">DATA AGENDADA</th>
                 <th scope="col">HORA AGENDADA</th>
+                <th scope="col">RESPONSÁVEL</th>
                 <th scope="col">SITUAÇÃO</th>
                 <th scope="col">Opções</th>
                 </tr>
@@ -71,6 +72,7 @@
                         <td>{{$agenda->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
                         <td class="HORA_AGENDA"><b>{{ $agenda->HORA_AGENDA }}</b></td>
+                        <td>{{$atendimentos->OPERADOR}}<td>
                         <td class="SITUACAO"><b>{{ $agenda->SITUACAO }}</b></td>
                         <td>
                         <div class="btn-group btn-group-sm" role="group" aria-label="Opções">
