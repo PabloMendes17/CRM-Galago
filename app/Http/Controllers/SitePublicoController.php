@@ -46,7 +46,9 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes = DB::table('clientes')->paginate(20);
+            $allClientes = DB::table('clientes')
+                            ->where('clientes.desativado', '=','False')
+                            ->paginate(20);
 
             $Situacoes=situacao_agenda::all();
             $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
@@ -111,9 +113,17 @@ class SitePublicoController extends Controller
 
                 try{
 
-                    $allClientes= DB::table('clientes')
-                                ->where('clientes.CPF', '=', $request->inputCliAgenda)
-                                 ->get();
+                     if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF', '=', $request->inputCliAgenda)
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF', '=', $request->inputCliAgenda)
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }             
                                     
                     return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -128,8 +138,20 @@ class SitePublicoController extends Controller
                 
                 try{
                     
-                    $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')->get();
-            
+                   
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliAgenda.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
+                    
+
                     return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
                 }catch(Exception $e){
@@ -156,7 +178,17 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                             
                     return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -170,8 +202,18 @@ class SitePublicoController extends Controller
             if(null!==$request->input('razaoAG')&&strlen($request->input('razaoAG'))>2){
                 
                 try{
-
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoAG.'%')->get();
+                    
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoAG.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoAG.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                             
                     return view(' viewAgenda',['agenda'=> $agenda,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -288,8 +330,8 @@ class SitePublicoController extends Controller
             $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
-                ->orderBy('agenda.data_agenda')
-                ->orderBy('agenda.hora_agenda')
+                ->orderByDesc('agenda.data_agenda')
+                ->orderByDesc('agenda.hora_agenda')
                 ->get();
             
           
@@ -300,6 +342,7 @@ class SitePublicoController extends Controller
                     $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
                                     ->where('agenda.cliente','=',$request->inputCodCliente)
                                     ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                                    ->orderByDesc('agenda.data_agenda')
                                     ->get();
             
                     return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -315,6 +358,7 @@ class SitePublicoController extends Controller
                 try{
                     $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
                     ->where('agenda.cliente','=',$request->inputCodCliente)
+                    ->orderByDesc('agenda.data_agenda')
                     ->get();
 
                     return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -330,6 +374,7 @@ class SitePublicoController extends Controller
                 try{
                     $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                                ->orderByDesc('agenda.data_agenda')
                                 ->get();
         
                     return view(' viewAtendimento',['atendimento'=> $Filtro,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -345,7 +390,19 @@ class SitePublicoController extends Controller
             if(null!==$request->input('inputCliAtendimento') && strlen($request->input('inputCliAtendimento'))==14){
                 
                 try{
-                    $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->inputCliAtendimento)->get();
+                    
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->inputCliAtendimento.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->inputCliAtendimento.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
+
                                 
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
                     
@@ -359,7 +416,17 @@ class SitePublicoController extends Controller
 
                 try{
                                     
-                    $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->inputCliAtendimento.'%')->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliAtendimento.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliAtendimento.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
             
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -391,7 +458,19 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
+                    
                                             
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -406,7 +485,17 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoAT.'%')->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoAT.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoAT.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                             
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -422,7 +511,18 @@ class SitePublicoController extends Controller
             
                 try{
                             
-                    $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->myInput)->get();
+
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                         
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes, 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -438,7 +538,17 @@ class SitePublicoController extends Controller
 
                 try{
                                 
-                    $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
             
                     return view(' viewAtendimento',['atendimento'=> $atendimentos,'clientes'=> $allClientes , 'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
                     
@@ -460,42 +570,6 @@ class SitePublicoController extends Controller
             return view('viewpaginaPrincipal',[ 'error' =>$erroMsm,'DATA' => $formatted_dateCarbon]);
         }    
     }
-    public function AtendimentosFiltrados(Request $request ){
-
-       
-        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
-            
-            $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewAtendimentosFiltrados',['atendimentos'=> $Filtro]);
-
-        }else if(isset($request->CodCliente)){
-
-            $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
-                            ->get();
-
-            return view('viewAtendimentosFiltrados',['atendimentos'=> $Filtro]);
-
-        }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
-            
-            $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewAtendimentosFiltrados',['atendimentos'=> $Filtro]);
-
-
-        }else{
-            $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')->get();
-           
-
-            return view('viewAtendimentosFiltrados',['atendimentos'=> $Filtro]);
-        }
-    }
     public function CadastrarAtendimentos(Request $request){
 
         $date = Carbon::now('America/Sao_Paulo');
@@ -508,8 +582,8 @@ class SitePublicoController extends Controller
             $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
-                ->orderBy('agenda.data_agenda')
-                ->orderBy('agenda.hora_agenda')
+                ->orderByDesc('agenda.data_agenda')
+                ->orderByDesc('agenda.hora_agenda')
                 ->get();
 
             if(isset($request->inputNomeClienteAT)){
@@ -557,8 +631,8 @@ class SitePublicoController extends Controller
             $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
-                ->orderBy('agenda.data_agenda')
-                ->orderBy('agenda.hora_agenda')
+                ->orderByDesc('agenda.data_agenda')
+                ->orderByDesc('agenda.hora_agenda')
                 ->get();
             
         
@@ -568,6 +642,7 @@ class SitePublicoController extends Controller
                     $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')
                     ->where('agenda.cliente','=',$request->inputCodCliente)
                     ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                    ->orderByDesc('agenda.data_agenda')
                     ->get();
 
                     return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -583,8 +658,8 @@ class SitePublicoController extends Controller
 
                 try{
                     $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')
-                                ->where('agenda.cliente','=',$request->inputCodCliente)
-                                ->get();
+                                    ->where('agenda.cliente','=',$request->inputCodCliente)
+                                    ->get();
         
                     return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
                     
@@ -600,6 +675,7 @@ class SitePublicoController extends Controller
                 try{
                     $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
+                                ->orderByDesc('agenda.data_agenda')
                                 ->get();
         
                     return view(' viewTreinamento',['treinamento'=> $Filtro,'clientes'=> $allClientes,'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -616,7 +692,17 @@ class SitePublicoController extends Controller
 
                 try{
                         
-                    $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->inputCliTreinamento)->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->inputCliTreinamento.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->inputCliTreinamento.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
 
             
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -634,7 +720,18 @@ class SitePublicoController extends Controller
  
                 try{
                                     
-                    $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->inputCliTreinamento.'%')->get();
+
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliTreinamento.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->inputCliTreinamento.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                     
   
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes' => $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
@@ -667,7 +764,18 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoFiltro.'%')->get();
+                    
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                             
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -683,7 +791,17 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    $allClientes=DB::table('clientes')->where('clientes.nome','like','%'.$request->razaoTR.'%')->get();
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoTR.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.nome','like','%'.$request->razaoTR.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                             
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -700,7 +818,18 @@ class SitePublicoController extends Controller
             if(null!==$request->input('myInput')&&strlen($request->input('myInput'))<15){
 
                 try{
-                    $allClientes=DB::table('clientes')->where('clientes.CPF','=',$request->myInput)->get();
+
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CPF','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
                                     
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -715,7 +844,18 @@ class SitePublicoController extends Controller
             }else  if(null!==$request->input('myInput')&&strlen($request->input('myInput'))>14){
 
                 try{
-                    $allClientes=DB::table('clientes')->where('clientes.CNPJ','like','%'.$request->myInput.'%')->get();
+                    
+                    if($request->ativo==='true'){
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','False')
+                                        ->get();
+                    }else{
+                        $allClientes=DB::table('clientes')
+                                        ->where('clientes.CNPJ','like','%'.$request->myInput.'%')
+                                        ->where('clientes.desativado', '=','True')
+                                        ->get();
+                    }
         
                     return view(' viewTreinamento',['treinamento'=> $treinamentos,'clientes'=> $allClientes,'situacoes'=> $Situacoes, 'dtLimite' => $dataAtual])->with('DATA',$formatted_dateCarbon);
 
@@ -738,42 +878,6 @@ class SitePublicoController extends Controller
 
         }
     }
-    public function TreinamentosFiltrados(Request $request ){
-
-       
-        if(isset($request->CodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
-            
-            $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewTreinamentosFiltrados',['treinamentos'=> $Filtro]);
-
-        }else if(isset($request->CodCliente)){
-
-            $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')
-                            ->where('agenda.cliente','=',$request->CodCliente)
-                            ->get();
-
-            return view('viewTreinamentosFiltrados',['treinamentos'=> $Filtro]);
-
-        }else if(isset($request->DtInicial)&&isset($request->DtFinal)){
-            
-            $Filtro=agenda::where('agenda.tipo','=','ATENDIMENTO')
-                            ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
-                            ->get();
-
-            return view('viewTreinamentosFiltrados',['treinamentos'=> $Filtro]);
-
-
-        }else{
-            $Filtro=agenda::where('agenda.tipo','=','TREINAMENTO')->get();
-           
-
-            return view('viewTreinamentosFiltrados',['treinamentos'=> $Filtro]);
-        }
-    }
     public function CadastrarTreinamentos(Request $request){
 
         Carbon::setLocale('pt_BR');
@@ -790,8 +894,8 @@ class SitePublicoController extends Controller
             $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
-                ->orderBy('agenda.data_agenda')
-                ->orderBy('agenda.hora_agenda')
+                ->orderByDesc('agenda.data_agenda')
+                ->orderByDesc('agenda.hora_agenda')
                 ->get();
 
         if(isset($request->inputNomeClienteTR)){

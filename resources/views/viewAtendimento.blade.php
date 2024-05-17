@@ -145,6 +145,8 @@
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
                         <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b>
+                        <input type='checkbox' id='ativosmyInput' name='ativosmyInput' checked>
+                        <label for="ativos">Ativos</label><br>
                         <input id="myInput" maxlength="18" required name="myInput">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
@@ -207,7 +209,7 @@
                         <div class="col-6">
                             <div  class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingContato" name="CONTATO" required>
-                                <label for="floatingContato">Cotato</label>  
+                                <label for="floatingContato">Contato</label>  
                             </div>
                         </div>
                         <div class="col-6">
@@ -280,6 +282,8 @@
                 <div class="modal-body " id="BuscaID">
                     <form name="cadastro" method="post" action="#">
                         <b id="cnpj_cpf">CNPJ/CPF:</b><b id="nome_razao">Nome/Razao:</b>
+                        <input type='checkbox' id='ativosAT' name='ativosAT' checked>
+                        <label for="ativos">Ativos</label><br>
                         <input id="inputCliAtendimento" maxlength="18" required name="inputCliAtendimento">
                         <input id="cnpj" style="display: none">
                         <input id="cpf" style="display: none">
@@ -318,7 +322,7 @@
                 </div>
                 <div class="modal-body">
                     <dl class="row">
-                        <dt class="col-sm-3">Codigo do Cliente:</dt>
+                        <dt class="col-sm-3">Código do Cliente:</dt>
                         <dt class="col-sm-9"><span id="RegistroCodCli"></span></dt>
                         <dt class="col-sm-3">Nome/Razão:</dt>
                         <dt class="col-sm-9"><span id="RegistroNameCli"></span></dt>

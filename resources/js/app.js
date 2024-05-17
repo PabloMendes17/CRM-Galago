@@ -49,7 +49,19 @@ setInterval(function() {//Função para Destacar status e hora na lista
         var dataAtual = new Date();
         var horaAtual = dataAtual.getTime();
 
-        if(dataAgenda >= dataAtual){//troca a classe php para as linhas
+        if(dataAgenda > dataAtual){//troca a classe php para as linhas
+            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
+                horaAgendaElemento.classList.add('text-primary');
+                situacaoElemento.classList.add('text-primary');
+            }else if (situacao === 'RESOLVIDO') {
+                horaAgendaElemento.classList.add('text-success');
+                situacaoElemento.classList.add('text-success');
+            } else if (situacao === 'REAGENDADO') {
+                horaAgendaElemento.classList.add('text-warning');
+                situacaoElemento.classList.add('text-warning');
+            }
+
+        }else if(dataAgenda == dataAtual){
             if( horaAgenda.getTime() < horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
                 horaAgendaElemento.classList.add('text-danger');
                 situacaoElemento.classList.add('text-danger');
@@ -63,7 +75,6 @@ setInterval(function() {//Função para Destacar status e hora na lista
                 horaAgendaElemento.classList.add('text-warning');
                 situacaoElemento.classList.add('text-warning');
             }
-
         }else{
             if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
                 horaAgendaElemento.classList.add('text-danger');
@@ -212,9 +223,12 @@ function buscaPorID() { //Filtra Cli por Doc
     //Verifica se a busca é por Doc ou Nome
     if((document.getElementById('myInput').value).length>0){
         var idCli = document.getElementById('myInput').value; 
+        var ativos = document.getElementById('ativosmyInput').checked;
         var campo='myInput';
+        
     }else{
         var idCli = document.getElementById('razaoFiltro').value; 
+        var ativos = document.getElementById('ativosmyInput').checked;
         var campo='razaoFiltro';
     }
 
@@ -222,7 +236,7 @@ function buscaPorID() { //Filtra Cli por Doc
     $.ajax({
         url: '/Agendamentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -346,19 +360,21 @@ function buscaPorIdCLi() {//Filtra Cli por Doc Agenda
     if((document.getElementById('inputCliAgenda').value).length>0){
         var idCli = document.getElementById('inputCliAgenda').value; 
         var campo='inputCliAgenda';
+        var ativos = document.getElementById('ativosAG').checked;
     }else{
         var idCli = document.getElementById('razaoAG').value; 
         var campo='razaoAG';
+        var ativos = document.getElementById('ativos').checked;
     }
+
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Agendamentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
-            
             var tabelaHtml = $(response).find('#ClientesParaAgenda').html();
             //Esconde a tab que está em exibição e chama a tab filtrada no lugar    
             $('#ClientesParaAgenda').hide();
@@ -424,16 +440,18 @@ function buscaPorIdAt() { //Filtra Cli por Doc
     //Verifica se a busca é por Doc ou Nome
     if((document.getElementById('myInput').value).length>0){
         var idCli = document.getElementById('myInput').value; 
+        var ativos = document.getElementById('ativosmyInput').checked;        
         var campo='myInput';
     }else{
         var idCli = document.getElementById('razaoFiltro').value; 
+        var ativos = document.getElementById('ativosmyInput').checked;  
         var campo='razaoFiltro';
     }
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Atendimentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -554,9 +572,11 @@ function buscaPorIdCliAt() {//Filtra Cli por Doc Atendimetno
 //Verifica se a busca é por Doc ou Nome
 if((document.getElementById('inputCliAtendimento').value).length>0){
     var idCli = document.getElementById('inputCliAtendimento').value; 
+    var ativos = document.getElementById('ativosAT').checked;
     var campo='inputCliAtendimento';
 }else{
     var idCli = document.getElementById('razaoAT').value; 
+    var ativos = document.getElementById('ativosAT').checked;
     var campo='razaoAT';
 }
 
@@ -564,7 +584,7 @@ if((document.getElementById('inputCliAtendimento').value).length>0){
     $.ajax({
         url: '/Atendimentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos },
         success: function(response) {
             
             //No sucesso traz uma view igual com os dados filtrados
@@ -636,16 +656,18 @@ function buscaPorIdTr() { //Filtra Cli por Doc
     //Verifica se a busca é por Doc ou Nome
     if((document.getElementById('myInput').value).length>0){
         var idCli = document.getElementById('myInput').value; 
+        var ativos =  document.getElementById('ativosmyInput').checked
         var campo='myInput';
     }else{
         var idCli = document.getElementById('razaoFiltro').value; 
+        var ativos =  document.getElementById('ativosmyInput').checked
         var campo='razaoFiltro';
     }
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Treinamentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos },
         success: function(response) {
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
@@ -767,9 +789,11 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
 
     if((document.getElementById('inputCliTreinamento').value).length>0){
         var idCli = document.getElementById('inputCliTreinamento').value; 
+        var ativos =document.getElementById('ativosTR').checked;
         var campo='inputCliTreinamento';
     }else{
         var idCli = document.getElementById('razaoTR').value; 
+        var ativos =document.getElementById('ativosTR').checked;
         var campo='razaoTR';
     }
 
@@ -777,7 +801,7 @@ function buscaPorIdCliTr() {//Filtra Cli por Doc Treinamento
     $.ajax({
         url: '/Treinamentos',
         type: 'POST',
-        data: { [campo]: idCli },
+        data: { [campo]: idCli, ativo:ativos},
         success: function(response) {
 
             //No sucesso traz uma view igual com os dados filtrados
