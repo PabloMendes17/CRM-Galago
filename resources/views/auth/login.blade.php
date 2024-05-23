@@ -29,15 +29,18 @@
                                             </div>
                                         @endif
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" value="{{ old('email') }}" required/>
+                                            <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" 
+                                            @if(isset($_COOKIE["email"])) value="{{decrypt($_COOKIE['email'])}}" @endif required/>
                                             <label for="inputEmail">Email</label>
                                         </div>
                                         <div class="form-floating mb-3">
-                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="password" required/>
+                                            <input class="form-control" id="inputPassword" type="password" placeholder="Password" name="password" 
+                                            @if(isset($_COOKIE["password"])) value="{{decrypt($_COOKIE['password'])}}" @endif required/>
                                             <label for="inputPassword">Senha</label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" name="remember"/>
+                                            <input class="form-check-input" id="inputRememberPassword" type="checkbox" 
+                                            @if(isset($_COOKIE["email"])) checked @endif name="remember">
                                             <label class="form-check-label" for="inputRememberPassword">Lembrar Credenciais</label>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

@@ -180,12 +180,18 @@ class SitePublicoController extends Controller
 
                     if($request->ativo==='true'){
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
-                                        ->where('clientes.desativado', '=','False')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
+                                        ->where('clientes.desativado','=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -203,14 +209,21 @@ class SitePublicoController extends Controller
                 
                 try{
                     
-                    if($request->ativo==='true'){
+                    if($request->ativo === 'true'){
+
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoAG.'%')
+                                    ->where(function ($query) use ($request) {
+                                     $query->where('clientes.nome', 'like', '%' . $request->razaoAG . '%')
+                                    ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoAG . '%');
+                                    })
                                         ->where('clientes.desativado', '=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoAG.'%')
+                                    ->where(function ($query) use ($request) {
+                                     $query->where('clientes.nome', 'like', '%' . $request->razaoAG . '%')
+                                    ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoAG . '%');
+                                    })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -286,6 +299,8 @@ class SitePublicoController extends Controller
                 ->get();
 
         if(isset($request->inputNomeClienteAG)){
+
+            $historico = nl2br($request->input('HISTORICO'));
             
             $insereNovaAgenda = [ 
                 'CONTATO' => $request->input('CONTATO'),
@@ -297,7 +312,7 @@ class SitePublicoController extends Controller
                 'HORA_AGENDA' => $request->input('HORA_AGENDA'),
                 'SITUACAO' => $request->input('SITUACAO'),
                 'TIPO' => $request->input('TIPO'),
-                'HISTORICO' => $request->input('HISTORICO'),
+                'HISTORICO' => $historico,
                 'TELEFONE1' => $request->input('TELEFONE1'), 
             ];
 
@@ -461,12 +476,18 @@ class SitePublicoController extends Controller
 
                     if($request->ativo==='true'){
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
                                         ->where('clientes.desativado', '=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -487,12 +508,18 @@ class SitePublicoController extends Controller
 
                     if($request->ativo==='true'){
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoAT.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoAT . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoAT . '%');
+                                            })
                                         ->where('clientes.desativado', '=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoAT.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoAT . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoAT . '%');
+                                            })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -587,6 +614,8 @@ class SitePublicoController extends Controller
                 ->get();
 
             if(isset($request->inputNomeClienteAT)){
+
+                $historico = nl2br($request->input('HISTORICO'));
                 
                 $insereNovoAtendimento = [ 
                     'CONTATO' => $request->input('CONTATO'),
@@ -598,7 +627,7 @@ class SitePublicoController extends Controller
                     'HORA_AGENDA' => $request->input('HORA_AGENDA'),
                     'SITUACAO' => $request->input('SITUACAO'),
                     'TIPO' => $request->input('TIPO'),
-                    'HISTORICO' => $request->input('HISTORICO'),
+                    'HISTORICO' => $historico,
                     'TELEFONE1' => $request->input('TELEFONE1'), 
                 ];
 
@@ -764,15 +793,20 @@ class SitePublicoController extends Controller
                 
                 try{
 
-                    
                     if($request->ativo==='true'){
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
                                         ->where('clientes.desativado', '=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoFiltro.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoFiltro . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoFiltro . '%');
+                                            })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -793,12 +827,18 @@ class SitePublicoController extends Controller
 
                     if($request->ativo==='true'){
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoTR.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoTR . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoTR . '%');
+                                            })
                                         ->where('clientes.desativado', '=','False')
                                         ->get();
                     }else{
                         $allClientes=DB::table('clientes')
-                                        ->where('clientes.nome','like','%'.$request->razaoTR.'%')
+                                        ->where(function ($query) use ($request) {
+                                            $query->where('clientes.nome', 'like', '%' . $request->razaoTR . '%')
+                                            ->orWhere('clientes.nomefantasia', 'like', '%' . $request->razaoTR . '%');
+                                            })
                                         ->where('clientes.desativado', '=','True')
                                         ->get();
                     }
@@ -899,6 +939,8 @@ class SitePublicoController extends Controller
                 ->get();
 
         if(isset($request->inputNomeClienteTR)){
+
+            $historico = nl2br($request->input('HISTORICO'));
             
             $insereNovoTreinamento = [ 
                 'CONTATO' => $request->input('CONTATO'),
@@ -910,7 +952,7 @@ class SitePublicoController extends Controller
                 'HORA_AGENDA' => $request->input('HORA_AGENDA'),
                 'SITUACAO' => $request->input('SITUACAO'),
                 'TIPO' => $request->input('TIPO'),
-                'HISTORICO' => $request->input('HISTORICO'),
+                'HISTORICO' => $historico,
                 'TELEFONE1' => $request->input('TELEFONE1'), 
             ];
 
@@ -961,6 +1003,10 @@ class SitePublicoController extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => 'Não foi possível atualizar a situação'], 500);
         }
+    }
+
+    public function Install(){
+        return view('viewInstaladores');
     }
     
 

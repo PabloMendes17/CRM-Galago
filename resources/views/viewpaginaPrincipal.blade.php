@@ -65,6 +65,14 @@
               <a href="/Treinamentos" class="btn btn-primary">Treinamentos</a>
             </div>
         </div>
+        <div class="card" id="card">
+            <img src="/images/installSVG.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">INSTALADORES</h5>
+              <p class="card-text">Acesse e baixe o setup's necessários.</p>
+              <a href="/Instaladores" class="btn btn-primary">Instaladores</a>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

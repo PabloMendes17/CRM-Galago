@@ -91,6 +91,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td id="RetornoCadastro"> Nenhum Registro Localizado</td>
                     <td></td>
                     <td></td>
@@ -261,6 +262,8 @@
                         <div class="col-4">
                             <div  class="form-floating mb-3">
                                 <input type="text" class="form-control" id="Telefone" name="TELEFONE1" required>
+                                <input id="movel" style="display: none">
+                                <input id="fixo" style="display: none">
                                 <label for="Telefone">Telefone</label>  
                             </div>
                         </div>
@@ -328,16 +331,16 @@
                 <div class="modal-body">
                     <dl class="row">
                         <dt class="col-sm-3">Código do Cliente:</dt>
-                        <dt class="col-sm-9"><span id="RegistroCodCli"></span></dt>
+                        <dd class="col-sm-9"><span id="RegistroCodCli"></span></dd>
                         <dt class="col-sm-3">Nome/Razão:</dt>
-                        <dt class="col-sm-9"><span id="RegistroNameCli"></span></dt>
+                        <dd class="col-sm-9"><span id="RegistroNameCli"></span></dd>
                         <dt class="col-sm-3">CPF/CNPJ:</dt>
-                        <dt class="col-sm-9"><span id="RegistroDocCli"></span></dt>
+                        <dd class="col-sm-9"><span id="RegistroDocCli"></span></dd>
                         <br><br>
                         <dt class="col-sm-3">Atendimento Nº:</dt>
-                        <dt class="col-sm-9"><span id="codigoRegistro"></span></dt>
+                        <dd class="col-sm-9"><span id="codigoRegistro"></span></dd>
                         <dt class="col-sm-3">Detalhes:</dt>
-                        <dt class="col-sm-9"><span id="detalhesRegistro"></span></dt><br>
+                        <dd class="col-sm-9"><span id="detalhesRegistro"></span></dd><br>
                     </dl>
                 </div>
             </div>

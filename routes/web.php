@@ -47,6 +47,8 @@ Route::middleware(['auth:vendedor'])->group(function(){
     Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
     Route:: post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
 
+    Route:: get('/Instaladores',[SitePublicoController::class,'Install'])->name('Instaladores');
+
 });
 
 

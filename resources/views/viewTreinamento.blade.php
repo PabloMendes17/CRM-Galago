@@ -52,6 +52,7 @@
                 <th scope="col">CODIGO</th>
                 <th scope="col">CONTATO</th>
                 <th scope="col">ASSUNTO</th>
+                <th scope="col">TELEFONE</th>
                 <th scope="col">TIPO</th>
                 <th scope="col">DATA TREINAMENTO</th>
                 <th scope="col">HORA TREINAMENTO</th>
@@ -66,6 +67,7 @@
                         <th scope="row" class='codigo'>{{$treinamentos->CODIGO}}</th>
                         <td>{{$treinamentos->CONTATO}}</td>
                         <td>{{$treinamentos->ASSUNTO}}</td>
+                        <td>{{$treinamentos->TELEFONE1}}</td>
                         <td>{{$treinamentos->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($treinamentos->DATA_AGENDA)->format('d/m/Y')}}</td>
                         <td class="HORA_AGENDA"><b>{{ $treinamentos->HORA_AGENDA }}</b></td>
@@ -83,6 +85,7 @@
                         </td>            
                     </tr>   
                 @empty
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -256,6 +259,8 @@
                         <div class="col-4">
                             <div  class="form-floating mb-3">
                                 <input type="text" class="form-control" id="Telefone" name="TELEFONE1" required>
+                                <input id="movel" style="display: none">
+                                <input id="fixo" style="display: none">
                                 <label for="Telefone">Telefone</label>  
                             </div>
                         </div>

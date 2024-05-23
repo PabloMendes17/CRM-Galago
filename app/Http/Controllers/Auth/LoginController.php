@@ -12,7 +12,7 @@ use Exception;
 class LoginController extends Controller{
 
     public function login(){
-
+    
         return view('auth.login');
     }
     public function Politicas(){
@@ -22,6 +22,8 @@ class LoginController extends Controller{
 
     public function autenticar(Request $request){
 
+       
+       // $remember = $request->has('remember');
         $credentials = $request->validate([
          
             'email' => ['required', 'EMAIL'],
@@ -37,7 +39,19 @@ class LoginController extends Controller{
                     'email' => 'Usuário Inválido.',
                 ]);
 
-            }elseif(Auth::guard('vendedor')->attempt($credentials,$remember = true)) {
+            }elseif(Auth::guard('vendedor')->attempt($credentials,$request->remember)) {
+
+                if(isset($request->remember)&&!empty($request->remember)){
+                    
+                    $EncryMail= encrypt($request->email);
+                    setcookie("email", $EncryMail,time()+3600);
+                    $EncryPass= encrypt($request->password);
+                    setcookie("password",$EncryPass,time()+3600);
+                 
+                }else{
+                    setcookie("email","");
+                    setcookie("password","");
+                }
 
                     $request->session()->regenerate();
 

@@ -30,6 +30,7 @@ setInterval(function() {//Função para Destacar status e hora na lista
         var situacaoElemento = linha.querySelector('.SITUACAO');
     
         if (horaAgendaElemento && dataAgendaElemento && situacaoElemento) {
+
         var horaAgendaRaw = horaAgendaElemento.textContent.trim();
         var dataAgendaRaw = dataAgendaElemento.textContent.trim();
         var situacao = situacaoElemento.textContent.trim();
@@ -40,15 +41,17 @@ setInterval(function() {//Função para Destacar status e hora na lista
         var horaAgenda = new Date();// cria um objeto hora para comparar
         horaAgenda.setHours(parseInt(horaAgendaComponents[0], 10));
         horaAgenda.setMinutes(parseInt(horaAgendaComponents[1], 10));
-
+    
         var dataAgenda = new Date();// cria um objeto Data para comparar
         dataAgenda.setFullYear(parseInt(dataAgendaComponents[2], 10));
         dataAgenda.setMonth(parseInt(dataAgendaComponents[1], 10) - 1);
         dataAgenda.setDate(parseInt(dataAgendaComponents[0], 10));
+        dataAgenda.setHours(parseInt(horaAgendaComponents[0], 10));
+        dataAgenda.setMinutes(parseInt(horaAgendaComponents[1], 10));
 
         var dataAtual = new Date();
-        var horaAtual = dataAtual.getTime();
-
+        var horaAtual = dataAtual;
+   
         if(dataAgenda > dataAtual){//troca a classe php para as linhas
             if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
                 horaAgendaElemento.classList.add('text-primary');
@@ -62,10 +65,12 @@ setInterval(function() {//Função para Destacar status e hora na lista
             }
 
         }else if(dataAgenda == dataAtual){
-            if( horaAgenda.getTime() < horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+
+            if( horaAgenda<horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+                console.log('Laco1');
                 horaAgendaElemento.classList.add('text-danger');
                 situacaoElemento.classList.add('text-danger');
-            }else if(horaAgenda.getTime() >= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+            }else if(horaAgenda >= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
                 horaAgendaElemento.classList.add('text-primary');
                 situacaoElemento.classList.add('text-primary');
             }else if (situacao === 'RESOLVIDO') {
@@ -119,7 +124,7 @@ async function viewUser(CODIGO) {//Exibe os detalhes do registro
 
 var codigoRegistro;
 var novaSituacao;
-$(document).ready(function() {//Chama a função que exibe detalhes
+$(document).ready(function() {//Chama a função para Nova situação
     
     $(document).on('click', '#updateSituacao', function() {
         codigoRegistro = $(this).data('codigo');
@@ -175,6 +180,23 @@ document.getElementById('FormInsert').addEventListener('submit', function(event)
     }
 });
 
+$('textarea').bind('keydown', function(e) {//Permite Utilizar o Enter na Textarea
+    if(e.keyCode === 9) {
+        e.preventDefault();
+        var inicioDaSelecao = this.selectionStart,
+            fimDaSelecao = this.selectionEnd,
+            recuo = '\t'; 
+      
+        this.value = [
+            this.value.substring(0, inicioDaSelecao),
+            recuo,
+            this.value.substring(fimDaSelecao)
+        ].join('');
+
+        this.selectionEnd = inicioDaSelecao + recuo.length; 
+    }    
+});
+
 
 //Funções para viewAgenda
   $(function(){//Func Mascara Input DocFiltro
@@ -196,6 +218,27 @@ document.getElementById('FormInsert').addEventListener('submit', function(event)
             $('#cpf').val('');
             $('#cnpj').val('');
             $('#cnpj_cpf').text('CNPJ/CPF');
+        }
+    }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
+});
+
+$(function(){//Func Mascara Input Telefone
+    $('#movel').mask('(99) 9 9999-9999');
+    $('#fixo').mask('(99) 9999-9999');
+  
+    $('#Telefone').keyup(function(){
+        const val = $(this).val().replace(/[^0-9]/g, '');
+
+        if (val.length<=10&&val!=='') {
+            $('#fixo').val(val);
+            $(this).val($('#fixo').masked());
+        } else if(val.length>=11){
+            $('#movel').val(val);
+            $(this).val($('#movel').masked());
+
+        }else{
+            $('#fixo').val('');
+            $('#movel').val('');
         }
     }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
 });
@@ -299,12 +342,12 @@ function buscaIdCLi(idCli) {//Filtra Cli por Doc Agenda
         });
     }
 }
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {//Evita o envio do forme na modal 
     var novaAgendaElement = document.getElementById('NovaAgenda');
     
     if (novaAgendaElement) {
         novaAgendaElement.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+            if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
                 event.preventDefault();
                 const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
                 if (this.elements[index]) {
@@ -364,15 +407,16 @@ function buscaPorIdCLi() {//Filtra Cli por Doc Agenda
     }else{
         var idCli = document.getElementById('razaoAG').value; 
         var campo='razaoAG';
-        var ativos = document.getElementById('ativos').checked;
+        var ativos = document.getElementById('ativosAG').checked;
     }
 
     //Chama a Rota que processa o filtro
     $.ajax({
         url: '/Agendamentos',
         type: 'POST',
-        data: { [campo]: idCli, ativo:ativos },
+        data: { [campo]: idCli, ativo:ativos},
         success: function(response) {
+
             //No sucesso traz uma view igual com os dados filtrados
             // Busca na view somente a Tabela em html e armazena na variável
             var tabelaHtml = $(response).find('#ClientesParaAgenda').html();
@@ -512,12 +556,12 @@ function buscaIdCliAt(idCli) {//Filtra Cli por Doc Atendimento
         });
     }
 }
-document.addEventListener('DOMContentLoaded', function () {//Evita o envio com enter da modal NovoAtendimento
-    var novoAtendimentoElement = document.getElementById('NovoAtendimento');
+document.addEventListener('DOMContentLoaded', function () {//Evita o envio do forme na modal 
+    var novaAgendaElement = document.getElementById('NovoAtendimento');
     
-    if (novoAtendimentoElement) {
-        novoAtendimentoElement.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    if (novaAgendaElement) {
+        novaAgendaElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
                 event.preventDefault();
                 const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
                 if (this.elements[index]) {
@@ -729,12 +773,12 @@ function buscaIdCliTr(idCli) {//Filtra Cli por Doc Treinamento
         });
     }
 }
-document.addEventListener('DOMContentLoaded', function () {//Evita o envio com enter da modal NovoTreinamento
-    var novoTreinamentoElement = document.getElementById('NovoTreinamento');
+document.addEventListener('DOMContentLoaded', function () { //Evita o envio do forme na modal 
+    var novaAgendaElement = document.getElementById('Treinamento');
     
-    if (novoTreinamentoElement) {
-        novoTreinamentoElement.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
+    if (novaAgendaElement) {
+        novaAgendaElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' && event.target.tagName !== 'TEXTAREA') {
                 event.preventDefault();
                 const index = Array.from(this.elements).indexOf(document.activeElement) + 3;
                 if (this.elements[index]) {
@@ -847,6 +891,22 @@ $(document).ready(function() {
         $('#inputNomeClienteTR').removeAttr('disabled');
         $('#Operador').removeAttr('disabled');
         $('#Tipo').removeAttr('disabled');
+    });
+});
+
+let modo = document.getElementById('modo');
+let body = ddocument.getElementsByClassName('body');
+
+
+/*modo.addEventListener('click', ()=>{
+    modo.classList.toggle('dark')
+    body.classList.toggle('dark')
+})*/
+
+$(document).ready(function() {
+    $('#selecao').on('click', function() {
+    modo.classList.toggle('dark')
+    body.classList.toggle('dark')
     });
 });
 

@@ -155,6 +155,156 @@ input::-webkit-inner-spin-button {
     }
 }
 
+//Instaladores
+.bodyInstall{
+  background: rgb(243, 241, 241);
+  font-weight: bold;
+  font-family: Arial;
+  transition: .5s;
+}
+
+h1{
+  text-align: center;
+  padding: 5px;
+}
+
+.containe {
+  column-width: auto;
+  column-gap: 10px;
+  column-count: 4;
+  padding: 1px;
+  
+}
+
+.instaladores{
+  /*break-inside: auto;*/
+  page-break-inside: avoid;
+  background-color: rgb(10, 8, 124);/*#0f188a;*/
+  border: 2px solid rgb(6, 6, 10);
+  color: beige;
+  /*padding: 10px;*/
+  margin: 0 0 1em 0;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 15px 10px 5px 5px;
+  border-radius: 15px;
+}
+
+#botao{
+  text-decoration: none;
+  color: #FFF;
+  background-color: black;
+  margin: 0px;
+  padding: 10px;
+  //border-radius: 3px;
+  
+}
+   
+.botao{
+  border: solid 2px black;
+  border-radius: 15px;
+  color: white;
+  background-color: black;
+  transition: background-color 0.5s ease, color 0.5s ease, transform 0.5s ease;
+}
+
+.botao:hover{
+  background-color: #02fc62;
+  color: black;
+  transform: scale(1.2)
+}
+
+@media screen and (max-width: 1169px){
+  .instaladores{
+      padding: 10px 8px 4px 4px;
+  }
+
+  .containe{
+      column-count: 4;
+  }
+}
+
+@media screen and (max-width: 900px){
+  .instaladores{
+      padding: 8px 7px 3px 3px;
+  }
+
+  .containe{
+      column-count: 3;
+  }
+}
+
+@media screen and (max-width: 700px){
+  .instaladores{
+      padding: 8px 7px 3px 3px;
+  }
+
+  .containe{
+      column-count: 2;
+  }
+}
+
+@media screen and (max-width: 500px){
+  .instaladores{
+      padding: 6px 5px 2px 2px;
+  }
+
+  .containe{
+      column-count: 2;
+  }
+}
+
+@media screen and (max-width: 390px){
+  .instaladores{
+      padding: 5px 4px 1px 1px;
+  }
+
+  .containe{
+      column-count: 1;
+  }
+}
+
+.modo{
+  width: 80px;
+  height: 40px;
+  background-color: #4d4d4d;
+  border-radius: 150px;
+  position: relative;
+  cursor: pointer;
+}
+
+.modo .selecao{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #000;
+  transform: scale(.9);
+  position: absolute;
+  left: 0;
+  transition: .5s;
+}
+
+.modo.dark{
+  background-color: #c3c3c3;
+}
+
+.modo.dark .selecao{
+  left: 40px;
+  background-color: #fff;
+}
+
+body.dark{
+  background-color: #313131;
+  color: #fff;
+}
+
+.estilo{
+  float: right;
+}
+
+
+
 
 
 
