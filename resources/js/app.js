@@ -254,8 +254,13 @@ async function updateSituacao(CODIGO,ASSUNTO,SITUACAO,TELEFONE1,HISTORICO) {//Up
 }
 document.getElementById('FormInsert').addEventListener('submit', function(event) {//Trata o comboList para não ser enviado a opção Selecione
     var situacao = document.getElementById('floatingSituacao').value;
+    var tipo = document.getElementById('Tipo').value;
     if (situacao === null || situacao === ""|| situacao==='Selecione') {
         alert('Por favor, selecione uma opção para a situação.');
+        event.preventDefault(); 
+    }
+    if(tipo === null || tipo === ""|| tipo==='Selecione'){
+        alert('Por favor, selecione uma opção para a operador.');
         event.preventDefault(); 
     }
 });
