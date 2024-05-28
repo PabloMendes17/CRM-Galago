@@ -354,6 +354,10 @@
                     <form class="row g-3" id="FormInsert"> 
                         <div class="col-12">
                             <div  class="form-floating mb-3">
+                                <input type="text" class="form-control" id="upDateAssunto" name="ASSUNTO" required>
+                                <label for="ASSUNTO">Assunto</label>  
+                            </div>
+                            <div  class="form-floating mb-3">
                                 <select class="form-select" aria-label="Default select example" id="situacaoSelecionada" name="SITUACAO" required>
                                     <option selected disabled>Selecione</option>
                                     @foreach($situacoes as $situacao)
@@ -361,6 +365,17 @@
                                     @endforeach
                                 </select>
                                 <label for="floatingSituacao">Situacao</label>  
+                            </div>
+                            <div  class="form-floating mb-3">
+                                <input type="text" class="form-control" id="upDateTelefone" name="TELEFONE1" required>
+                                <input id="movel" style="display: none">
+                                <input id="fixo" style="display: none">
+                                <label for="Telefone">Telefone</label>  
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Detalhes do Registro" id="upDateDetalhes" name="HISTORICO" style="height: 150px">
+                                </textarea>
+                                <label for="floatingDetalhes">Detalhes</label>
                             </div>
                         </div>
                         <div class="modal-footer">

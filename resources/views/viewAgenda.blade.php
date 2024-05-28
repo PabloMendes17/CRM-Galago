@@ -67,8 +67,8 @@
                     <tr>
                         <th scope="row" class='codigo'>{{$agenda->CODIGO}}</th>
                         <td>{{$agenda->CONTATO}}</td>
-                        <td>{{$agenda->ASSUNTO}}</td>
-                        <td>{{$agenda->TELEFONE1}}</td>
+                        <td class='assunto'>{{$agenda->ASSUNTO}}</td>
+                        <td class='telefone'>{{$agenda->TELEFONE1}}</td>
                         <td>{{$agenda->TIPO}}</td>
                         <td class='DATA_AGENDA'>{{\Carbon\Carbon::parse($agenda->DATA_AGENDA)->format('d/m/Y')}}</td>
                         <td class="HORA_AGENDA"><b>{{ $agenda->HORA_AGENDA }}</b></td>
@@ -208,8 +208,20 @@
                         </div>
                         <div class="col-2">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Operador" name="OPERADOR" value="{{Auth::user()->usuario_PARAMetro}}" disabled>
-                                <label for="floatingOp">Operador</label>  
+                                <select class="form-select" aria-label="Default select example" id="Operador" name="OPERADOR" required>
+                                    <option selected disabled>Selecione</option>
+                                    <option value="002 - ALAYNE">002 - ALAYNE</option>
+                                    <option value="004 - JOAOPAULO">004 - JOAOPAULO</option>
+                                    <option value="005 - JONATHAN">005 - JONATHAN</option>
+                                    <option value="006 - CLEVSON">006 - CLEVSON</option>
+                                    <option value="008 - GILBERTO">008 - GILBERTO</option>
+                                    <option value="009 - PAULO">009 - PAULO</option>
+                                    <option value="011 - NAIARA">011 - NAIARA</option>
+                                    <option value="012 - PABLO">012 - PABLO</option>
+                                    <option value="015 - ROBERT">015 - ROBERT</option>
+                                    <option value="016 - GABRIEL">016 - GABRIEL</option>
+                                </select> 
+                                <label for="Operador">Operador</label>  
                             </div>
                         </div>
                         <div class="col-6">
@@ -255,8 +267,13 @@
                         </div>
                         <div class="col-4">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="Tipo" name="TIPO"value="AGENDAMENTO" disabled >
-                                <label for="floatingTipo">Tipo</label>  
+                                <select class="form-select" aria-label="Default select example" id="Tipo" name="TIPO" required>
+                                    <option selected disabled>Selecione</option>
+                                    <option value="AGENDAMENTO 1H">AGENDAMENTO 1H</option>
+                                    <option value="AGENDAMENTO 1H:30m">AGENDAMENTO 1H:30m</option>
+                                    <option value="AGENDAMENTO 2H">AGENDAMENTO 2H</option>
+                                </select> 
+                                <label for="Tipo">Tipo</label>  
                             </div>
                         </div>
                         <div class="col-4">
@@ -357,6 +374,10 @@
                     <form class="row g-3" id="FormInsert"> 
                         <div class="col-12">
                             <div  class="form-floating mb-3">
+                                <input type="text" class="form-control" id="upDateAssunto" name="ASSUNTO" required>
+                                <label for="ASSUNTO">Assunto</label>  
+                            </div>
+                            <div  class="form-floating mb-3">
                                 <select class="form-select" aria-label="Default select example" id="situacaoSelecionada" name="SITUACAO" required>
                                     <option selected disabled>Selecione</option>
                                     @foreach($situacoes as $situacao)
@@ -364,6 +385,17 @@
                                     @endforeach
                                 </select>
                                 <label for="floatingSituacao">Situacao</label>  
+                            </div>
+                            <div  class="form-floating mb-3">
+                                <input type="text" class="form-control" id="upDateTelefone" name="TELEFONE1" required>
+                                <input id="movel" style="display: none">
+                                <input id="fixo" style="display: none">
+                                <label for="Telefone">Telefone</label>  
+                            </div>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Detalhes do Registro" id="upDateDetalhes" name="HISTORICO" style="height: 150px">
+                                </textarea>
+                                <label for="floatingDetalhes">Detalhes</label>
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -95,15 +95,67 @@ setInterval(function() {//Função para Destacar status e hora na lista
        
     }});    
 }, 1000);
+document.getElementById("Telefone").onkeypress = function(e) { //restringe os caracteres no campo
+    var chr = String.fromCharCode(e.which);
+    if ("1234567890".indexOf(chr) < 0)
+      return false;
+  };
+  document.getElementById("upDateTelefone").onkeypress = function(e) {//restringe os caracteres no campo
+    var chr = String.fromCharCode(e.which);
+    if ("1234567890".indexOf(chr) < 0)
+      return false;
+  };
+$(function(){//Func Mascara Input Telefone
+    $('#movel').mask('(99) 9 9999-9999');
+    $('#fixo').mask('(99) 9999-9999');
+  
+    $('#Telefone').keyup(function(){
+        const val = $(this).val().replace(/[^0-9]/g, '');
 
+        if (val.length<=10&&val!=='') {
+            $('#fixo').val(val);
+            $(this).val($('#fixo').masked());
+        } else if(val.length>=11){
+            $('#movel').val(val);
+            $(this).val($('#movel').masked());
+
+        }else{
+            $('#fixo').val('');
+            $('#movel').val('');
+        }
+    }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
+});
+$(function(){//Func Mascara Input Telefone
+    $('#movel').mask('(99) 9 9999-9999');
+    $('#fixo').mask('(99) 9999-9999');
+  
+    $('#upDateTelefone').keyup(function(){
+        const val = $(this).val().replace(/[^0-9]/g, '');
+
+        if (val.length<=10&&val!=='') {
+            $('#fixo').val(val);
+            $(this).val($('#fixo').masked());
+        } else if(val.length>=11){
+            $('#movel').val(val);
+            $(this).val($('#movel').masked());
+
+        }else{
+            $('#fixo').val('');
+            $('#movel').val('');
+        }
+    }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
+});
+var removerFormatacao;
 $(document).ready(function() {//Chama a função que exibe detalhes
     $(document).on('click', '#viewDetalhes', function() {
         var CODIGO = $(this).closest('tr').find('.codigo').text();
-        viewUser(CODIGO);
+        removerFormatacao=false;
+        viewUser(CODIGO,removerFormatacao);
     });
 });
-async function viewUser(CODIGO) {//Exibe os detalhes do registro
-    const response = await fetch('/visualizar/' + CODIGO);
+async function viewUser(CODIGO,removerFormatacao) {//Exibe os detalhes do registro
+    //const response = await fetch('/visualizar/' + CODIGO);
+    const response = await fetch('/visualizar/'+CODIGO+'?removerFormatacao='+removerFormatacao);
     console.log(response);
     const data = await response.json();
     console.log(data);
@@ -121,23 +173,47 @@ async function viewUser(CODIGO) {//Exibe os detalhes do registro
     $('#DetalheRegistro').modal('show');
 
 }
-
 var codigoRegistro;
+var novoAssunto;
 var novaSituacao;
-$(document).ready(function() {//Chama a função para Nova situação
+var novoTelefone;
+var novoHistorico; 
+$(document).ready(function() {//Chama a função para Update
     
     $(document).on('click', '#updateSituacao', function() {
         codigoRegistro = $(this).data('codigo');
+        removerFormatacao=true;
+	    viewUpDate(codigoRegistro,removerFormatacao);
 
     });
 
     $(document).on('click', '#btSalvaSituacao', function() {
+        novoAssunto=$('#upDateAssunto').val();
         novaSituacao=$('#situacaoSelecionada').val();
-    
-        updateSituacao(codigoRegistro,novaSituacao);
+        novoTelefone=$('#upDateTelefone').val();
+        novoHistorico=$('#upDateDetalhes').val();
+            
+        updateSituacao(codigoRegistro,novoAssunto,novaSituacao,novoTelefone,novoHistorico);
     });
 });
-async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
+async function viewUpDate(CODIGO,removerFormatacao) {//Exibe os detalhes do para update
+    const response = await fetch('/visualizar/'+CODIGO+'?removerFormatacao='+removerFormatacao);
+    console.log(response);
+    const data = await response.json();
+    console.log(data);
+    const viewModelDetalhe= document.getElementById("NovaSituacao");
+    
+
+    $('#upDateAssunto').val(data.agenda.ASSUNTO);
+    $('#situacaoSelecionada').val(data.agenda.SITUACAO);
+    $('#upDateTelefone').val(data.agenda.TELEFONE1);	
+    $('#upDateDetalhes').val(data.agenda.HISTORICO);
+
+    
+    $('#NovaSituacao').modal('show');
+
+}
+async function updateSituacao(CODIGO,ASSUNTO,SITUACAO,TELEFONE1,HISTORICO) {//Update nos Registros
     try {
         const response = await fetch('/updateSituacao/' + CODIGO, {
             method: 'POST',
@@ -145,7 +221,7 @@ async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            body: JSON.stringify({ SITUACAO: SITUACAO })
+            body: JSON.stringify({ ASSUNTO:ASSUNTO,SITUACAO: SITUACAO,TELEFONE1:TELEFONE1,HISTORICO:HISTORICO})
         });
 
         if (response.ok) {            
@@ -154,21 +230,25 @@ async function updateSituacao(CODIGO,SITUACAO) {//Exibe os detalhes do registro
 
             await Swal.fire({
                 title: "Alterada!",
-                text: "Situação atualizada com sucesso!",
+                text: "Dados atualizados com sucesso!",
                 icon: "success"
               });
 
             location.reload();
             
         } else {
-            alert('Falha ao atualizar a situação');
-            console.log(CODIGO);
-            console.log(SITUACAO);
-            // Se desejar lidar com o caso de falha na atualização, você pode fazer aqui
+            await Swal.fire({
+                title: "Operação não ralizada!",
+                text: "Falha ao realizar a Alteração! Verifique se todos os campos estão preenchidos",
+                icon: "error"
+              });
+
+            location.reload();
+
         }
     } catch (error) {
         console.error('Erro ao enviar requisição:', error);
-        // Se ocorrer algum erro durante o envio da requisição, ele será capturado aqui
+
     }
     
 }
@@ -179,7 +259,6 @@ document.getElementById('FormInsert').addEventListener('submit', function(event)
         event.preventDefault(); 
     }
 });
-
 $('textarea').bind('keydown', function(e) {//Permite Utilizar o Enter na Textarea
     if(e.keyCode === 9) {
         e.preventDefault();
@@ -218,27 +297,6 @@ $('textarea').bind('keydown', function(e) {//Permite Utilizar o Enter na Textare
             $('#cpf').val('');
             $('#cnpj').val('');
             $('#cnpj_cpf').text('CNPJ/CPF');
-        }
-    }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
-});
-
-$(function(){//Func Mascara Input Telefone
-    $('#movel').mask('(99) 9 9999-9999');
-    $('#fixo').mask('(99) 9999-9999');
-  
-    $('#Telefone').keyup(function(){
-        const val = $(this).val().replace(/[^0-9]/g, '');
-
-        if (val.length<=10&&val!=='') {
-            $('#fixo').val(val);
-            $(this).val($('#fixo').masked());
-        } else if(val.length>=11){
-            $('#movel').val(val);
-            $(this).val($('#movel').masked());
-
-        }else{
-            $('#fixo').val('');
-            $('#movel').val('');
         }
     }).keyup(); // Chama o evento keyup imediatamente para aplicar a máscara inicial
 });
@@ -449,8 +507,8 @@ $('#ClientesParaAgenda').find('.listaCliFiltrado').on('click',function() {//Carr
     $('#NovaAgenda').modal('show');
     $('#BuscaClienteAgenda').modal('hide');
 });
-$(document).ready(function() {
-    // Adiciona um evento de submissão ao formulário
+$(document).ready(function() {// Adiciona um evento de submissão ao formulário
+
     $('form').submit(function() {
         // Remove o atributo 'disabled' do campo antes do envio
         $('#inputNomeClienteAG').removeAttr('disabled');
@@ -666,8 +724,8 @@ $('#ClientesParaAtendimento').find('.listaCliFiltrado').on('click',function() {/
     $('#NovoAtendimento').modal('show');
     $('#BuscaClienteAtendimento').modal('hide');
 });
-$(document).ready(function() {
-    // Adiciona um evento de submissão ao formulário
+$(document).ready(function() { // Adiciona um evento de submissão ao formulário
+
     $('form').submit(function() {
         // Remove o atributo 'disabled' do campo antes do envio
         $('#inputNomeClienteAT').removeAttr('disabled');
@@ -773,7 +831,7 @@ function buscaIdCliTr(idCli) {//Filtra Cli por Doc Treinamento
         });
     }
 }
-document.addEventListener('DOMContentLoaded', function () { //Evita o envio do forme na modal 
+document.addEventListener('DOMContentLoaded', function () { //Evita o envio do form na modal 
     var novaAgendaElement = document.getElementById('Treinamento');
     
     if (novaAgendaElement) {
@@ -884,8 +942,8 @@ $('#ClientesParaTreinamento').find('.listaCliFiltrado').on('click',function() {/
     $('#NovoTreinamento').modal('show');
     $('#BuscaClienteTreinamento').modal('hide');
 });
-$(document).ready(function() {
-    // Adiciona um evento de submissão ao formulário
+$(document).ready(function() {    // Adiciona um evento de submissão ao formulário
+
     $('form').submit(function() {
         // Remove o atributo 'disabled' do campo antes do envio
         $('#inputNomeClienteTR').removeAttr('disabled');
@@ -894,21 +952,7 @@ $(document).ready(function() {
     });
 });
 
-let modo = document.getElementById('modo');
-let body = ddocument.getElementsByClassName('body');
 
-
-/*modo.addEventListener('click', ()=>{
-    modo.classList.toggle('dark')
-    body.classList.toggle('dark')
-})*/
-
-$(document).ready(function() {
-    $('#selecao').on('click', function() {
-    modo.classList.toggle('dark')
-    body.classList.toggle('dark')
-    });
-});
 
 
 //whats

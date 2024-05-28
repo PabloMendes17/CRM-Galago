@@ -341,7 +341,9 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes = DB::table('clientes')->paginate(20);
+            $allClientes = DB::table('clientes')
+                                ->where('clientes.desativado', '=','False')
+                                ->paginate(20);
             $Situacoes=situacao_agenda::all();
             $atendimentos = agenda::where('agenda.tipo', '=', 'ATENDIMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -656,7 +658,9 @@ class SitePublicoController extends Controller
         try{
 
             $dataAtual = Carbon::now()->toDateString();
-            $allClientes = DB::table('clientes')->paginate(20);
+            $allClientes = DB::table('clientes')
+                            ->where('clientes.desativado', '=','False')
+                            ->paginate(20);
             $Situacoes=situacao_agenda::all();
             $treinamentos = agenda::where('agenda.tipo', '=', 'TREINAMENTO')
                 ->where('agenda.data_agenda', '=', $dataAtual)
@@ -966,10 +970,21 @@ class SitePublicoController extends Controller
         }
     }
 
-    public function visualizarDetalhes($CODIGO) {
+    public function visualizarDetalhes($CODIGO,Request $request) {
         try {
+            
+            //$removerFormatacao = $request->query('removerFormatacao');
 
-            $agenda = agenda::findOrFail($CODIGO);
+            if($request->removerFormatacao=='true'){
+                
+                $agenda = agenda::findOrFail($CODIGO);
+                $agenda->HISTORICO = strip_tags(htmlspecialchars_decode($agenda->HISTORICO));
+            
+            }else{
+                
+                $agenda = agenda::findOrFail($CODIGO);
+            }
+
 
             if ($agenda->CLIENTE > 999998) {
                 
@@ -992,14 +1007,26 @@ class SitePublicoController extends Controller
         }
     }
     public function alterarSituacao(Request $request, $codigo) {
+
         try {
+
             $agenda = Agenda::findOrFail($codigo); // Encontra o registro pelo código
+            $historico = nl2br($request->input('HISTORICO'));
+
+            if(null!==$request->ASSUNTO&&null!==$request->SITUACAO&&null!==$request->TELEFONE1){
+
+                $agenda->update([
+                    'ASSUNTO' => $request->input('ASSUNTO'),
+                    'SITUACAO' => $request->input('SITUACAO'),
+                    'TELEFONE1' => $request->input('TELEFONE1'),
+                    'HISTORICO' => $historico
     
-            $agenda->update([
-                'SITUACAO' => $request->input('SITUACAO')
-            ]);
-    
-            return response()->json(['message' => 'Situação atualizada com sucesso']);
+                ]);
+                return response()->json(['message' => 'Situação atualizada com sucesso']);
+            }
+            
+            return response()->json(['error' => 'Não foi possível atualizar a situação'], 500);
+            
         } catch (Exception $e) {
             return response()->json(['error' => 'Não foi possível atualizar a situação'], 500);
         }
