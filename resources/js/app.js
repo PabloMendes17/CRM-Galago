@@ -53,7 +53,7 @@ setInterval(function() {//Função para Destacar status e hora na lista
         var horaAtual = dataAtual;
    
         if(dataAgenda > dataAtual){//troca a classe php para as linhas
-            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
+            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO' || situacao ==='NAO CONSEGUIMOS CONTATO'){
                 horaAgendaElemento.classList.add('text-primary');
                 situacaoElemento.classList.add('text-primary');
             }else if (situacao === 'RESOLVIDO') {
@@ -66,11 +66,11 @@ setInterval(function() {//Função para Destacar status e hora na lista
 
         }else if(dataAgenda == dataAtual){
 
-            if( horaAgenda<horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+            if( horaAgenda<horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO' || situacao ==='NAO CONSEGUIMOS CONTATO')){
                 console.log('Laco1');
                 horaAgendaElemento.classList.add('text-danger');
                 situacaoElemento.classList.add('text-danger');
-            }else if(horaAgenda >= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO')){
+            }else if(horaAgenda >= horaAtual && (situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO' || situacao ==='NAO CONSEGUIMOS CONTATO')){
                 horaAgendaElemento.classList.add('text-primary');
                 situacaoElemento.classList.add('text-primary');
             }else if (situacao === 'RESOLVIDO') {
@@ -81,7 +81,7 @@ setInterval(function() {//Função para Destacar status e hora na lista
                 situacaoElemento.classList.add('text-warning');
             }
         }else{
-            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'){
+            if(situacao === 'PENDENTE' || situacao === 'AGUARDANDO DESENVOLVIMENTO' || situacao === 'AGUARDANDO SUPERVISAO' || situacao === 'AGUARDANDO FINANCEIRO'|| situacao ==='NAO CONSEGUIMOS CONTATO'){
                 horaAgendaElemento.classList.add('text-danger');
                 situacaoElemento.classList.add('text-danger');  
             }else if (situacao === 'RESOLVIDO') {
