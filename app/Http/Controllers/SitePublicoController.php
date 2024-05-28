@@ -51,7 +51,7 @@ class SitePublicoController extends Controller
                             ->paginate(20);
 
             $Situacoes=situacao_agenda::all();
-            $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
+            $agenda = agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
                 ->orderBy('agenda.hora_agenda')
@@ -60,7 +60,7 @@ class SitePublicoController extends Controller
             if(isset($request->inputCodCliente)&&isset($request->DtInicial)&&isset($request->DtFinal)){
 
                 try{
-                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                    $Filtro=agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                                 ->where('agenda.cliente','=',$request->inputCodCliente)
                                 ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                 ->get();
@@ -78,7 +78,7 @@ class SitePublicoController extends Controller
 
                 try{
                             
-                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                    $Filtro=agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                                     ->where('agenda.cliente','=',$request->inputCodCliente)
                                     ->get();
             
@@ -95,7 +95,7 @@ class SitePublicoController extends Controller
 
                 try{
                             
-                    $Filtro=agenda::where('agenda.tipo','=','AGENDAMENTO')
+                    $Filtro=agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                                     ->whereBetween('agenda.data_agenda',[$request->DtInicial,$request->DtFinal])
                                     ->get();
             
@@ -292,7 +292,7 @@ class SitePublicoController extends Controller
             $dataAtual = Carbon::now()->toDateString();
             $allClientes = DB::table('clientes')->paginate(20);
             $Situacoes=situacao_agenda::all();
-            $agenda = agenda::where('agenda.tipo', '=', 'AGENDAMENTO')
+            $agenda = agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
                 ->orderBy('agenda.hora_agenda')
