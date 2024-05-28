@@ -95,12 +95,12 @@ setInterval(function() {//Função para Destacar status e hora na lista
        
     }});    
 }, 1000);
-document.getElementById("Telefone").onkeypress = function(e) { //restringe os caracteres no campo
+document.getElementById('Telefone').onkeypress = function(e) { //restringe os caracteres no campo
     var chr = String.fromCharCode(e.which);
     if ("1234567890".indexOf(chr) < 0)
       return false;
   };
-  document.getElementById("upDateTelefone").onkeypress = function(e) {//restringe os caracteres no campo
+  document.getElementById('upDateTelefone').onkeypress = function(e) {//restringe os caracteres no campo
     var chr = String.fromCharCode(e.which);
     if ("1234567890".indexOf(chr) < 0)
       return false;
