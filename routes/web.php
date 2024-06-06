@@ -28,6 +28,10 @@ Route:: get('/logout',[LoginController::class,'logout'])->name('logout');
 Route:: get('/whatsapp', function(){
     return view('viewWhatsapp');
 });
+Route:: get('/whats', function(){
+    dd(request()->all());
+    //return view('viewWhatsWebsocket');
+});
 
 Route::middleware(['auth:vendedor'])->group(function(){
     Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
