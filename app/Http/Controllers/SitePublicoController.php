@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\agenda;
 use App\Models\cliente;
-use App\Models\SITUACAO_AGENDA;
+use App\Models\situacao_agenda;
 use App\Models\vendedor;
 
 
