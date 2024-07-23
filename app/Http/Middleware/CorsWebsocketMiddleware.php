@@ -30,7 +30,7 @@ class CorsWebsocketMiddleware
         }
 
         // Continua a requisição normalmente
-        $response = $next($request);
+        //$response = $next($request);
 
         // Adiciona os cabeçalhos CORS à resposta HTTP
         foreach ($headers as $key => $value) {
