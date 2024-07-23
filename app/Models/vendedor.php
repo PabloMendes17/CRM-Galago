@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 
-class Vendedor extends Authenticatable
+class vendedor extends Authenticatable
 {
     use HasFactory, Notifiable;
 

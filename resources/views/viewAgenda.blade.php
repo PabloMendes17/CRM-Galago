@@ -209,17 +209,10 @@
                         <div class="col-2">
                             <div  class="form-floating mb-3">
                                 <select class="form-select" aria-label="Default select example" id="Operador" name="OPERADOR" required>
-                                    <option selected disabled>Selecione</option>
-                                    <option value="002 - ALAYNE">002 - ALAYNE</option>
-                                    <option value="004 - JOAOPAULO">004 - JOAOPAULO</option>
-                                    <option value="005 - JONATHAN">005 - JONATHAN</option>
-                                    <option value="006 - CLEVSON">006 - CLEVSON</option>
-                                    <option value="008 - GILBERTO">008 - GILBERTO</option>
-                                    <option value="009 - PAULO">009 - PAULO</option>
-                                    <option value="011 - NAIARA">011 - NAIARA</option>
-                                    <option value="012 - PABLO">012 - PABLO</option>
-                                    <option value="015 - ROBERT">015 - ROBERT</option>
-                                    <option value="016 - GABRIEL">016 - GABRIEL</option>
+                                <option selected disabled>Selecione</option>
+                                @foreach($Operadores as $operador)
+                                <option value="{{$operador->usuario_PARAMetro}}">{{$operador->usuario_PARAMetro}}</option>
+                                @endforeach
                                 </select> 
                                 <label for="Operador">Operador</label>  
                             </div>

@@ -4,6 +4,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\sitePublicoController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\WebhookController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,10 +30,18 @@ Route:: get('/logout',[LoginController::class,'logout'])->name('logout');
 Route:: get('/whatsapp', function(){
     return view('viewWhatsapp');
 });
-Route:: get('/whats', function(){
-    dd(request()->all());
-    //return view('viewWhatsWebsocket');
+Route:: any('/visualizar-webhook', function(){
+    return view('viewWhatsWebsocket');
 });
+Route::any('/whats',[WebhookController::class,'handleWebhook']);
+//Route::get('/visualizar-webhook',[WebhookController::class, 'visualizarWebhook']);
+Route::get('/webhook-data', function () {
+
+    $webhookData = Cache::get('webhookData');
+
+    return response()->json(['data' => $webhookData]);
+});
+
 
 Route::middleware(['auth:vendedor'])->group(function(){
     Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
