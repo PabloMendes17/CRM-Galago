@@ -217,7 +217,12 @@
                         </div>
                         <div class="col-6">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingAssunto" name="ASSUNTO" required>
+                            <select class="form-select" aria-label="Default select example" id="floatingAssunto" name="ASSUNTO" required>
+                                    <option selected disabled>Selecione</option>
+                                    @foreach($tags as $tag)
+                                    <option value="{{$tag->TAG}}">{{$tag->TAG}}</option>
+                                    @endforeach
+                                </select>
                                 <label for="floatingAssunto">Assunto</label>  
                             </div>
                         </div>
@@ -354,7 +359,7 @@
                     <form class="row g-3" id="FormInsert"> 
                         <div class="col-12">
                             <div  class="form-floating mb-3">
-                                <input type="text" class="form-control" id="upDateAssunto" name="ASSUNTO" required>
+                                <input type="text" class="form-control" id="upDateAssunto" name="ASSUNTO" required disabled>
                                 <label for="ASSUNTO">Assunto</label>  
                             </div>
                             <div  class="form-floating mb-3">

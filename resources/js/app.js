@@ -242,7 +242,7 @@ async function updateSituacao(CODIGO,ASSUNTO,SITUACAO,TELEFONE1,HISTORICO) {//Up
                 text: "Falha ao realizar a Alteração! Verifique se todos os campos estão preenchidos",
                 icon: "error"
               });
-
+              console.log(response);
             location.reload();
 
         }
