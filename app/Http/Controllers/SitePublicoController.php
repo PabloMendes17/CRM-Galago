@@ -15,7 +15,7 @@ use App\Models\situacao_agenda;
 use App\Models\vendedor;
 
 
-class SitePublicoController extends Controller
+class sitePublicoController extends Controller
 {
     public function viewTEST(){
         return view('viewTEST');
