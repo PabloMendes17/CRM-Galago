@@ -44,24 +44,24 @@ Route::get('/webhook-data', function () {
 
 
 Route::middleware(['auth:vendedor'])->group(function(){
-    Route:: get('/PaginaPrincipal',[SitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
+    Route:: get('/PaginaPrincipal',[sitePublicoController::class,'paginaPrincipal'])->name('PaginaPrincipal');
     
-    Route:: any('/Agendamentos',[SitePublicoController::class,'Agendamentos']);
-    Route:: any('/AgendamentosFiltrados',[SitePublicoController::class,'AgendamentosFiltrados']);
-    Route:: any('/Agendamento',[SitePublicoController::class, 'CadastrarAgendamentos']);
+    Route:: any('/Agendamentos',[sitePublicoController::class,'Agendamentos']);
+    Route:: any('/AgendamentosFiltrados',[sitePublicoController::class,'AgendamentosFiltrados']);
+    Route:: any('/Agendamento',[sitePublicoController::class, 'CadastrarAgendamentos']);
 
-    Route:: any('/Atendimentos',[SitePublicoController::class,'Atendimentos']);
-    Route:: any('/AtendimentosFiltrados',[SitePublicoController::class,'AtendimentosFiltrados']);
-    Route:: any('/Atendimento',[SitePublicoController::class, 'CadastrarAtendimentos']);
+    Route:: any('/Atendimentos',[sitePublicoController::class,'Atendimentos']);
+    Route:: any('/AtendimentosFiltrados',[sitePublicoController::class,'AtendimentosFiltrados']);
+    Route:: any('/Atendimento',[sitePublicoController::class, 'CadastrarAtendimentos']);
 
-    Route:: any('/Treinamentos',[SitePublicoController::class,'Treinamentos']);
-    Route:: any('/TreinamentosFiltrados',[SitePublicoController::class,'TreinamentosFiltrados']);
-    Route:: any('/Treinamento',[SitePublicoController::class, 'CadastrarTreinamentos']);
+    Route:: any('/Treinamentos',[sitePublicoController::class,'Treinamentos']);
+    Route:: any('/TreinamentosFiltrados',[sitePublicoController::class,'TreinamentosFiltrados']);
+    Route:: any('/Treinamento',[sitePublicoController::class, 'CadastrarTreinamentos']);
 
-    Route:: get('/visualizar/{CODIGO}',[SitePublicoController::class,'visualizarDetalhes']);
-    Route:: post('/updateSituacao/{CODIGO}', [SitePublicoController::class, 'alterarSituacao']);
+    Route:: get('/visualizar/{CODIGO}',[sitePublicoController::class,'visualizarDetalhes']);
+    Route:: post('/updateSituacao/{CODIGO}', [sitePublicoController::class, 'alterarSituacao']);
 
-    Route:: get('/Instaladores',[SitePublicoController::class,'Install'])->name('Instaladores');
+    Route:: get('/Instaladores',[sitePublicoController::class,'Install'])->name('Instaladores');
 
 });
 
