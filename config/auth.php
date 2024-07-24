@@ -72,7 +72,7 @@ return [
 
         'vendedor' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Vendedor::class,
+            'model' => App\Models\vendedor::class,
         ],
 
         // 'users' => [
