@@ -12,7 +12,7 @@ use Exception;
 use App\Models\agenda;
 use App\Models\cliente;
 use App\Models\situacao_agenda;
-use App\Models\Vendedor;
+use app\Models\vendedor;
 
 
 class SitePublicoController extends Controller
