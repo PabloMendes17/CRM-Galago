@@ -12,7 +12,7 @@ use Exception;
 use App\Models\agenda;
 use App\Models\cliente;
 use App\Models\situacao_agenda;
-use App\Models\vendedor;
+//use App\Models\vendedor;
 
 
 class SitePublicoController extends Controller
@@ -52,7 +52,7 @@ class SitePublicoController extends Controller
                             ->paginate(20);
 
             $Situacoes=situacao_agenda::all();
-            $Operadores=vendedor::all();
+            //$Operadores=vendedor::all();
             $agenda = agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
