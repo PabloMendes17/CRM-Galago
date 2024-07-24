@@ -52,7 +52,7 @@ class SitePublicoController extends Controller
                             ->paginate(20);
 
             $Situacoes=situacao_agenda::all();
-            $Operadores=Vendedor::all();
+            $Operadores=vendedor::all();
             $agenda = agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                 ->where('agenda.data_agenda', '=', $dataAtual)
                 ->orderBy('agenda.data_agenda')
