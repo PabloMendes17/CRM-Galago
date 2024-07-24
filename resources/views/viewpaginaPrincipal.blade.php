@@ -58,14 +58,6 @@
             </div>
         </div> 
         <div class="card" id="card">
-            <img src="/images/TreinamentoSVG.png" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">TREINAMENTO</h5>
-              <p class="card-text">Registre e consulte aqui os treinamentos.</p>
-              <a href="/Treinamentos" class="btn btn-primary">Treinamentos</a>
-            </div>
-        </div>
-        <div class="card" id="card">
             <img src="/images/installSVG.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">INSTALADORES</h5>
