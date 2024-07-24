@@ -32,7 +32,7 @@ class LoginController extends Controller{
 
        try{
 
-            $user = vendedor::where('email', $request->email)->first();
+            $user = Vendedor::where('email', $request->email)->first();
 
             if(!$user){
                 return back()->withErrors([
