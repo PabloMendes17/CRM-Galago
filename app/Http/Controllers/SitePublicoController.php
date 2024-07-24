@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Exception;
 use App\Models\agenda;
 use App\Models\cliente;
-use App\Models\situacao_agenda;
+use App\Models\SITUACAO_AGENDA;
 use App\Models\vendedor;
 
 
@@ -51,7 +51,7 @@ class sitePublicoController extends Controller
                             ->where('clientes.desativado', '=','False')
                             ->paginate(20);
 
-            $Situacoes=situacao_agenda::all();
+            $Situacoes=SITUACAO_AGENDA::all();
             $Operadores=vendedor::all();
             $agenda = agenda::where('agenda.tipo','like','%'.'AGENDAMENTO'.'%')
                 ->where('agenda.data_agenda', '=', $dataAtual)
